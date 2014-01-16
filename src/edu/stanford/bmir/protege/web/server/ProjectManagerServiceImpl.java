@@ -168,7 +168,9 @@ public class ProjectManagerServiceImpl extends WebProtegeRemoteServiceServlet im
     public ProjectConfigurationInfo getProjectConfiguration(ProjectId projectId) throws ProjectNotRegisteredException {
         ProjectType projectType = getProjectType(projectId);
         String description = OWLAPIProjectMetadataManager.getManager().getDescription(projectId);
-        return new ProjectConfigurationInfo(projectId, projectType, "en", description);
+        String course = OWLAPIProjectMetadataManager.getManager().getCourse(projectId);
+        String level = OWLAPIProjectMetadataManager.getManager().getLevel(projectId);
+        return new ProjectConfigurationInfo(projectId, projectType, "en", description, course, level);
     }
 
     public void setProjectConfiguration(ProjectConfigurationInfo configuration) throws ProjectNotRegisteredException, NotProjectOwnerException {
@@ -180,6 +182,8 @@ public class ProjectManagerServiceImpl extends WebProtegeRemoteServiceServlet im
         OWLAPIProjectType projectType = OWLAPIProjectType.getProjectType(configuration.getProjectType().getName());
         mdm.setProjectType(projectId, projectType);
         mdm.setDescription(projectId, configuration.getProjectDescription());
+        mdm.setCourse(projectId, configuration.getProjectCourse());
+        mdm.setLevel(projectId, configuration.getProjectLevel());
 //        if(!mdm.getDefaultLanguage(projectId).equals(configuration.getDefaultLanguage())) {
 //            mdm.setDefaultLanguage(projectId, configuration.getDefaultLanguage());
 //        }

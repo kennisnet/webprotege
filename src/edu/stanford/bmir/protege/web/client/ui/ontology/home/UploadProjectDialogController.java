@@ -81,8 +81,10 @@ public class UploadProjectDialogController extends WebProtegeOKCancelDialogContr
         DocumentId documentId = result.getDocumentId();
         String projectName = data.getProjectSettings().getProjectName();
         String projectDescription = data.getProjectSettings().getProjectDescription();
+        String projectCourse = data.getProjectSettings().getProjectCourse();
+        String projectLevel = data.getProjectSettings().getProjectLevel();
         ProjectType projectType = data.getProjectSettings().getProjectType();
-        NewProjectSettings newProjectSettings = new NewProjectSettings(userId, projectName, projectDescription, projectType, documentId);
+        NewProjectSettings newProjectSettings = new NewProjectSettings(userId, projectName, projectDescription, projectCourse, projectLevel, projectType, documentId);
 
         projectManagerService.createNewProject(newProjectSettings, new AsyncCallback<ProjectDetails>() {
             public void onFailure(Throwable caught) {

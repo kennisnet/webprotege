@@ -102,7 +102,6 @@ public class ProjectListViewUIImpl extends Composite implements ProjectListView 
 
         final ProjectDisplayNameColumn projectNameColumn = new ProjectDisplayNameColumn();
         projectTable.addColumn(projectNameColumn, "Project Name");
-        projectTable.addColumn(new ProjectDescriptionColumn(), "Description");
         final TextColumn<ProjectListEntry> ownerColumn = new TextColumn<ProjectListEntry>() {
             @Override
             public String getValue(ProjectListEntry object) {
@@ -111,6 +110,9 @@ public class ProjectListViewUIImpl extends Composite implements ProjectListView 
         };
         ownerColumn.setSortable(true);
         ownerColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+        projectTable.addColumn(new ProjectCourseColumn(), "Course");
+        projectTable.addColumn(new ProjectLevelColumn(), "Level");
+        projectTable.addColumn(new ProjectDescriptionColumn(), "Description");
 
         final DownloadColumn downloadColumn = new DownloadColumn();
 
@@ -123,7 +125,7 @@ public class ProjectListViewUIImpl extends Composite implements ProjectListView 
 
 //        projectTable.setPageSize(Integer.MAX_VALUE);
 
-        projectTable.setColumnWidth(projectNameColumn, "300px");
+        projectTable.setColumnWidth(projectNameColumn, "150px");
         projectTable.setColumnWidth(ownerColumn, "150px");
         projectTable.setColumnWidth(downloadColumn, "90px");
         projectTable.setColumnWidth(trashColumn, "60px");
@@ -262,6 +264,50 @@ public class ProjectListViewUIImpl extends Composite implements ProjectListView 
         @Override
         public String getValue(ProjectListEntry object) {
             return object.getProjectDetails().getDescription();
+        }
+
+        @Override
+        public VerticalAlignmentConstant getVerticalAlignment() {
+            return HasVerticalAlignment.ALIGN_TOP;
+        }
+    }
+
+    private class ProjectCourseColumn extends Column<ProjectListEntry, String> {
+
+        private ProjectCourseColumn() {
+            super(new AbstractCell<String>() {
+                @Override
+                public void render(Context context, String value, SafeHtmlBuilder sb) {
+                    sb.appendHtmlConstant(value);
+                }
+            });
+        }
+
+        @Override
+        public String getValue(ProjectListEntry object) {
+            return object.getProjectDetails().getCourse();
+        }
+
+        @Override
+        public VerticalAlignmentConstant getVerticalAlignment() {
+            return HasVerticalAlignment.ALIGN_TOP;
+        }
+    }
+
+    private class ProjectLevelColumn extends Column<ProjectListEntry, String> {
+
+        private ProjectLevelColumn() {
+            super(new AbstractCell<String>() {
+                @Override
+                public void render(Context context, String value, SafeHtmlBuilder sb) {
+                    sb.appendHtmlConstant(value);
+                }
+            });
+        }
+
+        @Override
+        public String getValue(ProjectListEntry object) {
+            return object.getProjectDetails().getLevel();
         }
 
         @Override

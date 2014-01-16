@@ -4,6 +4,8 @@ import com.google.common.base.Optional;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
+
 import edu.stanford.bmir.protege.web.client.rpc.data.ProjectType;
 import edu.stanford.bmir.protege.web.client.ui.library.dlg.HasFormData;
 import edu.stanford.bmir.protege.web.client.ui.library.dlg.HasInitialFocusable;
@@ -23,15 +25,25 @@ import java.util.List;
  */
 public class ProjectConfigurationForm extends FlowPanel implements HasFormData<ProjectConfigurationInfo>, HasInitialFocusable {
 
+    public static final String FIELD_WIDTH = "300px";
+
     public static final String PROJECT_TYPE_DROPDOWN_FIELD_NAME = "Type";
 
     public static final String PROJECT_DESCRIPTION_FIELD_NAME = "Description";
+
+    public static final String PROJECT_COURSE_FIELD_NAME = "Course";
+
+    public static final String PROJECT_LEVEL_FIELD_NAME = "Level";
 
     private DropDown<ProjectType> projectTypeDropDown;
 
     private ProjectId projectId;
 
-    private final TextArea projectDescriptionTextBox;
+    private final TextArea projectDescriptionTextArea;
+
+    private final TextBox projectCourseTextBox;
+
+    private final TextBox projectLevelTextBox;
 
 //    private final TextBox defaultLanguageBox;
 
@@ -48,10 +60,22 @@ public class ProjectConfigurationForm extends FlowPanel implements HasFormData<P
 //        defaultLanguageBox = form.addTextBox("Default language", "Enter a default language e.g. en", "en", new NullWebProtegeDialogTextFieldValidator());
 //        form.addVerticalSpacer();
 
-        projectDescriptionTextBox = new TextArea();
-        projectDescriptionTextBox.setVisibleLines(3);
-        projectDescriptionTextBox.setCharacterWidth(60);
-        form.addWidget(PROJECT_DESCRIPTION_FIELD_NAME, projectDescriptionTextBox);
+        projectDescriptionTextArea = new TextArea();
+        projectDescriptionTextArea.setVisibleLines(3);
+        projectDescriptionTextArea.setCharacterWidth(60);
+        form.addWidget(PROJECT_DESCRIPTION_FIELD_NAME, projectDescriptionTextArea);
+
+        form.addVerticalSpacer();
+
+        projectCourseTextBox = new TextBox();
+        projectCourseTextBox.setWidth(FIELD_WIDTH);
+        form.addWidget(PROJECT_COURSE_FIELD_NAME, projectCourseTextBox);
+
+        form.addVerticalSpacer();
+
+        projectLevelTextBox = new TextBox();
+        projectLevelTextBox.setWidth(FIELD_WIDTH);
+        form.addWidget(PROJECT_LEVEL_FIELD_NAME, projectLevelTextBox);
 
         form.addVerticalSpacer();
 
@@ -79,7 +103,9 @@ public class ProjectConfigurationForm extends FlowPanel implements HasFormData<P
 
     public void setData(ProjectConfigurationInfo info) {
         projectTypeDropDown.setSelectedItem(info.getProjectType());
-        projectDescriptionTextBox.setText(info.getProjectDescription());
+        projectDescriptionTextArea.setText(info.getProjectDescription());
+        projectCourseTextBox.setText(info.getProjectCourse());
+        projectLevelTextBox.setText(info.getProjectLevel());
 //        defaultLanguageBox.setText(info.getDefaultLanguage());
     }
 
@@ -87,7 +113,7 @@ public class ProjectConfigurationForm extends FlowPanel implements HasFormData<P
 
     public ProjectConfigurationInfo getData() {
         // TODO: DEF LANG
-        return new ProjectConfigurationInfo(projectId, getProjectType(), "en", getProjectDescription());
+        return new ProjectConfigurationInfo(projectId, getProjectType(), "en", getProjectDescription(), getProjectCourse(), getProjectLevel());
     }
 
 //    private String getDefaultLanguage() {
@@ -99,7 +125,15 @@ public class ProjectConfigurationForm extends FlowPanel implements HasFormData<P
     }
     
     public String getProjectDescription() {
-        return projectDescriptionTextBox.getText().trim();
+        return projectDescriptionTextArea.getText().trim();
+    }
+
+    public String getProjectCourse() {
+        return projectCourseTextBox.getText().trim();
+    }
+
+    public String getProjectLevel() {
+        return projectLevelTextBox.getText().trim();
     }
 
     

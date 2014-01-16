@@ -50,7 +50,7 @@ public class NewProjectDialogController extends WebProtegeOKCancelDialogControll
         if(userId.isGuest()) {
             throw new RuntimeException("User is guest.  Guest users are not allowed to create projects.");
         }
-        NewProjectSettings newProjectSettings = new NewProjectSettings(userId, data.getProjectName(), data.getProjectDescription(), data.getProjectType());
+        NewProjectSettings newProjectSettings = new NewProjectSettings(userId, data.getProjectName(), data.getProjectDescription(), data.getProjectCourse(), data.getProjectLevel(), data.getProjectType());
         ProjectManagerServiceAsync projectManagerService = GWT.create(ProjectManagerService.class);
         projectManagerService.createNewProject(newProjectSettings, new AsyncCallback<ProjectDetails>() {
             public void onFailure(Throwable caught) {

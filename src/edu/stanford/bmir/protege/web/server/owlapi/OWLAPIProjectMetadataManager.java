@@ -140,9 +140,37 @@ public class OWLAPIProjectMetadataManager {
         return result;
     }
     
+    public String getCourse(ProjectId projectId) {
+        ProjectInstance pi = getProjectInstance(projectId);
+        String result = pi.getCourse();
+        if(result == null) {
+            return "";
+        }
+        return result;
+    }
+    
+    public String getLevel(ProjectId projectId) {
+        ProjectInstance pi = getProjectInstance(projectId);
+        String result = pi.getLevel();
+        if(result == null) {
+            return "";
+        }
+        return result;
+    }
+    
     public void setDescription(ProjectId projectId, String description) {
         ProjectInstance pi = getProjectInstance(projectId);
         pi.setDescription(description);
+    }
+
+    public void setCourse(ProjectId projectId, String course) {
+        ProjectInstance pi = getProjectInstance(projectId);
+        pi.setCourse(course);
+    }
+
+    public void setLevel(ProjectId projectId, String level) {
+        ProjectInstance pi = getProjectInstance(projectId);
+        pi.setLevel(level);
     }
 
     public long getCreatedTime(ProjectId projectId) {
@@ -186,9 +214,11 @@ public class OWLAPIProjectMetadataManager {
     public ProjectDetails getProjectDetails(ProjectId projectId) {
         String displayName = getDisplayName(projectId);
         String description = getDescription(projectId);
+        String course = getCourse(projectId);
+        String level = getLevel(projectId);
         UserId owner = getOwner(projectId);
         boolean inTrash = isInTrash(projectId);
-        return new ProjectDetails(projectId, displayName, description, owner, inTrash);
+        return new ProjectDetails(projectId, displayName, description, course, level, owner, inTrash);
     }
 
 

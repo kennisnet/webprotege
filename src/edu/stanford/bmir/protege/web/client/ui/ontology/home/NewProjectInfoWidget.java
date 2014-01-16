@@ -36,15 +36,27 @@ public class NewProjectInfoWidget extends WebProtegeDialogForm implements HasIni
 
     public static final String PROJECT_DESCRIPTION_LABEL = "Project description";
 
+    public static final String PROJECT_COURSE_LABEL = "Project course";
+
+    public static final String PROJECT_LEVEL_LABEL = "Project level";
+
     public static final String PROJECT_NAME_FIELD_NAME = "projectname";
 
     public static final String PROJECT_DESCRIPTION_FIELD_NAME = "projectdescription";
+
+    public static final String PROJECT_COURSE_FIELD_NAME = "projectcourse";
+
+    public static final String PROJECT_LEVEL_FIELD_NAME = "projectlevel";
 
     public static final String ERROR_STYLE = "web-protege-error-background";
 
     private final TextBox projectNameTextBox;
 
     private final TextArea projectDescriptionTextArea;
+
+    private final TextBox projectCourseTextBox;
+
+    private final TextBox projectLevelTextBox;
 
     private Set<String> projectNameCache = new HashSet<String>();
 
@@ -70,9 +82,21 @@ public class NewProjectInfoWidget extends WebProtegeDialogForm implements HasIni
         projectDescriptionTextArea.setWidth(FIELD_WIDTH);
         addWidget(PROJECT_DESCRIPTION_LABEL, projectDescriptionTextArea);
 
+        projectCourseTextBox = new TextBox();
+        projectCourseTextBox.setName(PROJECT_COURSE_FIELD_NAME);
+        projectCourseTextBox.setWidth(FIELD_WIDTH);
+        addWidget(PROJECT_COURSE_LABEL, projectCourseTextBox);
+
+        projectLevelTextBox = new TextBox();
+        projectLevelTextBox.setName(PROJECT_LEVEL_FIELD_NAME);
+        projectLevelTextBox.setWidth(FIELD_WIDTH);
+        addWidget(PROJECT_LEVEL_LABEL, projectLevelTextBox);
+
         addDialogValidator(new EmptyProjectNameValidator());
         addDialogValidator(new ExistingProjectNameValidator());
         addDialogValidator(new ProjectDescriptionValidator());
+        addDialogValidator(new ProjectCourseValidator());
+        addDialogValidator(new ProjectLevelValidator());
     }
 
 
@@ -126,7 +150,7 @@ public class NewProjectInfoWidget extends WebProtegeDialogForm implements HasIni
     }
 
     public NewProjectInfo getNewProjectInfo() {
-        return new NewProjectInfo(getProjectName(), getProjectDescription(), getProjectType());
+        return new NewProjectInfo(getProjectName(), getProjectDescription(), getProjectCourse(), getProjectLevel(), getProjectType());
     }
 
     public String getProjectName() {
@@ -135,6 +159,14 @@ public class NewProjectInfoWidget extends WebProtegeDialogForm implements HasIni
 
     public String getProjectDescription() {
         return projectDescriptionTextArea.getText().trim();
+    }
+
+    public String getProjectCourse() {
+        return projectCourseTextBox.getText().trim();
+    }
+
+    public String getProjectLevel() {
+        return projectLevelTextBox.getText().trim();
     }
 
     public ProjectType getProjectType() {
@@ -176,6 +208,28 @@ public class NewProjectInfoWidget extends WebProtegeDialogForm implements HasIni
 
         public String getValidationMessage() {
             return "Please enter a description for the project.";
+        }
+    }
+
+    private class ProjectCourseValidator implements WebProtegeDialogValidator {
+
+        public ValidationState getValidationState() {
+            return getProjectCourse().isEmpty() ? ValidationState.INVALID : ValidationState.VALID;
+        }
+
+        public String getValidationMessage() {
+            return "Please enter a course for the project.";
+        }
+    }
+
+    private class ProjectLevelValidator implements WebProtegeDialogValidator {
+
+        public ValidationState getValidationState() {
+            return getProjectLevel().isEmpty() ? ValidationState.INVALID : ValidationState.VALID;
+        }
+
+        public String getValidationMessage() {
+            return "Please enter a level for the project.";
         }
     }
 }

@@ -28,7 +28,9 @@ public class ProjectDetails implements Serializable, Comparable<ProjectDetails>,
 
     private String description;
 
-
+    private String course;
+    
+    private String level;
 
     private boolean inTrash;
 
@@ -47,11 +49,13 @@ public class ProjectDetails implements Serializable, Comparable<ProjectDetails>,
      * @param description A description of the project.  Not {@code null}. May be empty.
      * @throws NullPointerException if any parameters are {@code null}.
      */
-    public ProjectDetails(ProjectId projectId, String displayName, String description, UserId owner, boolean inTrash) {
+    public ProjectDetails(ProjectId projectId, String displayName, String description, String course, String level, UserId owner, boolean inTrash) {
         this.projectId = checkNotNull(projectId);
         this.displayName = checkNotNull(displayName);
         this.owner = checkNotNull(owner);
         this.description = checkNotNull(description);
+        this.course = checkNotNull(course);
+        this.level = checkNotNull(level);
         this.inTrash = inTrash;
     }
 
@@ -88,6 +92,22 @@ public class ProjectDetails implements Serializable, Comparable<ProjectDetails>,
     }
 
     /**
+     * Gets the course of the project described by these details.
+     * @return The course as a string.  Not {@code null}.  May be empty.
+     */
+    public String getCourse() {
+        return course;
+    }
+
+    /**
+     * Gets the level of the project described by these details.
+     * @return The level as a string.  Not {@code null}.  May be empty.
+     */
+    public String getLevel() {
+        return level;
+    }
+
+    /**
      * Determines if this project is in the trash.
      * @return {@code true} if this project is in the trash, otherwise {@code false}.
      */
@@ -104,12 +124,12 @@ public class ProjectDetails implements Serializable, Comparable<ProjectDetails>,
             return false;
         }
         ProjectDetails other = (ProjectDetails) o;
-        return this.projectId.equals(other.projectId) && this.displayName.equals(other.displayName) && this.description.equals(other.description) && this.owner.equals(other.owner) && this.inTrash == other.inTrash;
+        return this.projectId.equals(other.projectId) && this.displayName.equals(other.displayName) && this.description.equals(other.description) && this.course.equals(other.course) && this.level.equals(other.level) && this.owner.equals(other.owner) && this.inTrash == other.inTrash;
     }
 
     @Override
     public int hashCode() {
-        return "ProjectDetails".hashCode() + projectId.hashCode() + displayName.hashCode() + description.hashCode() + owner.hashCode() + (inTrash ? 7 : 37);
+        return "ProjectDetails".hashCode() + projectId.hashCode() + displayName.hashCode() + description.hashCode() + course.hashCode() + level.hashCode() + owner.hashCode() + (inTrash ? 7 : 37);
     }
 
     @Override
@@ -130,6 +150,14 @@ public class ProjectDetails implements Serializable, Comparable<ProjectDetails>,
         if(descriptionDiff != 0) {
             return descriptionDiff;
         }
+        int courseDiff = course.compareTo(o.getCourse());
+        if(courseDiff != 0) {
+            return courseDiff;
+        }
+        int levelDiff = level.compareTo(o.getLevel());
+        if(levelDiff != 0) {
+            return levelDiff;
+        }
         return projectId.getId().compareTo(o.getProjectId().getId());
     }
 
@@ -139,6 +167,8 @@ public class ProjectDetails implements Serializable, Comparable<ProjectDetails>,
                 .addValue(projectId)
                 .add("displayName", displayName)
                 .add("description", description)
+                .add("course", course)
+                .add("level", level)
                 .add("owner", owner)
                 .add("inTrash", inTrash).toString();
     }

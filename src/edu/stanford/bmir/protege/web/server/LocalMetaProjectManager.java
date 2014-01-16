@@ -70,6 +70,8 @@ public class LocalMetaProjectManager extends AbstractMetaProjectManager {
         MetaProject mp = getMetaProject();
         ProjectInstance pi = mp.createProject(projectId.getId());
         pi.setDescription(newProjectSettings.getProjectDescription());
+        pi.setCourse(newProjectSettings.getProjectCourse());
+        pi.setLevel(newProjectSettings.getProjectLevel());
         final Instance protegeInstance = pi.getProtegeInstance();
         final KnowledgeBase kb = protegeInstance.getKnowledgeBase();
         final Slot displayNameSlot = kb.getSlot("displayName");
@@ -145,12 +147,14 @@ public class LocalMetaProjectManager extends AbstractMetaProjectManager {
     private static ProjectDetails createProjectDetailsFromProjectInstance(ProjectInstance projectInstance) {
         final ProjectId projectId = ProjectId.get(projectInstance.getName());
         final String description = projectInstance.getDescription();
+        final String course = projectInstance.getCourse();
+        final String level = projectInstance.getLevel();
         final User projectOwner = projectInstance.getOwner();
         final UserId ownerId = projectOwner != null ? UserId.getUserId(projectOwner.getName()) : UserId.getGuest();
         final boolean inTrash = isInTrash(projectInstance);
         final Slot displayNameSlot = projectInstance.getProtegeInstance().getKnowledgeBase().getSlot("displayName");
         final String displayName = (String) projectInstance.getProtegeInstance().getOwnSlotValue(displayNameSlot);
-        return new ProjectDetails(projectId, displayName, description, ownerId, inTrash);
+        return new ProjectDetails(projectId, displayName, description, course, level, ownerId, inTrash);
     }
 
     private boolean isAuthorisedToReadAndList(Policy policy, User user, ProjectInstance projectInstance) {

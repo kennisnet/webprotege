@@ -19,6 +19,10 @@ public class NewProjectSettings implements Serializable {
 
     private String projectDescription;
 
+    private String projectCourse;
+
+    private String projectLevel;
+
     private ProjectType projectType;
 
     private DocumentId sourceDocumentId = null;
@@ -38,12 +42,18 @@ public class NewProjectSettings implements Serializable {
      * @param projectType The type of projectType. Not null.
      * @throws NullPointerException if either projectOwner, displayName or projectDescription are null.
      */
-    public NewProjectSettings(UserId projectOwner, String displayName, String projectDescription, ProjectType projectType) {
+    public NewProjectSettings(UserId projectOwner, String displayName, String projectDescription, String projectCourse, String projectLevel, ProjectType projectType) {
         if (displayName == null) {
             throw new NullPointerException("displayName must not be null.");
         }
         if (projectDescription == null) {
             throw new NullPointerException("projectDescription must not be null.");
+        }
+        if (projectCourse == null) {
+            throw new NullPointerException("projectCourse must not be null.");
+        }
+        if (projectLevel == null) {
+            throw new NullPointerException("projectLevel must not be null.");
         }
         if (projectType == null) {
             throw new NullPointerException("projectType must not be null");
@@ -51,6 +61,8 @@ public class NewProjectSettings implements Serializable {
         this.projectOwner = projectOwner;
         this.displayName = displayName;
         this.projectDescription = projectDescription;
+        this.projectCourse = projectCourse;
+        this.projectLevel = projectLevel;
         this.projectType = projectType;
     }
 
@@ -68,8 +80,8 @@ public class NewProjectSettings implements Serializable {
      * @throws NullPointerException if either projectOwner, displayName, projectDescription or sourceDocumentId are
      *                              null.
      */
-    public NewProjectSettings(UserId projectOwner, String displayName, String projectDescription, ProjectType projectType, DocumentId sourceDocumentId) {
-        this(projectOwner, displayName, projectDescription, projectType);
+    public NewProjectSettings(UserId projectOwner, String displayName, String projectDescription, String projectCourse, String projectLevel, ProjectType projectType, DocumentId sourceDocumentId) {
+        this(projectOwner, displayName, projectDescription, projectCourse, projectLevel, projectType);
         this.sourceDocumentId = sourceDocumentId;
     }
 
@@ -96,6 +108,22 @@ public class NewProjectSettings implements Serializable {
      */
     public String getProjectDescription() {
         return projectDescription;
+    }
+
+    /**
+     * Gets the desired project course.
+     * @return A string representing the project course.  Not null.
+     */
+    public String getProjectCourse() {
+        return projectCourse;
+    }
+
+    /**
+     * Gets the desired project level.
+     * @return A string representing the project level.  Not null.
+     */
+    public String getProjectLevel() {
+        return projectLevel;
     }
 
     /**
@@ -127,7 +155,7 @@ public class NewProjectSettings implements Serializable {
 
     @Override
     public int hashCode() {
-        return projectOwner.hashCode() + displayName.hashCode() * 37 + projectDescription.hashCode() + sourceDocumentId.hashCode();
+        return projectOwner.hashCode() + displayName.hashCode() * 37 + projectDescription.hashCode() + projectCourse.hashCode() + projectLevel.hashCode() + sourceDocumentId.hashCode();
     }
 
     @Override
@@ -142,6 +170,8 @@ public class NewProjectSettings implements Serializable {
         return other.projectOwner.equals(projectOwner) &&
                 other.displayName.equals(this.displayName) &&
                 other.projectDescription.equals(this.projectDescription) &&
+                other.projectCourse.equals(this.projectCourse) &&
+                other.projectLevel.equals(this.projectLevel) &&
                 other.sourceDocumentId.equals(sourceDocumentId);
     }
 
@@ -150,6 +180,8 @@ public class NewProjectSettings implements Serializable {
         return Objects.toStringHelper("NewProjectSettings")
                 .addValue(projectOwner)
                 .add("DisplayName", displayName)
-                .add("Description", projectDescription).toString();
+                .add("Description", projectDescription)
+                .add("Course", projectCourse)
+                .add("Level", projectLevel).toString();
     }
 }

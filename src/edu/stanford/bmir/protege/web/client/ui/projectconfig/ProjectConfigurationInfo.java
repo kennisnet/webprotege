@@ -19,6 +19,10 @@ public class ProjectConfigurationInfo implements Serializable {
     
     private String projectDescription;
 
+    private String projectCourse;
+
+    private String projectLevel;
+
     private String defaultLanguage;
 
     // For serialization
@@ -26,11 +30,13 @@ public class ProjectConfigurationInfo implements Serializable {
 
     }
 
-    public ProjectConfigurationInfo(ProjectId projectId, ProjectType projectType, String defaultLanguage, String projectDescription) {
+    public ProjectConfigurationInfo(ProjectId projectId, ProjectType projectType, String defaultLanguage, String projectDescription, String projectCourse, String projectLevel) {
         this.projectId = projectId;
         this.projectType = projectType;
         this.defaultLanguage = defaultLanguage;
         this.projectDescription = projectDescription;
+        this.projectCourse = projectCourse;
+        this.projectLevel = projectLevel;
     }
 
 
@@ -40,6 +46,14 @@ public class ProjectConfigurationInfo implements Serializable {
 
     public String getProjectDescription() {
         return projectDescription;
+    }
+
+    public String getProjectCourse() {
+        return projectCourse;
+    }
+
+    public String getProjectLevel() {
+        return projectLevel;
     }
 
     public ProjectType getProjectType() {
@@ -52,7 +66,7 @@ public class ProjectConfigurationInfo implements Serializable {
 
     @Override
     public int hashCode() {
-        return projectType.hashCode() + projectDescription.hashCode() + projectId.hashCode() + defaultLanguage.hashCode();
+        return projectType.hashCode() + projectDescription.hashCode() + projectCourse.hashCode() + projectLevel.hashCode() + projectId.hashCode() + defaultLanguage.hashCode();
     }
 
     @Override
@@ -64,11 +78,11 @@ public class ProjectConfigurationInfo implements Serializable {
             return false;
         }
         ProjectConfigurationInfo other = (ProjectConfigurationInfo) obj;
-        return this.projectType.equals(other.projectType) && this.projectDescription.equals(other.projectDescription) && this.projectId.equals(other.projectId) && this.defaultLanguage.equals(other.defaultLanguage);
+        return this.projectType.equals(other.projectType) && this.projectDescription.equals(other.projectDescription) && this.projectCourse.equals(other.projectCourse) && this.projectLevel.equals(other.projectLevel) && this.projectId.equals(other.projectId) && this.defaultLanguage.equals(other.defaultLanguage);
     }
 
     @Override
     public String toString() {
-        return "ProjectConfigurationInfo(" + projectId + " Type(" + projectType + ") Description(" + projectDescription + ")" + " DefaultLanguage(" + defaultLanguage + ")";
+        return "ProjectConfigurationInfo(" + projectId + " Type(" + projectType + ") Description(" + projectDescription + ")" + " Course(" + projectCourse + ")" + " Level(" + projectLevel + ")" + " DefaultLanguage(" + defaultLanguage + ")";
     }
 }
