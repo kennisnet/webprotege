@@ -80,6 +80,10 @@ public class OntologyServiceManager {
         proxy.getSubclasses(projectId.getId(), className, cb);
     }
 
+    public void getSubclassesForNamedIndividual(ProjectId projectId, String namedIndividualName, AsyncCallback<List<SubclassEntityData>> cb) {
+        proxy.getSubclassesForNamedIndividual(projectId.getId(), namedIndividualName, cb);
+    }
+    
     public void getIndividuals(ProjectId projectId, String className, int start, int limit, String sort, String dir,
             AsyncCallback<PaginationData<EntityData>> cb) {
         proxy.getIndividuals(projectId.getId(), className, start, limit, sort, dir, cb);

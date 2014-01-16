@@ -100,6 +100,8 @@ public class OWLAPIProject implements HasDispose, HasDataFactory {
 
     private AssertedClassHierarchyProvider classHierarchyProvider = new AssertedClassHierarchyProvider(WebProtegeOWLManager.createOWLOntologyManager());
 
+    private AssertedNamedIndividualHierarchyProvider namedIndividualHierarchyProvider = new AssertedNamedIndividualHierarchyProvider(WebProtegeOWLManager.createOWLOntologyManager());
+    
     private OWLObjectPropertyHierarchyProvider objectPropertyHierarchyProvider;
 
     private OWLDataPropertyHierarchyProvider dataPropertyHierarchyProvider;
@@ -331,6 +333,10 @@ public class OWLAPIProject implements HasDispose, HasDataFactory {
 
     public AssertedClassHierarchyProvider getClassHierarchyProvider() {
         return classHierarchyProvider;
+    }
+
+    public AssertedNamedIndividualHierarchyProvider getNamedIndividualHierarchyProvider() {
+        return namedIndividualHierarchyProvider;
     }
 
     public OWLObjectPropertyHierarchyProvider getObjectPropertyHierarchyProvider() {

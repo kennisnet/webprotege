@@ -58,6 +58,8 @@ public interface OntologyService extends RemoteService {
 
     public List<SubclassEntityData> getSubclasses(String projectName, String className);
 
+    public List<SubclassEntityData> getSubclassesForNamedIndividual(String projectName, String namedIndividualName);
+
     public List<EntityData> moveCls(String projectName, String clsName, String oldParentName, String newParentName, boolean checkForCycles,
             String user, String operationDescription);
 
