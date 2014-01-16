@@ -1,9 +1,11 @@
 package edu.stanford.bmir.protege.web.client.rpc;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
 import edu.stanford.bmir.protege.web.client.rpc.data.*;
 import edu.stanford.bmir.protege.web.shared.project.ProjectId;
 import edu.stanford.bmir.protege.web.shared.user.UserId;
+
 import org.semanticweb.owlapi.model.OWLClass;
 
 import java.util.List;
@@ -53,6 +55,8 @@ public interface OntologyServiceAsync {
      */
 
     void getSubclasses(String projectName, String className, AsyncCallback<List<SubclassEntityData>> cb);
+
+    void getSubclassesForNamedIndividual(String projectName, String namedIndividualName, AsyncCallback<List<SubclassEntityData>> cb);
 
     void getIndividuals(String projectName, String className, int start, int limit, String sort, String dir,
             AsyncCallback<PaginationData<EntityData>> cb);

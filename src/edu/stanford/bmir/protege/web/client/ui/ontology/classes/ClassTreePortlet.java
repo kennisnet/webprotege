@@ -108,7 +108,7 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
 
     private boolean allowsMultiSelection = true;
 
-    private String hierarchyProperty = null;
+    String hierarchyProperty = null;
 
     private String topClass = null;
 
@@ -1114,8 +1114,8 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
         if (isSubclassesLoaded(parentNode)) {
             return;
         }
-        if (hierarchyProperty == null) {
-            invokeGetSubclassesRemoteCall(parentClsName, getSubclassesCallback(parentClsName, parentNode));
+        if (hierarchyProperty == null) {//invokeGetSubclassesForNamedIndividualRemoteCall invokeGetSubclassesRemoteCall
+            invokeGetSubclassesForNamedIndividualRemoteCall(parentClsName, getSubclassesCallback(parentClsName, parentNode));
         }
         else {
             final List<String> subjects = new ArrayList<String>();
@@ -1128,6 +1128,10 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
 
     protected void invokeGetSubclassesRemoteCall(final String parentClsName, AsyncCallback<List<SubclassEntityData>> callback) {
         OntologyServiceManager.getInstance().getSubclasses(getProjectId(), parentClsName, callback);
+    }
+
+    protected void invokeGetSubclassesForNamedIndividualRemoteCall(final String parentClsName, AsyncCallback<List<SubclassEntityData>> callback) {
+        OntologyServiceManager.getInstance().getSubclassesForNamedIndividual(getProjectId(), parentClsName, callback);
     }
 
     protected AsyncCallback<List<SubclassEntityData>> getSubclassesCallback(final String parentClsName, final TreeNode parentNode) {

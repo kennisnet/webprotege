@@ -461,6 +461,90 @@ public class OntologyServiceOWLAPIImpl extends WebProtegeRemoteServiceServlet im
         return result;
     }
 
+    /**
+     * Gets the subclasses of a given entity.  This implementation uses the {@link AssertedClassHierarchyProvider} that
+     * is used in Protege 4 to answer the request.
+     * @param projectName The name of the relevant project.
+     * @param className The class name which corresponds to an entity for which subclasses will be retrieved.  This
+     * should be an IRI, but this implementation will tolerate browser text.  If null, then this implementation returns
+     * an empty list.
+     * @return The list of subclasses.
+     */
+    public List<SubclassEntityData> getSubclassesForNamedIndividual(String projectName, String namedIndividualName) {
+        if (projectName == null) {
+            throw new NullPointerException("projectName must not be null");
+        }
+        if (namedIndividualName == null) {
+            return Collections.emptyList();
+        }
+        List<SubclassEntityData> result = new ArrayList<SubclassEntityData>();
+        OWLAPIProject project = getProject(projectName);
+        RenderingManager rm = project.getRenderingManager();
+        AssertedNamedIndividualHierarchyProvider hierarchyProvider = project.getNamedIndividualHierarchyProvider();
+
+        OWLNamedIndividual niv = null;
+        //TODO: Yucks, dirty hack, just good for POC demo..
+        if (namedIndividualName.equals(project.getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLThing().getIRI().toString())) {
+            if (project.getProjectId().getId().equals("35131749-4e37-4684-b284-f6365f500353")) {
+                //Vak/Leergebied Engels
+                niv = project.getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create("http://purl.edustandaard.nl/begrippenkader/b5dcf68d-df0b-4c00-b0aa-9cc63c7a9f63"));
+            } else if (project.getProjectId().getId().equals("e221da3d-1535-45db-8987-f2a769258174")) {
+                //Vak/Leergebied Aardrijkskunde
+                niv = project.getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create("http://purl.edustandaard.nl/begrippenkader/d61086bf-827a-476a-9403-7c5b317a12ed"));
+            }
+        } else {
+            niv = rm.getEntity(namedIndividualName, EntityType.NAMED_INDIVIDUAL);
+        }
+
+        boolean checkForDeprecated = project.getRootOntology().containsAnnotationPropertyInSignature(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
+        for (OWLNamedIndividual subclass : new ArrayList<OWLNamedIndividual>(hierarchyProvider.getChildren(niv, project.getRootOntology(), project))) {
+            boolean deprecated = false;
+            if(checkForDeprecated) {
+                deprecated = project.isDeprecated(subclass);
+            }
+            if (!deprecated) {
+                Set<OWLNamedIndividual> children = hierarchyProvider.getChildren(subclass, project.getRootOntology(), project);
+                int subClassSubClassesCount = children.size();
+                String browserText = rm.getBrowserText(subclass);
+                String name = subclass.getIRI().toString();
+                SubclassEntityData data = new SubclassEntityData(name, browserText, new HashSet<EntityData>(0), subClassSubClassesCount);
+                data.setDeprecated(deprecated);
+                int directNotesCount = project.getNotesManager().getIndirectNotesCount(subclass);
+//                int indirectNotesCount = project.getNotesManager().getIndirectNotesCount(cls);
+                data.setLocalAnnotationsCount(directNotesCount);
+            Set<Watch<?>> directWatches = project.getWatchManager().getDirectWatches(subclass, getUserId());
+            if(!directWatches.isEmpty()) {
+                data.setWatches(directWatches);
+            }
+                data.setValueType(ValueType.Instance);
+                result.add(data);
+            }
+        }
+        
+        Collections.sort(result, new Comparator<SubclassEntityData>() {
+            public int compare(SubclassEntityData o1, SubclassEntityData o2) {
+                if(o1.isDeprecated()) {
+                    if(!o2.isDeprecated()) {
+                        return 1;
+                    }
+                }
+                else if(o2.isDeprecated()) {
+                    return -1;
+                }
+                String browserText1 = o1.getBrowserText();
+                String browserText2 = o2.getBrowserText();
+                if(browserText1.startsWith("'")) {
+                    browserText1 = browserText1.substring(1);
+                }
+                if(browserText2.startsWith("'")) {
+                    browserText2 = browserText2.substring(1);
+                }
+                return browserText1.compareToIgnoreCase(browserText2);
+            }
+        });
+        return result;
+    }
+    
     public List<EntityData> moveCls(String projectName, String clsName, String oldParentName, String newParentName, boolean checkForCycles, String user, String operationDescription) {
         // Why check for cycles here and nowhere else?
         OWLAPIProject project = getProject(projectName);
