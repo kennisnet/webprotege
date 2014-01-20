@@ -27,6 +27,8 @@ public class ProjectConfigurationForm extends FlowPanel implements HasFormData<P
 
     public static final String FIELD_WIDTH = "300px";
 
+    public static final String PROJECT_NAME_FIELD_NAME = "Name";
+
     public static final String PROJECT_TYPE_DROPDOWN_FIELD_NAME = "Type";
 
     public static final String PROJECT_DESCRIPTION_FIELD_NAME = "Description";
@@ -39,6 +41,8 @@ public class ProjectConfigurationForm extends FlowPanel implements HasFormData<P
 
     private ProjectId projectId;
 
+    private final TextBox projectNameTextBox;
+    
     private final TextArea projectDescriptionTextArea;
 
     private final TextBox projectCourseTextBox;
@@ -51,9 +55,15 @@ public class ProjectConfigurationForm extends FlowPanel implements HasFormData<P
 
     public ProjectConfigurationForm(ProjectId id) {
         this.projectId = id;
-        projectTypeDropDown = new DropDown<ProjectType>(new ProjectTypeDropDownModel());
 
         WebProtegeDialogForm form = new WebProtegeDialogForm();
+
+        projectNameTextBox = new TextBox();
+        projectNameTextBox.setWidth(FIELD_WIDTH);
+        form.addWidget(PROJECT_NAME_FIELD_NAME, projectNameTextBox);
+        form.addVerticalSpacer();
+
+        projectTypeDropDown = new DropDown<ProjectType>(new ProjectTypeDropDownModel());
         form.addWidget(PROJECT_TYPE_DROPDOWN_FIELD_NAME, projectTypeDropDown);
         form.addVerticalSpacer();
 
@@ -102,6 +112,7 @@ public class ProjectConfigurationForm extends FlowPanel implements HasFormData<P
     }
 
     public void setData(ProjectConfigurationInfo info) {
+        projectNameTextBox.setText(info.getProjectName());
         projectTypeDropDown.setSelectedItem(info.getProjectType());
         projectDescriptionTextArea.setText(info.getProjectDescription());
         projectCourseTextBox.setText(info.getProjectCourse());
@@ -113,12 +124,16 @@ public class ProjectConfigurationForm extends FlowPanel implements HasFormData<P
 
     public ProjectConfigurationInfo getData() {
         // TODO: DEF LANG
-        return new ProjectConfigurationInfo(projectId, getProjectType(), "en", getProjectDescription(), getProjectCourse(), getProjectLevel());
+        return new ProjectConfigurationInfo(projectId, getProjectName(), getProjectType(), "en", getProjectDescription(), getProjectCourse(), getProjectLevel());
     }
 
 //    private String getDefaultLanguage() {
 //        return defaultLanguageBox.getText().trim();
 //    }
+
+    public String getProjectName() {
+        return projectNameTextBox.getText().trim();
+    }
 
     public ProjectType getProjectType() {
         return projectTypeDropDown.getSelectedItem();

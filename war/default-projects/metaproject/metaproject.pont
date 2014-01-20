@@ -1,4 +1,4 @@
-; Wed Jan 15 11:51:45 CET 2014
+; Thu Jan 16 16:29:09 CET 2014
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -7,11 +7,11 @@
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
-	(single-slot displayName
+	(single-slot propertyName
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot propertyName
+	(single-slot displayName
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
@@ -72,15 +72,15 @@
 ;+		(allowed-classes Project)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot password
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot inTrash
 		(type SYMBOL)
 		(allowed-values FALSE TRUE)
 		(default FALSE)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot password
+		(type STRING)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot salt
 		(type STRING)
@@ -90,11 +90,11 @@
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot email
+	(single-slot name_
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot name_
+	(single-slot email
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
@@ -115,19 +115,15 @@
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(multislot properties
-		(type INSTANCE)
-;+		(allowed-classes PropertyValue)
-		(create-accessor read-write))
 	(single-slot lastLogin
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot salt
-		(type STRING)
-;+		(cardinality 0 1)
+	(multislot properties
+		(type INSTANCE)
+;+		(allowed-classes PropertyValue)
 		(create-accessor read-write))
-	(single-slot password
+	(single-slot salt
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
@@ -136,11 +132,15 @@
 ;+		(allowed-classes Group)
 		(default [metaproject_Instance_0])
 		(create-accessor read-write))
-	(single-slot email
+	(single-slot password
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot name_
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot email
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
@@ -184,14 +184,14 @@
 		(type INSTANCE)
 ;+		(allowed-classes PropertyValue)
 		(create-accessor read-write))
-	(multislot allowedOperation
-		(type INSTANCE)
-;+		(allowed-classes Operation)
-		(create-accessor read-write))
 	(single-slot allowedGroup
 		(type INSTANCE)
 ;+		(allowed-classes Group)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot allowedOperation
+		(type INSTANCE)
+;+		(allowed-classes Operation)
 		(create-accessor read-write)))
 
 (defclass PolicyControlledObject
@@ -241,11 +241,11 @@
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot course
+	(single-slot level
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot level
+	(single-slot course
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
@@ -269,11 +269,11 @@
 (defclass PropertyValue
 	(is-a USER)
 	(role concrete)
-	(single-slot propertyValue
+	(single-slot propertyName
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot propertyName
+	(single-slot propertyValue
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))

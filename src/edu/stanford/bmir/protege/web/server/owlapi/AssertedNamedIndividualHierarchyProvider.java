@@ -1,19 +1,29 @@
 package edu.stanford.bmir.protege.web.server.owlapi;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import org.protege.editor.owl.model.hierarchy.AbstractOWLObjectHierarchyProvider;
 import org.protege.owlapi.inference.orphan.Relation;
 import org.protege.owlapi.inference.orphan.TerminalElementFinder;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomChange;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 import edu.stanford.bmir.protege.web.server.frame.AxiomPropertyValueTranslator;
 import edu.stanford.bmir.protege.web.server.frame.PropertyValueComparator;
-import edu.stanford.bmir.protege.web.server.owlapi.extractor.ChildNamedIndividualExtractor;
-import edu.stanford.bmir.protege.web.server.owlapi.extractor.ParentNamedIndividualExtractor;
-import edu.stanford.bmir.protege.web.shared.entity.OWLNamedIndividualData;
-import edu.stanford.bmir.protege.web.shared.frame.NamedIndividualFrame;
 import edu.stanford.bmir.protege.web.shared.frame.PropertyValue;
-
-import java.util.*;
 
 
 /**
@@ -285,26 +295,26 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
 
 
     public Set<OWLNamedIndividual> getParents(OWLNamedIndividual object) {
-        ParentNamedIndividualExtractor parentNamedIndividualExtractor = new ParentNamedIndividualExtractor();
-        // If the object is thing then there are no
-        // parents
-        if (object.equals(root)) {
-            return Collections.emptySet();
-        }
+//        ParentNamedIndividualExtractor parentNamedIndividualExtractor = new ParentNamedIndividualExtractor();
+//        // If the object is thing then there are no
+//        // parents
+//        if (object.equals(root)) {
+//            return Collections.emptySet();
+//        }
         Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
-        // Thing if the object is a root class
-        if (rootFinder.getTerminalElements().contains(object)) {
-            result.add(root);
-        }
-        // Not a root, so must have another parent
-        parentNamedIndividualExtractor.reset();
-        parentNamedIndividualExtractor.setCurrentClass(object);
-        for (OWLOntology ont : ontologies) {
-            for (OWLAxiom ax : ont.getAxioms(object)) {
-                ax.accept(parentNamedIndividualExtractor);
-            }
-        }
-        result.addAll(parentNamedIndividualExtractor.getResult());
+//        // Thing if the object is a root class
+//        if (rootFinder.getTerminalElements().contains(object)) {
+//            result.add(root);
+//        }
+//        // Not a root, so must have another parent
+//        parentNamedIndividualExtractor.reset();
+//        parentNamedIndividualExtractor.setCurrentClass(object);
+//        for (OWLOntology ont : ontologies) {
+//            for (OWLAxiom ax : ont.getAxioms(object)) {
+//                ax.accept(parentNamedIndividualExtractor);
+//            }
+//        }
+//        result.addAll(parentNamedIndividualExtractor.getResult());
         return result;
     }
 

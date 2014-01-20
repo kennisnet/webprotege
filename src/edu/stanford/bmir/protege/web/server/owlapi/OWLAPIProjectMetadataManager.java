@@ -157,7 +157,20 @@ public class OWLAPIProjectMetadataManager {
         }
         return result;
     }
+
+    public void setName(ProjectId projectId, String name) {
+    	setDisplayName(projectId, name);
+    }
     
+    public void setDisplayName(ProjectId projectId, String displayName) {
+        ProjectInstance pi = getProjectInstance(projectId);
+        //pi.setName(displayName);
+        Slot displayNameSlot = pi.getProtegeInstance().getKnowledgeBase().getSlot("displayName");
+        if(displayNameSlot != null) {
+            pi.getProtegeInstance().setDirectOwnSlotValue(displayNameSlot, displayName);
+        }
+    }
+
     public void setDescription(ProjectId projectId, String description) {
         ProjectInstance pi = getProjectInstance(projectId);
         pi.setDescription(description);

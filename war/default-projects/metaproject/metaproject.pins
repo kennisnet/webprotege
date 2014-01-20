@@ -1,12 +1,507 @@
-; Wed Jan 15 11:51:45 CET 2014
+; Thu Jan 16 16:29:09 CET 2014
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
+
+([0cea6ac0-aa77-4a3f-8b99-baa423255b23] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class40002]
+		[metaproject_Class40001]
+		[metaproject_Class40005]
+		[metaproject_Class40004]
+		[metaproject_Class40003])
+	(description "b")
+	(displayName "a")
+	(inTrash TRUE)
+	(name "0cea6ac0-aa77-4a3f-8b99-baa423255b23")
+	(owner [metaproject_Class0]))
+
+([0cea6ac0-aa77-4a3f-8b99-baa423255b23_Commenters] of  Group
+
+	(name "0cea6ac0-aa77-4a3f-8b99-baa423255b23_Commenters"))
+
+([0cea6ac0-aa77-4a3f-8b99-baa423255b23_None] of  Group
+
+	(name "0cea6ac0-aa77-4a3f-8b99-baa423255b23_None"))
+
+([0cea6ac0-aa77-4a3f-8b99-baa423255b23_Readers] of  Group
+
+	(name "0cea6ac0-aa77-4a3f-8b99-baa423255b23_Readers"))
+
+([0cea6ac0-aa77-4a3f-8b99-baa423255b23_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "0cea6ac0-aa77-4a3f-8b99-baa423255b23_Writers"))
+
+([23644762-b032-44d2-818a-60a0e201433e] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class50007]
+		[metaproject_Class50006]
+		[metaproject_Class50009]
+		[metaproject_Class50008]
+		[metaproject_Class50010])
+	(course "c")
+	(description "b")
+	(displayName "a")
+	(inTrash TRUE)
+	(level "d")
+	(name "23644762-b032-44d2-818a-60a0e201433e")
+	(owner [metaproject_Class0]))
+
+([23644762-b032-44d2-818a-60a0e201433e_Commenters] of  Group
+
+	(name "23644762-b032-44d2-818a-60a0e201433e_Commenters"))
+
+([23644762-b032-44d2-818a-60a0e201433e_None] of  Group
+
+	(name "23644762-b032-44d2-818a-60a0e201433e_None"))
+
+([23644762-b032-44d2-818a-60a0e201433e_Readers] of  Group
+
+	(name "23644762-b032-44d2-818a-60a0e201433e_Readers"))
+
+([23644762-b032-44d2-818a-60a0e201433e_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "23644762-b032-44d2-818a-60a0e201433e_Writers"))
+
+([2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class1]
+		[metaproject_Class10005]
+		[metaproject_Class10004]
+		[metaproject_Class10003]
+		[metaproject_Class10002])
+	(course "c2")
+	(description "OBK Desc")
+	(displayName "OBK")
+	(inTrash TRUE)
+	(level "l2")
+	(name "2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec")
+	(owner [metaproject_Class0])
+	(properties [metaproject_Class50000]))
+
+([2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_Commenters] of  Group
+
+	(name "2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_Commenters"))
+
+([2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_None] of  Group
+
+	(name "2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_None"))
+
+([2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_Readers] of  Group
+
+	(name "2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_Readers"))
+
+([2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_Writers"))
+
+([44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class60025]
+		[metaproject_Class60026]
+		[metaproject_Class60029]
+		[metaproject_Class60027]
+		[metaproject_Class60028])
+	(course "Engels")
+	(description "Engels_HO.rdf")
+	(displayName "EN-HO")
+	(inTrash FALSE)
+	(level "Hoger Onderwijs")
+	(name "44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe")
+	(owner [metaproject_Class0]))
+
+([44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_Commenters] of  Group
+
+	(name "44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_Commenters"))
+
+([44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_None] of  Group
+
+	(name "44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_None"))
+
+([44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_Readers] of  Group
+
+	(name "44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_Readers"))
+
+([44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_Writers"))
+
+([562dffae-e72d-48fd-8b04-77cab04b0948] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class60021]
+		[metaproject_Class60022]
+		[metaproject_Class60020]
+		[metaproject_Class60023]
+		[metaproject_Class60024])
+	(course "Aardrijkskunde")
+	(description "Aardrijkskunde_PO.rdf")
+	(displayName "AK-PO")
+	(inTrash FALSE)
+	(level "Primair Onderwijs")
+	(name "562dffae-e72d-48fd-8b04-77cab04b0948")
+	(owner [metaproject_Class0]))
+
+([562dffae-e72d-48fd-8b04-77cab04b0948_Commenters] of  Group
+
+	(name "562dffae-e72d-48fd-8b04-77cab04b0948_Commenters"))
+
+([562dffae-e72d-48fd-8b04-77cab04b0948_None] of  Group
+
+	(name "562dffae-e72d-48fd-8b04-77cab04b0948_None"))
+
+([562dffae-e72d-48fd-8b04-77cab04b0948_Readers] of  Group
+
+	(name "562dffae-e72d-48fd-8b04-77cab04b0948_Readers"))
+
+([562dffae-e72d-48fd-8b04-77cab04b0948_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "562dffae-e72d-48fd-8b04-77cab04b0948_Writers"))
+
+([599dd8fa-3952-41b5-82e8-1f85e389ba51] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class60015]
+		[metaproject_Class60016]
+		[metaproject_Class60017]
+		[metaproject_Class60018]
+		[metaproject_Class60019])
+	(course "Aardrijkskunde")
+	(description "Aardrijkskunde_Onderbouw_VMBO.rdf")
+	(displayName "AK-O-VM")
+	(inTrash FALSE)
+	(level "Onderbouw VMBO")
+	(name "599dd8fa-3952-41b5-82e8-1f85e389ba51")
+	(owner [metaproject_Class0]))
+
+([599dd8fa-3952-41b5-82e8-1f85e389ba51_Commenters] of  Group
+
+	(name "599dd8fa-3952-41b5-82e8-1f85e389ba51_Commenters"))
+
+([599dd8fa-3952-41b5-82e8-1f85e389ba51_None] of  Group
+
+	(name "599dd8fa-3952-41b5-82e8-1f85e389ba51_None"))
+
+([599dd8fa-3952-41b5-82e8-1f85e389ba51_Readers] of  Group
+
+	(name "599dd8fa-3952-41b5-82e8-1f85e389ba51_Readers"))
+
+([599dd8fa-3952-41b5-82e8-1f85e389ba51_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "599dd8fa-3952-41b5-82e8-1f85e389ba51_Writers"))
+
+([650109f8-e852-4e5d-8b8f-07c7a1cd9907] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class40009]
+		[metaproject_Class40008]
+		[metaproject_Class40007]
+		[metaproject_Class40006]
+		[metaproject_Class40010])
+	(description "b")
+	(displayName "a")
+	(inTrash TRUE)
+	(name "650109f8-e852-4e5d-8b8f-07c7a1cd9907")
+	(owner [metaproject_Class0]))
+
+([650109f8-e852-4e5d-8b8f-07c7a1cd9907_Commenters] of  Group
+
+	(name "650109f8-e852-4e5d-8b8f-07c7a1cd9907_Commenters"))
+
+([650109f8-e852-4e5d-8b8f-07c7a1cd9907_None] of  Group
+
+	(name "650109f8-e852-4e5d-8b8f-07c7a1cd9907_None"))
+
+([650109f8-e852-4e5d-8b8f-07c7a1cd9907_Readers] of  Group
+
+	(name "650109f8-e852-4e5d-8b8f-07c7a1cd9907_Readers"))
+
+([650109f8-e852-4e5d-8b8f-07c7a1cd9907_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "650109f8-e852-4e5d-8b8f-07c7a1cd9907_Writers"))
+
+([86e09aed-25f9-4769-8918-c17ba28bd9f0] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class50003]
+		[metaproject_Class50002]
+		[metaproject_Class50005]
+		[metaproject_Class50004]
+		[metaproject_Class50001])
+	(course "ccc")
+	(description "bbb")
+	(displayName "aaa")
+	(inTrash TRUE)
+	(level "ddd")
+	(name "86e09aed-25f9-4769-8918-c17ba28bd9f0")
+	(owner [metaproject_Class0]))
+
+([86e09aed-25f9-4769-8918-c17ba28bd9f0_Commenters] of  Group
+
+	(name "86e09aed-25f9-4769-8918-c17ba28bd9f0_Commenters"))
+
+([86e09aed-25f9-4769-8918-c17ba28bd9f0_None] of  Group
+
+	(name "86e09aed-25f9-4769-8918-c17ba28bd9f0_None"))
+
+([86e09aed-25f9-4769-8918-c17ba28bd9f0_Readers] of  Group
+
+	(name "86e09aed-25f9-4769-8918-c17ba28bd9f0_Readers"))
+
+([86e09aed-25f9-4769-8918-c17ba28bd9f0_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "86e09aed-25f9-4769-8918-c17ba28bd9f0_Writers"))
+
+([9d1d446b-8af5-4db0-b3ae-6189af7ce7b7] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class60034]
+		[metaproject_Class60033]
+		[metaproject_Class60032]
+		[metaproject_Class60031]
+		[metaproject_Class60030])
+	(course "Engels")
+	(description "Engels_MBO.rdf")
+	(displayName "EN-MBO")
+	(inTrash FALSE)
+	(level "Middelbaar BeroepsOnderwijs")
+	(name "9d1d446b-8af5-4db0-b3ae-6189af7ce7b7")
+	(owner [metaproject_Class0]))
+
+([9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_Commenters] of  Group
+
+	(name "9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_Commenters"))
+
+([9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_None] of  Group
+
+	(name "9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_None"))
+
+([9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_Readers] of  Group
+
+	(name "9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_Readers"))
+
+([9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_Writers"))
+
+([c7691f28-368b-49a5-b766-1fc910a5edb5] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class60010]
+		[metaproject_Class60011]
+		[metaproject_Class60012]
+		[metaproject_Class60013]
+		[metaproject_Class60014])
+	(course "Aardrijkskunde")
+	(description "Aardrijkskunde_Onderbouw_HAVO_VWO.rdf")
+	(displayName "AK-O-HV")
+	(inTrash FALSE)
+	(level "Onderbouw HAVO/VWO")
+	(name "c7691f28-368b-49a5-b766-1fc910a5edb5")
+	(owner [metaproject_Class0]))
+
+([c7691f28-368b-49a5-b766-1fc910a5edb5_Commenters] of  Group
+
+	(name "c7691f28-368b-49a5-b766-1fc910a5edb5_Commenters"))
+
+([c7691f28-368b-49a5-b766-1fc910a5edb5_None] of  Group
+
+	(name "c7691f28-368b-49a5-b766-1fc910a5edb5_None"))
+
+([c7691f28-368b-49a5-b766-1fc910a5edb5_Readers] of  Group
+
+	(name "c7691f28-368b-49a5-b766-1fc910a5edb5_Readers"))
+
+([c7691f28-368b-49a5-b766-1fc910a5edb5_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "c7691f28-368b-49a5-b766-1fc910a5edb5_Writers"))
+
+([c9ebdc02-5541-4007-8439-65e3fc2df63d] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class60009]
+		[metaproject_Class60007]
+		[metaproject_Class60008]
+		[metaproject_Class60005]
+		[metaproject_Class60006])
+	(course "Aardrijkskunde")
+	(description "Aardrijkskunde_Bovenbouw_VMBO.rdf")
+	(displayName "AK-B-VM")
+	(inTrash FALSE)
+	(level "Bovenbouw VMBO")
+	(name "c9ebdc02-5541-4007-8439-65e3fc2df63d")
+	(owner [metaproject_Class0]))
+
+([c9ebdc02-5541-4007-8439-65e3fc2df63d_Commenters] of  Group
+
+	(name "c9ebdc02-5541-4007-8439-65e3fc2df63d_Commenters"))
+
+([c9ebdc02-5541-4007-8439-65e3fc2df63d_None] of  Group
+
+	(name "c9ebdc02-5541-4007-8439-65e3fc2df63d_None"))
+
+([c9ebdc02-5541-4007-8439-65e3fc2df63d_Readers] of  Group
+
+	(name "c9ebdc02-5541-4007-8439-65e3fc2df63d_Readers"))
+
+([c9ebdc02-5541-4007-8439-65e3fc2df63d_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "c9ebdc02-5541-4007-8439-65e3fc2df63d_Writers"))
+
+([d7d5a9bb-32fe-47ec-87ae-27a1c036a54d] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class70004]
+		[metaproject_Class70000]
+		[metaproject_Class70001]
+		[metaproject_Class70002]
+		[metaproject_Class70003])
+	(course "Engels")
+	(description "Engels_Onderbouw_VMBO.rdf")
+	(displayName "EN-O-VM")
+	(inTrash FALSE)
+	(level "Onderbouw VMBO")
+	(name "d7d5a9bb-32fe-47ec-87ae-27a1c036a54d")
+	(owner [metaproject_Class0]))
+
+([d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_Commenters] of  Group
+
+	(name "d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_Commenters"))
+
+([d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_None] of  Group
+
+	(name "d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_None"))
+
+([d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_Readers] of  Group
+
+	(name "d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_Readers"))
+
+([d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_Writers"))
+
+([dd3926a5-e41f-4ed8-9a78-98befbececfd] of  Project
+
+	(allowedGroupOperation
+		[metaproject_Class60003]
+		[metaproject_Class60004]
+		[metaproject_Class60001]
+		[metaproject_Class60002]
+		[metaproject_Class60000])
+	(course "Aardrijkskunde")
+	(description "Aardrijkskunde_Bovenbouw_HAVO_VWO.rdf")
+	(displayName "AK-B-HV")
+	(inTrash FALSE)
+	(level "Bovenbouw HAVO/VWO")
+	(name "dd3926a5-e41f-4ed8-9a78-98befbececfd")
+	(owner [metaproject_Class0])
+	(properties [metaproject_Class60035]))
+
+([dd3926a5-e41f-4ed8-9a78-98befbececfd_Commenters] of  Group
+
+	(name "dd3926a5-e41f-4ed8-9a78-98befbececfd_Commenters"))
+
+([dd3926a5-e41f-4ed8-9a78-98befbececfd_None] of  Group
+
+	(name "dd3926a5-e41f-4ed8-9a78-98befbececfd_None"))
+
+([dd3926a5-e41f-4ed8-9a78-98befbececfd_Readers] of  Group
+
+	(name "dd3926a5-e41f-4ed8-9a78-98befbececfd_Readers"))
+
+([dd3926a5-e41f-4ed8-9a78-98befbececfd_Writers] of  Group
+
+	(member [metaproject_Class0])
+	(name "dd3926a5-e41f-4ed8-9a78-98befbececfd_Writers"))
+
+([metaproject_Class0] of  User
+
+	(email "geert.josten@dayon.nl")
+	(group
+		[metaproject_Instance_0]
+		[2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_Writers]
+		[0cea6ac0-aa77-4a3f-8b99-baa423255b23_Writers]
+		[650109f8-e852-4e5d-8b8f-07c7a1cd9907_Writers]
+		[86e09aed-25f9-4769-8918-c17ba28bd9f0_Writers]
+		[23644762-b032-44d2-818a-60a0e201433e_Writers]
+		[dd3926a5-e41f-4ed8-9a78-98befbececfd_Writers]
+		[c9ebdc02-5541-4007-8439-65e3fc2df63d_Writers]
+		[c7691f28-368b-49a5-b766-1fc910a5edb5_Writers]
+		[599dd8fa-3952-41b5-82e8-1f85e389ba51_Writers]
+		[562dffae-e72d-48fd-8b04-77cab04b0948_Writers]
+		[44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_Writers]
+		[9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_Writers]
+		[d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_Writers])
+	(name "gtjon")
+	(password "b795dca83d1323b3e8e9026bc737e7c9")
+	(salt "ce196c08d55b406a"))
+
+([metaproject_Class1] of  GroupOperation
+
+	(allowedGroup [2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class10000] of  PropertyValue
+
+	(propertyName "projectType")
+	(propertyValue "OWL Project"))
+
+([metaproject_Class10001] of  PropertyValue
+
+	(propertyName "projectType")
+	(propertyValue "OWL Project"))
+
+([metaproject_Class10002] of  GroupOperation
+
+	(allowedGroup [2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class10003] of  GroupOperation
+
+	(allowedGroup [2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class10004] of  GroupOperation
+
+	(allowedGroup [2f01f548-ba9f-4890-88b3-8c5e0c9bf0ec_None]))
+
+([metaproject_Class10005] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
 
 ([metaproject_Class2] of  ProjectAppliedOperation
 
 	(description "The operation of displaying the project in the project list.\n\nThis is used to control the projects displayed when a user connects to a server.")
 	(name "DisplayInProjectList"))
+
+([metaproject_Class20000] of  PropertyValue
+
+	(propertyName "projectType")
+	(propertyValue "OWL Project"))
 
 ([metaproject_Class20003] of  Group
 
@@ -28,6 +523,393 @@
 	(description "The operation of adding or removing users to a group.")
 	(name "EditGroup"))
 
+([metaproject_Class40000] of  PropertyValue
+
+	(propertyName "projectType")
+	(propertyValue "OWL Project"))
+
+([metaproject_Class40001] of  GroupOperation
+
+	(allowedGroup [0cea6ac0-aa77-4a3f-8b99-baa423255b23_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class40002] of  GroupOperation
+
+	(allowedGroup [0cea6ac0-aa77-4a3f-8b99-baa423255b23_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class40003] of  GroupOperation
+
+	(allowedGroup [0cea6ac0-aa77-4a3f-8b99-baa423255b23_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class40004] of  GroupOperation
+
+	(allowedGroup [0cea6ac0-aa77-4a3f-8b99-baa423255b23_None]))
+
+([metaproject_Class40005] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class40006] of  GroupOperation
+
+	(allowedGroup [650109f8-e852-4e5d-8b8f-07c7a1cd9907_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class40007] of  GroupOperation
+
+	(allowedGroup [650109f8-e852-4e5d-8b8f-07c7a1cd9907_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class40008] of  GroupOperation
+
+	(allowedGroup [650109f8-e852-4e5d-8b8f-07c7a1cd9907_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class40009] of  GroupOperation
+
+	(allowedGroup [650109f8-e852-4e5d-8b8f-07c7a1cd9907_None]))
+
+([metaproject_Class40010] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class50000] of  PropertyValue
+
+	(propertyName "projectType")
+	(propertyValue "OWL Project"))
+
+([metaproject_Class50001] of  GroupOperation
+
+	(allowedGroup [86e09aed-25f9-4769-8918-c17ba28bd9f0_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class50002] of  GroupOperation
+
+	(allowedGroup [86e09aed-25f9-4769-8918-c17ba28bd9f0_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class50003] of  GroupOperation
+
+	(allowedGroup [86e09aed-25f9-4769-8918-c17ba28bd9f0_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class50004] of  GroupOperation
+
+	(allowedGroup [86e09aed-25f9-4769-8918-c17ba28bd9f0_None]))
+
+([metaproject_Class50005] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class50006] of  GroupOperation
+
+	(allowedGroup [23644762-b032-44d2-818a-60a0e201433e_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class50007] of  GroupOperation
+
+	(allowedGroup [23644762-b032-44d2-818a-60a0e201433e_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class50008] of  GroupOperation
+
+	(allowedGroup [23644762-b032-44d2-818a-60a0e201433e_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class50009] of  GroupOperation
+
+	(allowedGroup [23644762-b032-44d2-818a-60a0e201433e_None]))
+
+([metaproject_Class50010] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class60000] of  GroupOperation
+
+	(allowedGroup [dd3926a5-e41f-4ed8-9a78-98befbececfd_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60001] of  GroupOperation
+
+	(allowedGroup [dd3926a5-e41f-4ed8-9a78-98befbececfd_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60002] of  GroupOperation
+
+	(allowedGroup [dd3926a5-e41f-4ed8-9a78-98befbececfd_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60003] of  GroupOperation
+
+	(allowedGroup [dd3926a5-e41f-4ed8-9a78-98befbececfd_None]))
+
+([metaproject_Class60004] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class60005] of  GroupOperation
+
+	(allowedGroup [c9ebdc02-5541-4007-8439-65e3fc2df63d_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60006] of  GroupOperation
+
+	(allowedGroup [c9ebdc02-5541-4007-8439-65e3fc2df63d_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60007] of  GroupOperation
+
+	(allowedGroup [c9ebdc02-5541-4007-8439-65e3fc2df63d_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60008] of  GroupOperation
+
+	(allowedGroup [c9ebdc02-5541-4007-8439-65e3fc2df63d_None]))
+
+([metaproject_Class60009] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class60010] of  GroupOperation
+
+	(allowedGroup [c7691f28-368b-49a5-b766-1fc910a5edb5_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60011] of  GroupOperation
+
+	(allowedGroup [c7691f28-368b-49a5-b766-1fc910a5edb5_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60012] of  GroupOperation
+
+	(allowedGroup [c7691f28-368b-49a5-b766-1fc910a5edb5_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60013] of  GroupOperation
+
+	(allowedGroup [c7691f28-368b-49a5-b766-1fc910a5edb5_None]))
+
+([metaproject_Class60014] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class60015] of  GroupOperation
+
+	(allowedGroup [599dd8fa-3952-41b5-82e8-1f85e389ba51_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60016] of  GroupOperation
+
+	(allowedGroup [599dd8fa-3952-41b5-82e8-1f85e389ba51_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60017] of  GroupOperation
+
+	(allowedGroup [599dd8fa-3952-41b5-82e8-1f85e389ba51_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60018] of  GroupOperation
+
+	(allowedGroup [599dd8fa-3952-41b5-82e8-1f85e389ba51_None]))
+
+([metaproject_Class60019] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class60020] of  GroupOperation
+
+	(allowedGroup [562dffae-e72d-48fd-8b04-77cab04b0948_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60021] of  GroupOperation
+
+	(allowedGroup [562dffae-e72d-48fd-8b04-77cab04b0948_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60022] of  GroupOperation
+
+	(allowedGroup [562dffae-e72d-48fd-8b04-77cab04b0948_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60023] of  GroupOperation
+
+	(allowedGroup [562dffae-e72d-48fd-8b04-77cab04b0948_None]))
+
+([metaproject_Class60024] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class60025] of  GroupOperation
+
+	(allowedGroup [44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60026] of  GroupOperation
+
+	(allowedGroup [44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60027] of  GroupOperation
+
+	(allowedGroup [44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60028] of  GroupOperation
+
+	(allowedGroup [44bfe054-3a2c-4f6e-bf7d-6f0464f55ebe_None]))
+
+([metaproject_Class60029] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class60030] of  GroupOperation
+
+	(allowedGroup [9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60031] of  GroupOperation
+
+	(allowedGroup [9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60032] of  GroupOperation
+
+	(allowedGroup [9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class60033] of  GroupOperation
+
+	(allowedGroup [9d1d446b-8af5-4db0-b3ae-6189af7ce7b7_None]))
+
+([metaproject_Class60034] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
+([metaproject_Class60035] of  PropertyValue
+
+	(propertyName "projectType")
+	(propertyValue "OWL Project"))
+
+([metaproject_Class70000] of  GroupOperation
+
+	(allowedGroup [d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_Readers])
+	(allowedOperation
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class70001] of  GroupOperation
+
+	(allowedGroup [d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_Commenters])
+	(allowedOperation
+		[metaproject_Class2]
+		[metaproject_Class80000]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class70002] of  GroupOperation
+
+	(allowedGroup [d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_Writers])
+	(allowedOperation
+		[nci_metaproject_Instance_60010]
+		[metaproject_Class2]
+		[nci_metaproject_Instance_60009]))
+
+([metaproject_Class70003] of  GroupOperation
+
+	(allowedGroup [d7d5a9bb-32fe-47ec-87ae-27a1c036a54d_None]))
+
+([metaproject_Class70004] of  GroupOperation
+
+	(allowedGroup [metaproject_Instance_0]))
+
 ([metaproject_Class80000] of  ProjectAppliedOperation
 
 	(description "Specifies a comment operation.  This is not the same as an arbitrary write.")
@@ -36,6 +918,7 @@
 ([metaproject_Instance_0] of  Group
 
 	(description "This group is intended to represent all the users.\n\nNewly created users are added to this group by default.")
+	(member [metaproject_Class0])
 	(name "World"))
 
 ([nci_metaproject_Instance_60009] of  ProjectAppliedOperation
