@@ -735,3 +735,41 @@ ul.x-menu-list {
     max-height: 350px;
     overflow-y: auto;
 }
+
+// [GJo] Custom overrides voor KennisNet!!
+
+html .gwt-DialogBox {
+	z-index: 10;
+}
+
+html .web-protege-dialog-button-compact {
+    width: 14px;
+	height: 14px;
+
+    /* IE10 */
+    background-image: -ms-linear-gradient(top, #FFFFFF 0%, #FFFFFF 100%);
+
+    /* Mozilla Firefox */
+    background-image: -moz-linear-gradient(top, #FFFFFF 0%, #FFFFFF 100%);
+
+    /* Opera */
+    background-image: -o-linear-gradient(top, #FFFFFF 0%, #FFFFFF 100%);
+
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #FFFFFF));
+
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #FFFFFF 100%);
+
+    /* Proposed W3C Markup */
+    background-image: linear-gradient(top, #FFFFFF 0%, #FFFFFF 100%);
+}
+
+html .web-protege-dialog-button-delete {
+	background-image: url(../images/delete.png);
+}
+
+html .web-protege-dialog-button-comment {
+	background-image: url(../images/comment.gif);
+}
+

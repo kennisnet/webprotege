@@ -33,9 +33,9 @@ public class ProjectConfigurationForm extends FlowPanel implements HasFormData<P
 
     public static final String PROJECT_DESCRIPTION_FIELD_NAME = "Description";
 
-    public static final String PROJECT_COURSE_FIELD_NAME = "Course";
+    public static final String PROJECT_COURSE_FIELD_NAME = "Vak/leergebied";
 
-    public static final String PROJECT_LEVEL_FIELD_NAME = "Level";
+    public static final String PROJECT_LEVEL_FIELD_NAME = "leerniveau";
 
     private DropDown<ProjectType> projectTypeDropDown;
 

@@ -11,7 +11,7 @@ import com.gwtext.client.widgets.form.Label;
  */
 public class DeleteButton extends Button {
 
-    private static final String TEXT = "\u2716";
+    private static final String TEXT = "";//"\u2716";
 
     public static final String WEB_PROTEGE_DELETE_BUTTON_STYLE_NAME = "web-protege-delete-button";
 
@@ -22,5 +22,6 @@ public class DeleteButton extends Button {
 //        add(deleteLabel);
         setTitle("Delete");
         addStyleName("web-protege-dialog-button-compact");
+        addStyleName("web-protege-dialog-button-delete");
     }
 }

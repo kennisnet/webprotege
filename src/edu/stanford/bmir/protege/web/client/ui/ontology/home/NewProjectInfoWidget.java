@@ -36,9 +36,9 @@ public class NewProjectInfoWidget extends WebProtegeDialogForm implements HasIni
 
     public static final String PROJECT_DESCRIPTION_LABEL = "Project description";
 
-    public static final String PROJECT_COURSE_LABEL = "Project course";
+    public static final String PROJECT_COURSE_LABEL = "Vak/leergebied";
 
-    public static final String PROJECT_LEVEL_LABEL = "Project level";
+    public static final String PROJECT_LEVEL_LABEL = "Leerniveau";
 
     public static final String PROJECT_NAME_FIELD_NAME = "projectname";
 
@@ -218,7 +218,7 @@ public class NewProjectInfoWidget extends WebProtegeDialogForm implements HasIni
         }
 
         public String getValidationMessage() {
-            return "Please enter a course for the project.";
+            return "Geef aub het vak/leergebied van deze leergang.";
         }
     }
 
@@ -229,7 +229,7 @@ public class NewProjectInfoWidget extends WebProtegeDialogForm implements HasIni
         }
 
         public String getValidationMessage() {
-            return "Please enter a level for the project.";
+            return "Geef aub het leerniveau van deze leergang.";
         }
     }
 }

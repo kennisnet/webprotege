@@ -50,10 +50,10 @@ public class NewProjectSettings implements Serializable {
             throw new NullPointerException("projectDescription must not be null.");
         }
         if (projectCourse == null) {
-            throw new NullPointerException("projectCourse must not be null.");
+            throw new NullPointerException("vak/leergebied mag niet leeg zijn.");
         }
         if (projectLevel == null) {
-            throw new NullPointerException("projectLevel must not be null.");
+            throw new NullPointerException("leerniveau mag niet leeg zijn.");
         }
         if (projectType == null) {
             throw new NullPointerException("projectType must not be null");
@@ -181,7 +181,7 @@ public class NewProjectSettings implements Serializable {
                 .addValue(projectOwner)
                 .add("DisplayName", displayName)
                 .add("Description", projectDescription)
-                .add("Course", projectCourse)
-                .add("Level", projectLevel).toString();
+                .add("Vak/leergebied", projectCourse)
+                .add("Leerniveau", projectLevel).toString();
     }
 }

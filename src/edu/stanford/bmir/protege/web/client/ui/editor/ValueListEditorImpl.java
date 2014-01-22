@@ -11,6 +11,8 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
+
+import edu.stanford.bmir.protege.web.client.ui.library.button.CommentButton;
 import edu.stanford.bmir.protege.web.client.ui.library.button.DeleteButton;
 import edu.stanford.bmir.protege.web.shared.DirtyChangedEvent;
 import edu.stanford.bmir.protege.web.shared.DirtyChangedHandler;
@@ -162,6 +164,7 @@ public class ValueListEditorImpl<O> extends Composite implements ValueListEditor
         currentEditors.add(editor);
         final int rowCount = tableField.getRowCount();
         tableField.setWidget(rowCount, 0, editor.asWidget());
+        
         final DeleteButton deleteButton = new DeleteButton();
         deleteButton.addClickHandler(new ClickHandler() {
             @Override
@@ -170,16 +173,37 @@ public class ValueListEditorImpl<O> extends Composite implements ValueListEditor
             }
         });
         tableField.setWidget(rowCount, 1, deleteButton);
+        
+        final Button commentButton = new CommentButton();
+        commentButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                handleComment(editor);
+            }
+        });
+        tableField.setWidget(rowCount, 2, commentButton);
+        
         final FlexTable.FlexCellFormatter formatter = tableField.getFlexCellFormatter();
         formatter.setWidth(rowCount, 0, "100%");
         formatter.setVerticalAlignment(rowCount, 0, HasVerticalAlignment.ALIGN_TOP);
+        
         formatter.setWidth(rowCount, 1, "30px");
         formatter.getElement(rowCount, 1).getStyle().setPaddingLeft(1, Style.Unit.PX);
         formatter.setVerticalAlignment(rowCount, 1, HasVerticalAlignment.ALIGN_TOP);
+        
+        formatter.setWidth(rowCount, 2, "30px");
+        formatter.getElement(rowCount, 2).getStyle().setPaddingLeft(1, Style.Unit.PX);
+        formatter.setVerticalAlignment(rowCount, 2, HasVerticalAlignment.ALIGN_TOP);
+        
         editor.addDirtyChangedHandler(dirtyChangedHandler);
         editor.addValueChangeHandler(valueChangeHandler);
         deleteButton.setVisible(deleteVisible);
+        commentButton.setVisible(true);
         return editor;
+    }
+
+    private void handleComment(ValueEditor<O> editor) {
+        //fireEvent(new DirtyChangedEvent());
     }
 
     private void handleDelete(ValueEditor<O> editor) {

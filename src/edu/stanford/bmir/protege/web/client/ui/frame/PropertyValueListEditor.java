@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.impl.AsyncFragmentLoader.Logger;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -11,27 +12,45 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
+import com.gwtext.client.widgets.MessageBox;
+
+import edu.stanford.bmir.protege.web.client.dispatch.DispatchServiceManager;
 import edu.stanford.bmir.protege.web.client.primitive.*;
 import edu.stanford.bmir.protege.web.client.rpc.GetRendering;
 import edu.stanford.bmir.protege.web.client.rpc.GetRenderingCallback;
 import edu.stanford.bmir.protege.web.client.rpc.GetRenderingResponse;
 import edu.stanford.bmir.protege.web.client.rpc.RenderingServiceManager;
+import edu.stanford.bmir.protege.web.client.rpc.data.EntityData;
+import edu.stanford.bmir.protege.web.client.rpc.data.PropertyEntityData;
+import edu.stanford.bmir.protege.web.client.rpc.data.ValueType;
 import edu.stanford.bmir.protege.web.client.ui.editor.ValueEditor;
+import edu.stanford.bmir.protege.web.client.ui.library.button.CommentButton;
 import edu.stanford.bmir.protege.web.client.ui.library.button.DeleteButton;
 import edu.stanford.bmir.protege.web.client.ui.library.common.EventStrategy;
 import edu.stanford.bmir.protege.web.client.ui.library.common.HasEditable;
 import edu.stanford.bmir.protege.web.client.ui.library.common.HasTextRendering;
+import edu.stanford.bmir.protege.web.client.ui.library.dlg.WebProtegeDialog;
 import edu.stanford.bmir.protege.web.client.ui.library.text.ExpandingTextBoxMode;
+import edu.stanford.bmir.protege.web.client.ui.notes.editor.NoteContentEditorHandler;
+import edu.stanford.bmir.protege.web.client.ui.notes.editor.NoteContentEditorMode;
+import edu.stanford.bmir.protege.web.client.ui.notes.editor.NoteEditorDialogController;
+import edu.stanford.bmir.protege.web.client.ui.portlet.propertyForm.AbstractFieldWidget;
+import edu.stanford.bmir.protege.web.client.ui.util.UIUtil;
+import edu.stanford.bmir.protege.web.shared.DataFactory;
 import edu.stanford.bmir.protege.web.shared.DirtyChangedEvent;
 import edu.stanford.bmir.protege.web.shared.DirtyChangedHandler;
 import edu.stanford.bmir.protege.web.shared.HasEntityDataProvider;
 import edu.stanford.bmir.protege.web.shared.PrimitiveType;
 import edu.stanford.bmir.protege.web.shared.entity.*;
 import edu.stanford.bmir.protege.web.shared.frame.*;
+import edu.stanford.bmir.protege.web.shared.notes.AddNoteToEntityAction;
+import edu.stanford.bmir.protege.web.shared.notes.AddNoteToEntityResult;
+import edu.stanford.bmir.protege.web.shared.notes.NoteContent;
 import edu.stanford.bmir.protege.web.shared.project.ProjectId;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -50,6 +69,8 @@ public class PropertyValueListEditor extends FlowPanel implements ValueEditor<Pr
 
 
     public static final int DELETE_BUTTON_COL = 3;
+
+    public static final int COMMENT_BUTTON_COL = 4;
 
     public static final int LANG_COLUMN = 2;
 
@@ -162,6 +183,7 @@ public class PropertyValueListEditor extends FlowPanel implements ValueEditor<Pr
             tableElement.removeFromParent();
             recyclePrimitiveDataEditors();
             recycleDeleteButtons();
+            recycleCommentButtons();
             table.removeAllRows();
 
             for (PropertyValue propertyValue : propertyValueList.getPropertyValues()) {
@@ -289,6 +311,7 @@ public class PropertyValueListEditor extends FlowPanel implements ValueEditor<Pr
             formatter.setWidth(row, LANG_COLUMN, "20px");
         }
         formatter.setWidth(row, DELETE_BUTTON_COL, "12px");
+        formatter.setWidth(row, COMMENT_BUTTON_COL, "12px");
         if (propertyData.isPresent()) {
             propertyEditor.setValue(propertyData.get());
         }
@@ -322,6 +345,7 @@ public class PropertyValueListEditor extends FlowPanel implements ValueEditor<Pr
         fillerEditor.setPlaceholder(FILLER_EDITOR_PLACE_HOLDER_TEXT);
 
         addDeleteButton(row, propertyData.isPresent());
+        addCommentButton(row);
 
 
         HandlerRegistration propHandlerReg = propertyEditor.addValueChangeHandler(new ValueChangeHandler<Optional<OWLPrimitiveData>>() {
@@ -389,6 +413,14 @@ public class PropertyValueListEditor extends FlowPanel implements ValueEditor<Pr
         }
     }
 
+    private void recycleCommentButtons() {
+        for(int row = 0; row < table.getRowCount(); row++) {
+            CommentButton commentButton = (CommentButton) table.getWidget(row, COMMENT_BUTTON_COL);
+            if(commentButton != null) {
+                recycle(commentButton);
+            }
+        }
+    }
 
 
     private void recycle(DefaultPrimitiveDataEditor editor) {
@@ -414,6 +446,15 @@ public class PropertyValueListEditor extends FlowPanel implements ValueEditor<Pr
             return;
         }
         deleteButtonPool.add(deleteButton);
+    }
+
+    private List<CommentButton> commentButtonPool = new ArrayList<CommentButton>();
+
+    private void recycle(CommentButton commentButton) {
+        if(commentButtonPool.size() == MAX_POOL_SIZE) {
+            return;
+        }
+        commentButtonPool.add(commentButton);
     }
 
     private DefaultPrimitiveDataEditor createPrimitiveEditor() {
@@ -450,6 +491,7 @@ public class PropertyValueListEditor extends FlowPanel implements ValueEditor<Pr
 
     private void handleFillerChanged(int row, PrimitiveDataEditor propertyEditor, PrimitiveDataEditor fillerEditor) {
         addDeleteButton(row, shouldShowDeleteButton(row, propertyEditor, fillerEditor));
+        addCommentButton(row);
         updateFillerEditor(row, propertyEditor, fillerEditor);
         if(isInvalidValue(propertyEditor)) {
             inferPropertyTypeFromFiller(row, propertyEditor, fillerEditor);
@@ -536,6 +578,7 @@ public class PropertyValueListEditor extends FlowPanel implements ValueEditor<Pr
     private void handlePropertyChanged(int row, PrimitiveDataEditor propertyEditor, PrimitiveDataEditor fillerEditor) {
         fillerEditor.setPlaceholder(getValuePlaceholder(row));
         addDeleteButton(row, shouldShowDeleteButton(row, propertyEditor, fillerEditor));
+        addCommentButton(row);
         if(isLiteralOrCanEditLiteral(propertyEditor.getValue(), fillerEditor.getValue())) {
             addLangEditor(row, fillerEditor.getLanguageEditor(), fillerEditor.getValue());
         }
@@ -556,6 +599,53 @@ public class PropertyValueListEditor extends FlowPanel implements ValueEditor<Pr
         Widget langEditor = table.getWidget(row, LANG_COLUMN);
         if(langEditor != null) {
             langEditor.setVisible(false);
+        }
+    }
+
+    private void addCommentButton(final int rowCount) {
+        Widget widget = table.getWidget(rowCount, COMMENT_BUTTON_COL);
+        if(widget instanceof CommentButton) {
+//            widget.setVisible(visible);
+            widget.getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
+            return;
+        }
+        final CommentButton commentButton = createCommentButton();
+        commentButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                commentRow(commentButton);
+            }
+        });
+        commentButton.getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
+        table.setWidget(rowCount, COMMENT_BUTTON_COL, commentButton);
+    }
+
+    private CommentButton createCommentButton() {
+        if(!commentButtonPool.isEmpty()) {
+            return commentButtonPool.remove(0);
+        }
+        return new CommentButton();
+    }
+
+    private void commentRow(Widget commentButton) {
+        if(!isEnabled()) {
+            return;
+        }
+        int rowCount = table.getRowCount();
+        boolean changed = false;
+        int i = 0;
+        for (i = 0; i < rowCount; i++) {
+            Widget candidate = table.getWidget(i, COMMENT_BUTTON_COL);
+            if (candidate == commentButton) {
+            	changed = true;
+                break;
+            }
+        }
+        if(changed) {
+            //MessageBox.alert("Comment button of row " + i + " pressed..");
+        	onEditNotes(i);
+            setDirty(true, EventStrategy.FIRE_EVENTS);
+            ValueChangeEvent.fire(this, getValue());
         }
     }
 
@@ -894,4 +984,75 @@ public class PropertyValueListEditor extends FlowPanel implements ValueEditor<Pr
             deleteButtonReg.removeHandler();
         }
     }
+    
+    protected void onEditNotes(int row) {
+      String annotEntityName = "";
+      String subject = "";
+      String text = "";
+
+      Optional<PropertyValue> v = getPropertyValueForRow(row);
+      
+//      // [GJo] Copied from AbstractFieldWidget
+//      PropertyEntityData property = new PropertyEntityData(v.get().getProperty().toStringID());
+//      if (property.getValueType() == ValueType.Instance) {
+//          //FIXME This solution will not work when multiple property values are specified:
+//          //  it will add the comment always to the first instance.
+//          //  This method should be generalized OR overwritten in subclasses that can deal
+//          //  with multiple property values.
+//          EntityData firstValue = UIUtil.getFirstItem(getValues());
+//          if (firstValue != null) {
+//              annotEntityName = firstValue.getName();
+//          }
+//      }
+//      else {
+//          //TODO this is a hack. Fix it when the Changes API will provide
+//          // ways to add notes to property values
+//          // Until then we add the notes to the selected class itself
+//          annotEntityName = getSubject().getName();
+//          subject = "[" + AbstractFieldWidget.this.getProperty().getBrowserText() + "] ";
+//      }
+//      
+      onEditNotes(v.get().getProperty().toStringID(), v.get().getProperty().toStringID(), v.get().getValue().toString());
+  }
+
+    protected void onEditNotes(String value) {
+        onEditNotes(value, "", "");
+    }
+
+    protected void onEditNotes(String value, String subject, String text) {
+        onEditNotes(value, "Please enter your note:", subject, text);
+    }
+
+    protected void onEditNotes(final String value, String message, String subject, String text) {
+        if (value != null) {
+//            MessageBox.alert("Editing notes on " + value + ", " + message + ", " + subject + ", " + text + " ...");
+            GWT.log("Editing notes on " + value + " ...", null);
+
+            // TODO: THIS NEEDS FIXING
+            NoteEditorDialogController controller = new NoteEditorDialogController(new NoteContentEditorHandler() {
+                @Override
+                public void handleAccept(Optional<NoteContent> noteContent) {
+                    if (noteContent.isPresent()) {
+                        OWLEntity entity = DataFactory.getOWLClass(value);
+                        DispatchServiceManager.get().execute(new AddNoteToEntityAction(getProjectId(), entity, noteContent.get()), new AsyncCallback<AddNoteToEntityResult>() {
+                            @Override
+                            public void onFailure(Throwable caught) {
+                            }
+
+                            @Override
+                            public void onSuccess(AddNoteToEntityResult result) {
+                            }
+                        });
+                    }
+                }
+            });
+            controller.setMode(NoteContentEditorMode.NEW_TOPIC);
+            WebProtegeDialog.showDialog(controller);
+        }
+    }
+
+    public ProjectId getProjectId() {
+        return this.projectId;
+    }
+
 }
