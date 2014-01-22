@@ -1,5 +1,6 @@
 package edu.stanford.bmir.protege.web.client.ui.ontology.classes;
 
+import com.google.common.base.Optional;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.http.client.URL;
@@ -28,6 +29,7 @@ import com.gwtext.client.widgets.tree.event.DefaultSelectionModelListenerAdapter
 import com.gwtext.client.widgets.tree.event.MultiSelectionModelListener;
 import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
 import com.gwtext.client.widgets.tree.event.TreePanelListenerAdapter;
+
 import edu.stanford.bmir.protege.web.client.Application;
 import edu.stanford.bmir.protege.web.client.csv.CSVImportDialogController;
 import edu.stanford.bmir.protege.web.client.dispatch.DispatchServiceManager;
@@ -53,15 +55,18 @@ import edu.stanford.bmir.protege.web.client.ui.util.UIUtil;
 import edu.stanford.bmir.protege.web.shared.DataFactory;
 import edu.stanford.bmir.protege.web.shared.ObjectPath;
 import edu.stanford.bmir.protege.web.shared.csv.CSVImportDescriptor;
+import edu.stanford.bmir.protege.web.shared.entity.OWLNamedIndividualData;
 import edu.stanford.bmir.protege.web.shared.event.*;
 import edu.stanford.bmir.protege.web.shared.hierarchy.ClassHierarchyParentAddedEvent;
 import edu.stanford.bmir.protege.web.shared.hierarchy.ClassHierarchyParentAddedHandler;
 import edu.stanford.bmir.protege.web.shared.hierarchy.ClassHierarchyParentRemovedEvent;
 import edu.stanford.bmir.protege.web.shared.hierarchy.ClassHierarchyParentRemovedHandler;
 import edu.stanford.bmir.protege.web.shared.watches.*;
+
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 import java.util.*;
 
@@ -123,6 +128,8 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
     */
     private static Set<EntityData> nodesWithNotesOpen = new HashSet<EntityData>();
 
+    private Optional<OWLClass> currentType = Optional.absent();
+    
     public ClassTreePortlet(final Project project) {
         this(project, true, true, true, true, null);
     }
@@ -694,7 +701,8 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
                 if (e.getKey() == EventObject.ENTER) {
                     SearchUtil searchUtil = new SearchUtil(getProjectId(), ClassTreePortlet.this, getSearchAsyncCallback());
                     searchUtil.setBusyComponent(searchField);
-                    searchUtil.setSearchedValueType(ValueType.Cls);
+                    //searchUtil.setBusyComponent(getTopToolbar());
+                    searchUtil.setSearchedValueType(ValueType.Instance);
                     searchUtil.search(searchField.getText());
                 }
             }
@@ -884,17 +892,33 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
 
 
     private void createSubClasses() {
-        WebProtegeDialog.showDialog(new CreateEntityDialogController(EntityType.CLASS, new CreateEntityDialogController.CreateEntityHandler() {
+//        WebProtegeDialog.showDialog(new CreateEntityDialogController(EntityType.NAMED_INDIVIDUAL, new CreateEntityDialogController.CreateEntityHandler() {
+//            @Override
+//            public void handleCreateEntity(CreateEntityInfo createEntityInfo) {
+//                final OWLClass superCls = getSelectedClass();
+//                final Set<String> browserTexts = new HashSet<String>(createEntityInfo.getBrowserTexts());
+//                if (browserTexts.size() > 1) {
+//                    DispatchServiceManager.get().execute(new CreateClassesAction(, superCls, browserTexts), getCreateClassesActionAsyncHandler());
+//                }
+//                else {
+//                    DispatchServiceManager.get().execute(new CreateClassAction(getProjectId(), browserTexts.iterator().next(), superCls), getCreateClassAsyncHandler());
+//                }
+//            }
+//        }));
+        WebProtegeDialog.showDialog(new CreateEntityDialogController(EntityType.NAMED_INDIVIDUAL, new CreateEntityDialogController.CreateEntityHandler() {
             @Override
             public void handleCreateEntity(CreateEntityInfo createEntityInfo) {
-                final OWLClass superCls = getSelectedClass();
-                final Set<String> browserTexts = new HashSet<String>(createEntityInfo.getBrowserTexts());
-                if (browserTexts.size() > 1) {
-                    DispatchServiceManager.get().execute(new CreateClassesAction(getProjectId(), superCls, browserTexts), getCreateClassesActionAsyncHandler());
-                }
-                else {
-                    DispatchServiceManager.get().execute(new CreateClassAction(getProjectId(), browserTexts.iterator().next(), superCls), getCreateClassAsyncHandler());
-                }
+                final Set<String> browserTexts = createEntityInfo.getBrowserTexts();
+                DispatchServiceManager.get().execute(new CreateNamedIndividualsAction(getProjectId(), currentType, browserTexts), new AbstractWebProtegeAsyncCallback<CreateNamedIndividualsResult>() {
+                    @Override
+                    public void onSuccess(CreateNamedIndividualsResult result) {
+                        Set<OWLNamedIndividualData> individuals = result.getIndividuals();
+//                        view.addListData(individuals);
+//                        if(!individuals.isEmpty()) {
+//                            view.setSelectedIndividual(individuals.iterator().next());
+//                        }
+                    }
+                });
             }
         }));
     }
@@ -980,17 +1004,17 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
     protected void onDeleteCls() {
         final EntityData currentSelection = getSingleSelection();
         if (currentSelection == null) {
-            MessageBox.showAlert("No class selected", "Please select a class to delete.");
+            MessageBox.showAlert("No individual selected", "Please select an individual to delete.");
             return;
         }
 
         final String displayName = currentSelection.getBrowserText();
-        final String clsName = currentSelection.getName();
+        final String idvName = currentSelection.getName();
 
-        MessageBox.showYesNoConfirmBox("Delete class?", "Are you sure you want to delete class \"" + displayName + "\"?", new YesNoHandler() {
+        MessageBox.showYesNoConfirmBox("Delete individual?", "Are you sure you want to delete individual \"" + displayName + "\"?", new YesNoHandler() {
             @Override
             public void handleYes() {
-                deleteCls(clsName);
+                deleteCls(idvName);
             }
 
             @Override
@@ -999,13 +1023,13 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
         });
     }
 
-    protected void deleteCls(final String className) {
-        GWT.log("Should delete class with name: " + className, null);
-        if (className == null) {
+    protected void deleteCls(final String idvName) {
+        GWT.log("Should delete individual with name: " + idvName, null);
+        if (idvName == null) {
             return;
         }
 
-        OWLClass entity = DataFactory.getOWLClass(className);
+        OWLNamedIndividual entity = DataFactory.getOWLNamedIndividual(idvName);
         DispatchServiceManager.get().execute(new DeleteEntityAction(entity, getProjectId()), new DeleteClassHandler());
 
         refreshFromServer(500);
