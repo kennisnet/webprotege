@@ -234,6 +234,17 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
     //TODO: temporary workaround to determine children of node
     private Set<OWLNamedIndividual> extractChildren(OWLNamedIndividual parent, OWLOntology rootOntology, OWLAPIProject project) {
       Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
+      List<PropertyValue> parentPropertyValues = getNamedIndividualPropertyValues(parent, rootOntology, project);
+      boolean parentIsSubkern = false;
+      //TODO: use .contains(Object) ?
+      for (PropertyValue propertyValue : parentPropertyValues) {
+          if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType")) {
+              if (propertyValue.getValue().toString().equals("<http://purl.edustandaard.nl/begrippenkader/8f47dd8f-c414-4778-bbbe-383b37bb47e3>")) {
+                  parentIsSubkern = true;
+                  break;
+              }
+          }
+      }
       String parentIRI = "<" + parent.getIRI().toString() + ">";
       for (OWLNamedIndividual niv : rootOntology.getIndividualsInSignature()) {
           List<PropertyValue> childPropertyValues = getNamedIndividualPropertyValues(niv, rootOntology, project);
@@ -242,6 +253,16 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
                   if (parentIRI.equals(propertyValue.getValue().toString())) {
                       result.add(niv);
                       break;
+                  }
+              }
+          }
+          if (parentIsSubkern) {
+              for (PropertyValue propertyValue : childPropertyValues) {
+                  if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/isBkDoelVan")) {
+                      if (parentIRI.equals(propertyValue.getValue().toString())) {
+                          result.add(niv);
+                          break;
+                      }
                   }
               }
           }

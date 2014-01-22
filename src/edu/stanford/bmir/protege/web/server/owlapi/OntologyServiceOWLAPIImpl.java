@@ -483,18 +483,8 @@ public class OntologyServiceOWLAPIImpl extends WebProtegeRemoteServiceServlet im
         AssertedNamedIndividualHierarchyProvider hierarchyProvider = project.getNamedIndividualHierarchyProvider();
 
         OWLNamedIndividual niv = null;
-        //TODO: Yucks, dirty hack, just good for POC demo..
         if (namedIndividualName.equals(project.getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLThing().getIRI().toString())) {
-            if (project.getProjectId().getId().equals("35131749-4e37-4684-b284-f6365f500353")) {
-                //Vak/Leergebied Engels
-                niv = project.getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create("http://purl.edustandaard.nl/begrippenkader/b5dcf68d-df0b-4c00-b0aa-9cc63c7a9f63"));
-            } else if (project.getProjectId().getId().equals("e221da3d-1535-45db-8987-f2a769258174")) {
-                //Vak/Leergebied Aardrijkskunde
-                niv = project.getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create("http://purl.edustandaard.nl/begrippenkader/d61086bf-827a-476a-9403-7c5b317a12ed"));
-            } else if (project.getProjectId().getId().equals("dd3926a5-e41f-4ed8-9a78-98befbececfd")) {
-                //Vak/Leergebied Aardrijkskunde
-                niv = project.getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create("http://purl.edustandaard.nl/begrippenkader/f8b3332d-5b33-4963-b69e-3914d27c5f12"));
-            }
+            //not supported anymore..
         } else {
             niv = rm.getEntity(namedIndividualName, EntityType.NAMED_INDIVIDUAL);
         }
