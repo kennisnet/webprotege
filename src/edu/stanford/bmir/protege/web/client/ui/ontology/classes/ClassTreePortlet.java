@@ -975,7 +975,7 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
 //                }
 //            }
 //        }));
-        WebProtegeDialog.showDialog(new CreateEntityDialogController(getProjectId(), EntityType.NAMED_INDIVIDUAL, new CreateEntityDialogController.CreateEntityHandler() {
+        WebProtegeDialog.showDialog(new CreateEntityDialogController(EntityType.NAMED_INDIVIDUAL, new CreateEntityDialogController.CreateEntityHandler() {
             @Override
             public void handleCreateEntity(CreateEntityInfo createEntityInfo) {
                 final Set<String> browserTexts = createEntityInfo.getBrowserTexts();
