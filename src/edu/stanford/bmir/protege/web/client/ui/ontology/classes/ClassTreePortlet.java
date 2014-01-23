@@ -992,6 +992,7 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
                                 Collection<PropertyValue> propertyValueList = new ArrayList<PropertyValue>();
                                 Set<OWLNamedIndividual> sameIndividuals = new HashSet<OWLNamedIndividual>();
                                 LabelledFrame<NamedIndividualFrame> from = new LabelledFrame(individual.getUnquotedBrowserText() , new NamedIndividualFrame(namedIndividual, namedTypes, propertyValueList, sameIndividuals));
+                                //Default properties
                                 namedTypes.add(new OWLClassImpl(IRI.create("http://www.openarchives.org/ore/terms/Proxy")));
                                 propertyValueList.add(new PropertyAnnotationValue(new OWLAnnotationPropertyImpl(IRI.create("http://www.w3.org/2004/02/skos/core#prefLabel")), new OWLLiteralImplNoCompression(individual.getUnquotedBrowserText(), "", OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL))));
                                 propertyValueList.add(new PropertyAnnotationValue(new OWLAnnotationPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/heeftBkStatus")), new OWLLiteralImplNoCompression("Nee", "", OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL))));
@@ -1005,6 +1006,10 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
                                     property.getNamedProperty().getIRI();
                                     //propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create(property.ggetKey())), new OWLNamedIndividualImpl(IRI.create(property.getValue()))));
                                 }
+                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/isBkInhoudVan")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/bbdb9d07-853a-486f-9bb8-a8ea3e3d682a"))));
+                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/isBkDeelinhoudVan")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/c8c708af-14ab-4134-af28-6443e6aa16f8"))));
+                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/8f47dd8f-c414-4778-bbbe-383b37bb47e3"))));
+                                
 //                                OntologyServiceManager.getInstance().search(getProjectId(), text, new AsyncCallback<List<EntityData>>() {
 //                                    @Override
 //                                    public void onFailure(Throwable caught) {
@@ -1021,10 +1026,6 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
 //                                        }
 //                                    }
 //                                });
-
-                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/isBkInhoudVan")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/c8c708af-14ab-4134-af28-6443e6aa16f8"))));
-                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/isBkDeelinhoudVan")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/bbdb9d07-853a-486f-9bb8-a8ea3e3d682a"))));
-                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/8f47dd8f-c414-4778-bbbe-383b37bb47e3"))));
                                 
                                 LabelledFrame<NamedIndividualFrame> to = new LabelledFrame(individual.getUnquotedBrowserText() , new NamedIndividualFrame(namedIndividual, namedTypes, propertyValueList, sameIndividuals));
                                 UpdateObjectAction updateAction = new UpdateNamedIndividualFrameAction(getProjectId(), from, to);

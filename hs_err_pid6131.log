@@ -1,0 +1,963 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f80f1c630f9, pid=6131, tid=140191481153280
+#
+# JRE version: 7.0_21-b11
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (23.21-b01 mixed mode linux-amd64 compressed oops)
+# Problematic frame:
+# V  [libjvm.so+0x6370f9]  VM_RedefineClasses::merge_cp_and_rewrite(instanceKlassHandle, instanceKlassHandle, Thread*)+0x189
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f80ec0fa000):  JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_in_vm, id=6145, stack(0x00007f80df5f4000,0x00007f80df6f5000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0x0000000000000000
+
+Registers:
+RAX=0x0000000000000000, RBX=0x00007f80ec0f2050, RCX=0x00000000b12fe368, RDX=0x0000000000000000
+RSP=0x00007f80df6f33b0, RBP=0x00007f80df6f3460, RSI=0x0000000000000000, RDI=0x0000000000000000
+R8 =0x00007f80f2323de0, R9 =0x6e695f63672f6d76, R10=0x2f65636166726574, R11=0x0000000000000283
+R12=0x0000000000000000, R13=0x00007f80ac522ef0, R14=0x00007f80ac522ee8, R15=0x00007f80ec0fa000
+RIP=0x00007f80f1c630f9, EFLAGS=0x0000000000010246, CSGSFS=0x0000000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007f80df6f33b0)
+0x00007f80df6f33b0:   20ff00221a292251 00007f80ec0fa000
+0x00007f80df6f33c0:   00007f80ac522eb0 00007f80df6f3800
+0x00007f80df6f33d0:   00007f80accae4e0 0000000000000449
+0x00007f80df6f33e0:   00007f80accae980 00007f80ac522eb0
+0x00007f80df6f33f0:   00007f80ac5253e8 00007f80600dea80
+0x00007f80df6f3400:   00007f80ec0fa000 00007f80ec0f2050
+0x00007f80df6f3410:   00007f80ac51dfb0 00007f80ac522ee8
+0x00007f80df6f3420:   0000000000000000 00000cecdf6f3c70
+0x00007f80df6f3430:   00007f80df6f3460 00007f80ec0f2050
+0x00007f80df6f3440:   0000000000000000 00000000c1535970
+0x00007f80df6f3450:   00007f80ec0fbb10 00007f80ec0fa000
+0x00007f80df6f3460:   00007f80df6f35c0 00007f80f1c639cd
+0x00007f80df6f3470:   00007f80ec0fa000 00007f80f1df74af
+0x00007f80df6f3480:   00007f80e8bdd410 00007f80df6f3570
+0x00007f80df6f3490:   00007f80df6f3580 00007f80df6f3520
+0x00007f80df6f34a0:   00007f80df6f3530 00007f80df6f3800
+0x00007f80df6f34b0:   0000000000000000 00000029df6f7731
+0x00007f80df6f34c0:   00007f80600dea80 00007f80ec0fa440
+0x00007f80df6f34d0:   00007f80ec0fa450 00007f80ec0fa828
+0x00007f80df6f34e0:   00007f80ec0f2020 0000000000000002
+0x00007f80df6f34f0:   00007f80df6f3520 00007f80df6f6331
+0x00007f80df6f3500:   0000000000000029 00007f80df6f3a20
+0x00007f80df6f3510:   00000000000003d8 0000000000000148
+0x00007f80df6f3520:   00007f80b002adc0 00007f80b00383e0
+0x00007f80df6f3530:   00007f80b00383e0 00007f80f1f34dcd
+0x00007f80df6f3540:   c12e000000000001 0000000107000000
+0x00007f80df6f3550:   0000008f1b000000 0000882604708007
+0x00007f80df6f3560:   636f447465731200 6e6148746e656d75
+0x00007f80df6f3570:   00007f80ac522eb0 33772f67726f4c28
+0x00007f80df6f3580:   00007f80ac522e68 00007f80ec0fa000
+0x00007f80df6f3590:   0000000000000073 00007f80df6f3800
+0x00007f80df6f35a0:   00007f80f2320518 00007f80df6f3800 
+
+Instructions: (pc=0x00007f80f1c630f9)
+0x00007f80f1c630d9:   04 00 00 48 89 53 10 4c 89 20 48 89 45 c0 49 8b
+0x00007f80f1c630e9:   0e 8b 51 3c 85 d2 0f 85 9b 02 00 00 48 8b 45 c0
+0x00007f80f1c630f9:   48 8b 10 8b 41 34 89 42 3c 48 8b 95 58 ff ff ff
+0x00007f80f1c63109:   bf 10 00 00 00 48 8b 92 08 01 00 00 48 89 55 90 
+
+Register to memory mapping:
+
+RAX=0x0000000000000000 is an unknown value
+RBX=0x00007f80ec0f2050 is an unknown value
+RCX=0x00000000b12fe368 is an oop
+
+[error occurred during error reporting (printing register info), id 0xe0000000]
+
+Stack: [0x00007f80df5f4000,0x00007f80df6f5000],  sp=0x00007f80df6f33b0,  free space=1020k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x6370f9]  VM_RedefineClasses::merge_cp_and_rewrite(instanceKlassHandle, instanceKlassHandle, Thread*)+0x189
+V  [libjvm.so+0x6379cd]  VM_RedefineClasses::load_new_class_versions(Thread*)+0x42d
+V  [libjvm.so+0x6382bd]  VM_RedefineClasses::doit_prologue()+0xbd
+V  [libjvm.so+0x8aff8b]  VMThread::execute(VM_Operation*)+0x15b
+V  [libjvm.so+0x607e18]  JvmtiEnv::RedefineClasses(int, _jvmtiClassDefinition const*)+0x28
+V  [libjvm.so+0x5c8fca]  jvmti_RedefineClasses+0x22a
+C  [libjdwp.so+0xbae6]  redefineClasses+0x1f6
+C  [libjdwp.so+0x11806]  debugLoop_run+0x2b6
+C  [libjdwp.so+0x243c1]  acceptThread+0x111
+V  [libjvm.so+0x627487]  JvmtiAgentThread::call_start_function()+0x97
+V  [libjvm.so+0x867578]  JavaThread::thread_main_inner()+0xc8
+V  [libjvm.so+0x8676c8]  JavaThread::run()+0x138
+V  [libjvm.so+0x749010]  java_start(Thread*)+0x100
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f807c002000 JavaThread "Code server for webprotege from Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.65 Safari/537.36 on http://127.0.0.1:8888/WebProtege.html?gwt.codesvr=127.0.0.1:9997#Edit:projectId=2659d59e-76df-49ea-bf70-9e0670abbb05 @ Kqqa98|d8[v=/GU'" daemon [_thread_in_native, id=6860, stack(0x00007f80d6820000,0x00007f80d6921000)]
+  0x00007f8068036800 JavaThread "btpool0-23" [_thread_blocked, id=6859, stack(0x00007f80d631b000,0x00007f80d641c000)]
+  0x00007f80b0001000 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=6653, stack(0x00007f80d7110000,0x00007f80d7211000)]
+  0x00007f8074008800 JavaThread "Timer-2" daemon [_thread_blocked, id=6261, stack(0x00007f80d651d000,0x00007f80d661e000)]
+  0x00007f80ec869000 JavaThread "MongoCleaner1905092259" daemon [_thread_blocked, id=6168, stack(0x00007f80d692a000,0x00007f80d6a2b000)]
+  0x00007f8088127000 JavaThread "TimerQueue" daemon [_thread_blocked, id=6167, stack(0x00007f80d6a2b000,0x00007f80d6b2c000)]
+  0x00007f80ec7bd000 JavaThread "Timer-1" daemon [_thread_blocked, id=6166, stack(0x00007f80d6d34000,0x00007f80d6e35000)]
+  0x00007f80ec63e000 JavaThread "btpool0-1 - Acceptor0 SelectChannelConnector@127.0.0.1:8888" [_thread_in_native, id=6165, stack(0x00007f80d700f000,0x00007f80d7110000)]
+  0x00007f80ec5a8000 JavaThread "GC Daemon" daemon [_thread_blocked, id=6163, stack(0x00007f80dc0f6000,0x00007f80dc1f7000)]
+  0x00007f80ec4d3800 JavaThread "Code server listener" daemon [_thread_in_native, id=6161, stack(0x00007f80d7b80000,0x00007f80d7c81000)]
+  0x00007f8084007800 JavaThread "Timer-0" daemon [_thread_blocked, id=6160, stack(0x00007f80d7c81000,0x00007f80d7d82000)]
+  0x00007f80ec4bb000 JavaThread "pool-1-thread-1" [_thread_blocked, id=6158, stack(0x00007f80deb18000,0x00007f80dec19000)]
+  0x00007f80ec49e800 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=6155, stack(0x00007f80dca94000,0x00007f80dcb95000)]
+  0x00007f80ec49d000 JavaThread "AWT-Shutdown" [_thread_blocked, id=6154, stack(0x00007f80dcb95000,0x00007f80dcc96000)]
+  0x00007f80ec497800 JavaThread "AWT-XAWT" daemon [_thread_in_native, id=6153, stack(0x00007f80dcc96000,0x00007f80dcd97000)]
+  0x00007f80ec46d800 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=6152, stack(0x00007f80dd1a7000,0x00007f80dd2a8000)]
+  0x00007f80ec105000 JavaThread "Service Thread" daemon [_thread_blocked, id=6149, stack(0x00007f80df1f0000,0x00007f80df2f1000)]
+  0x00007f80ec102800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=6148, stack(0x00007f80df2f1000,0x00007f80df3f2000)]
+  0x00007f80ec0ff800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=6147, stack(0x00007f80df3f2000,0x00007f80df4f3000)]
+  0x00007f80ec0fd800 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=6146, stack(0x00007f80df4f3000,0x00007f80df5f4000)]
+=>0x00007f80ec0fa000 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_in_vm, id=6145, stack(0x00007f80df5f4000,0x00007f80df6f5000)]
+  0x00007f80ec0ec000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=6144, stack(0x00007f80df8f9000,0x00007f80df9fa000)]
+  0x00007f80ec0a0000 JavaThread "Finalizer" daemon [_thread_blocked, id=6143, stack(0x00007f80df9fa000,0x00007f80dfafb000)]
+  0x00007f80ec09e000 JavaThread "Reference Handler" daemon [_thread_blocked, id=6142, stack(0x00007f80dfafb000,0x00007f80dfbfc000)]
+  0x00007f80ec00d000 JavaThread "main" [_thread_blocked, id=6136, stack(0x00007f80f2e49000,0x00007f80f2f4a000)]
+
+Other Threads:
+  0x00007f80ec096800 VMThread [stack: 0x00007f80dfbfc000,0x00007f80dfcfd000] [id=6141]
+  0x00007f80ec117800 WatcherThread [stack: 0x00007f80df0ef000,0x00007f80df1f0000] [id=6150]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 411968K, used 8274K [0x00000000e5d60000, 0x00000000ffe60000, 0x0000000100000000)
+  eden space 398528K, 2% used [0x00000000e5d60000,0x00000000e6574b90,0x00000000fe290000)
+  from space 13440K, 0% used [0x00000000fe290000,0x00000000fe290000,0x00000000fefb0000)
+  to   space 12864K, 0% used [0x00000000ff1d0000,0x00000000ff1d0000,0x00000000ffe60000)
+ ParOldGen       total 750272K, used 280470K [0x00000000b1800000, 0x00000000df4b0000, 0x00000000e5d60000)
+  object space 750272K, 37% used [0x00000000b1800000,0x00000000c29e59f0,0x00000000df4b0000)
+ PSPermGen       total 83968K, used 83952K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b17fc3c0,0x00000000b1800000)
+
+Card table byte_map: [0x00007f80e893a000,0x00007f80e8bd8000] byte_map_base: 0x00007f80e83d7000
+
+Polling page: 0x00007f80f2f6a000
+
+Code Cache  [0x00007f80e8bd8000, 0x00007f80e9988000, 0x00007f80ebbd8000)
+ total_blobs=3981 nmethods=3332 adapters=605 free_code_cache=35319Kb largest_free_block=36029760
+
+Compilation events (10 events):
+Event: 12412.312 Thread 0x00007f80ec0ff800 3878             java.nio.Buffer::limit (5 bytes)
+Event: 12412.313 Thread 0x00007f80ec0ff800 nmethod 3878 0x00007f80e9942990 code [0x00007f80e9942ac0, 0x00007f80e9942b18]
+Event: 12415.325 Thread 0x00007f80ec102800 3879             sun.java2d.SurfaceData::getSourceSurfaceData (110 bytes)
+Event: 12415.325 Thread 0x00007f80ec0ff800 3880             sun.java2d.pipe.DrawImage::isBgOperation (22 bytes)
+Event: 12415.327 Thread 0x00007f80ec0ff800 nmethod 3880 0x00007f80e99426d0 code [0x00007f80e9942800, 0x00007f80e9942878]
+Event: 12415.327 Thread 0x00007f80ec0ff800 3881   !         sun.java2d.pipe.DrawImage::renderImageCopy (149 bytes)
+Event: 12415.343 Thread 0x00007f80ec102800 nmethod 3879 0x00007f80e9943650 code [0x00007f80e9943840, 0x00007f80e9943ce0]
+Event: 12415.343 Thread 0x00007f80ec102800 3882             sun.java2d.pipe.DrawImage::blitSurfaceData (145 bytes)
+Event: 12415.350 Thread 0x00007f80ec102800 nmethod 3882 0x00007f80e9951990 code [0x00007f80e9951b40, 0x00007f80e9952588]
+Event: 12415.364 Thread 0x00007f80ec0ff800 nmethod 3881 0x00007f80e9977c50 code [0x00007f80e9977fc0, 0x00007f80e99799d8]
+
+GC Heap History (10 events):
+Event: 11346.869 GC heap before
+{Heap before GC invocations=75 (full 6):
+ PSYoungGen      total 410624K, used 2936K [0x00000000e5d60000, 0x00000000ffd90000, 0x0000000100000000)
+  eden space 395200K, 0% used [0x00000000e5d60000,0x00000000e5d60000,0x00000000fdf50000)
+  from space 15424K, 19% used [0x00000000fdf50000,0x00000000fe22e010,0x00000000fee60000)
+  to   space 14208K, 0% used [0x00000000fefb0000,0x00000000fefb0000,0x00000000ffd90000)
+ ParOldGen       total 682688K, used 282924K [0x00000000b1800000, 0x00000000db2b0000, 0x00000000e5d60000)
+  object space 682688K, 41% used [0x00000000b1800000,0x00000000c2c4b2d8,0x00000000db2b0000)
+ PSPermGen       total 83968K, used 83582K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b179f8b8,0x00000000b1800000)
+Event: 11347.399 GC heap after
+Heap after GC invocations=75 (full 6):
+ PSYoungGen      total 410624K, used 0K [0x00000000e5d60000, 0x00000000ffd90000, 0x0000000100000000)
+  eden space 395200K, 0% used [0x00000000e5d60000,0x00000000e5d60000,0x00000000fdf50000)
+  from space 15424K, 0% used [0x00000000fdf50000,0x00000000fdf50000,0x00000000fee60000)
+  to   space 14208K, 0% used [0x00000000fefb0000,0x00000000fefb0000,0x00000000ffd90000)
+ ParOldGen       total 682688K, used 281227K [0x00000000b1800000, 0x00000000db2b0000, 0x00000000e5d60000)
+  object space 682688K, 41% used [0x00000000b1800000,0x00000000c2aa2d28,0x00000000db2b0000)
+ PSPermGen       total 83968K, used 83576K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b179e200,0x00000000b1800000)
+}
+Event: 12477.498 GC heap before
+{Heap before GC invocations=76 (full 6):
+ PSYoungGen      total 410624K, used 63457K [0x00000000e5d60000, 0x00000000ffd90000, 0x0000000100000000)
+  eden space 395200K, 16% used [0x00000000e5d60000,0x00000000e9b58558,0x00000000fdf50000)
+  from space 15424K, 0% used [0x00000000fdf50000,0x00000000fdf50000,0x00000000fee60000)
+  to   space 14208K, 0% used [0x00000000fefb0000,0x00000000fefb0000,0x00000000ffd90000)
+ ParOldGen       total 682688K, used 281227K [0x00000000b1800000, 0x00000000db2b0000, 0x00000000e5d60000)
+  object space 682688K, 41% used [0x00000000b1800000,0x00000000c2aa2d28,0x00000000db2b0000)
+ PSPermGen       total 83968K, used 83958K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b17fd818,0x00000000b1800000)
+Event: 12477.505 GC heap after
+Heap after GC invocations=76 (full 6):
+ PSYoungGen      total 412480K, used 852K [0x00000000e5d60000, 0x00000000ffd50000, 0x0000000100000000)
+  eden space 398528K, 0% used [0x00000000e5d60000,0x00000000e5d60000,0x00000000fe290000)
+  from space 13952K, 6% used [0x00000000fefb0000,0x00000000ff085010,0x00000000ffd50000)
+  to   space 13440K, 0% used [0x00000000fe290000,0x00000000fe290000,0x00000000fefb0000)
+ ParOldGen       total 682688K, used 281227K [0x00000000b1800000, 0x00000000db2b0000, 0x00000000e5d60000)
+  object space 682688K, 41% used [0x00000000b1800000,0x00000000c2aa2d28,0x00000000db2b0000)
+ PSPermGen       total 83968K, used 83958K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b17fd818,0x00000000b1800000)
+}
+Event: 12477.505 GC heap before
+{Heap before GC invocations=77 (full 7):
+ PSYoungGen      total 412480K, used 852K [0x00000000e5d60000, 0x00000000ffd50000, 0x0000000100000000)
+  eden space 398528K, 0% used [0x00000000e5d60000,0x00000000e5d60000,0x00000000fe290000)
+  from space 13952K, 6% used [0x00000000fefb0000,0x00000000ff085010,0x00000000ffd50000)
+  to   space 13440K, 0% used [0x00000000fe290000,0x00000000fe290000,0x00000000fefb0000)
+ ParOldGen       total 682688K, used 281227K [0x00000000b1800000, 0x00000000db2b0000, 0x00000000e5d60000)
+  object space 682688K, 41% used [0x00000000b1800000,0x00000000c2aa2d28,0x00000000db2b0000)
+ PSPermGen       total 83968K, used 83958K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b17fd818,0x00000000b1800000)
+Event: 12477.945 GC heap after
+Heap after GC invocations=77 (full 7):
+ PSYoungGen      total 412480K, used 0K [0x00000000e5d60000, 0x00000000ffd50000, 0x0000000100000000)
+  eden space 398528K, 0% used [0x00000000e5d60000,0x00000000e5d60000,0x00000000fe290000)
+  from space 13952K, 0% used [0x00000000fefb0000,0x00000000fefb0000,0x00000000ffd50000)
+  to   space 13440K, 0% used [0x00000000fe290000,0x00000000fe290000,0x00000000fefb0000)
+ ParOldGen       total 682688K, used 280470K [0x00000000b1800000, 0x00000000db2b0000, 0x00000000e5d60000)
+  object space 682688K, 41% used [0x00000000b1800000,0x00000000c29e59f0,0x00000000db2b0000)
+ PSPermGen       total 83968K, used 83952K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b17fc3c0,0x00000000b1800000)
+}
+Event: 12477.945 GC heap before
+{Heap before GC invocations=78 (full 7):
+ PSYoungGen      total 412480K, used 0K [0x00000000e5d60000, 0x00000000ffd50000, 0x0000000100000000)
+  eden space 398528K, 0% used [0x00000000e5d60000,0x00000000e5d60000,0x00000000fe290000)
+  from space 13952K, 0% used [0x00000000fefb0000,0x00000000fefb0000,0x00000000ffd50000)
+  to   space 13440K, 0% used [0x00000000fe290000,0x00000000fe290000,0x00000000fefb0000)
+ ParOldGen       total 682688K, used 280470K [0x00000000b1800000, 0x00000000db2b0000, 0x00000000e5d60000)
+  object space 682688K, 41% used [0x00000000b1800000,0x00000000c29e59f0,0x00000000db2b0000)
+ PSPermGen       total 83968K, used 83952K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b17fc3c0,0x00000000b1800000)
+Event: 12477.949 GC heap after
+Heap after GC invocations=78 (full 7):
+ PSYoungGen      total 411968K, used 0K [0x00000000e5d60000, 0x00000000ffe60000, 0x0000000100000000)
+  eden space 398528K, 0% used [0x00000000e5d60000,0x00000000e5d60000,0x00000000fe290000)
+  from space 13440K, 0% used [0x00000000fe290000,0x00000000fe290000,0x00000000fefb0000)
+  to   space 12864K, 0% used [0x00000000ff1d0000,0x00000000ff1d0000,0x00000000ffe60000)
+ ParOldGen       total 682688K, used 280470K [0x00000000b1800000, 0x00000000db2b0000, 0x00000000e5d60000)
+  object space 682688K, 41% used [0x00000000b1800000,0x00000000c29e59f0,0x00000000db2b0000)
+ PSPermGen       total 83968K, used 83952K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b17fc3c0,0x00000000b1800000)
+}
+Event: 12477.949 GC heap before
+{Heap before GC invocations=79 (full 8):
+ PSYoungGen      total 411968K, used 0K [0x00000000e5d60000, 0x00000000ffe60000, 0x0000000100000000)
+  eden space 398528K, 0% used [0x00000000e5d60000,0x00000000e5d60000,0x00000000fe290000)
+  from space 13440K, 0% used [0x00000000fe290000,0x00000000fe290000,0x00000000fefb0000)
+  to   space 12864K, 0% used [0x00000000ff1d0000,0x00000000ff1d0000,0x00000000ffe60000)
+ ParOldGen       total 682688K, used 280470K [0x00000000b1800000, 0x00000000db2b0000, 0x00000000e5d60000)
+  object space 682688K, 41% used [0x00000000b1800000,0x00000000c29e59f0,0x00000000db2b0000)
+ PSPermGen       total 83968K, used 83952K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b17fc3c0,0x00000000b1800000)
+Event: 12478.375 GC heap after
+Heap after GC invocations=79 (full 8):
+ PSYoungGen      total 411968K, used 0K [0x00000000e5d60000, 0x00000000ffe60000, 0x0000000100000000)
+  eden space 398528K, 0% used [0x00000000e5d60000,0x00000000e5d60000,0x00000000fe290000)
+  from space 13440K, 0% used [0x00000000fe290000,0x00000000fe290000,0x00000000fefb0000)
+  to   space 12864K, 0% used [0x00000000ff1d0000,0x00000000ff1d0000,0x00000000ffe60000)
+ ParOldGen       total 750272K, used 280470K [0x00000000b1800000, 0x00000000df4b0000, 0x00000000e5d60000)
+  object space 750272K, 37% used [0x00000000b1800000,0x00000000c29e59f0,0x00000000df4b0000)
+ PSPermGen       total 83968K, used 83952K [0x00000000ac600000, 0x00000000b1800000, 0x00000000b1800000)
+  object space 83968K, 99% used [0x00000000ac600000,0x00000000b17fc3c0,0x00000000b1800000)
+}
+
+Deoptimization events (10 events):
+Event: 6409.714 Thread 0x00007f8068036800 Uncommon trap -25 fr.pc 0x00007f80e93aa254
+Event: 6409.714 Thread 0x00007f806800a000 Uncommon trap -25 fr.pc 0x00007f80e93aa254
+Event: 6409.716 Thread 0x00007f806800d000 Uncommon trap -25 fr.pc 0x00007f80e93aa254
+Event: 6421.776 Thread 0x00007f80ec497800 Uncommon trap -12 fr.pc 0x00007f80e905b300
+Event: 7042.314 Thread 0x00007f80ec49e800 Uncommon trap -83 fr.pc 0x00007f80e95bc02c
+Event: 7339.418 Thread 0x00007f80ec497800 Uncommon trap -12 fr.pc 0x00007f80e98827ac
+Event: 7746.852 Thread 0x00007f807c002000 Uncommon trap -12 fr.pc 0x00007f80e9796b10
+Event: 7757.312 Thread 0x00007f80ec49e800 Uncommon trap -83 fr.pc 0x00007f80e97a1ab0
+Event: 7757.312 Thread 0x00007f80ec49e800 Uncommon trap -83 fr.pc 0x00007f80e8ee4c50
+Event: 10340.154 Thread 0x00007f807c002000 Uncommon trap -89 fr.pc 0x00007f80e98507c4
+
+Internal exceptions (10 events):
+Event: 6409.708 Thread 0x00007f806800d000 Threw 0x00000000fced3108 at /HUDSON/workspace/jdk7u21-2-build-linux-amd64-product/jdk7u21/hotspot/src/share/vm/interpreter/interpre
+Event: 6409.713 Thread 0x00007f806800a000 Threw 0x00000000fcf43598 at /HUDSON/workspace/jdk7u21-2-build-linux-amd64-product/jdk7u21/hotspot/src/share/vm/interpreter/interpre
+Event: 6409.714 Thread 0x00007f8068036800 Threw 0x00000000fc840530 at /HUDSON/workspace/jdk7u21-2-build-linux-amd64-product/jdk7u21/hotspot/src/share/vm/interpreter/interpre
+Event: 6409.714 Thread 0x00007f806800a000 Threw 0x00000000fcf6ee50 at /HUDSON/workspace/jdk7u21-2-build-linux-amd64-product/jdk7u21/hotspot/src/share/vm/interpreter/interpre
+Event: 6409.716 Thread 0x00007f806800d000 Threw 0x00000000fcefe8b8 at /HUDSON/workspace/jdk7u21-2-build-linux-amd64-product/jdk7u21/hotspot/src/share/vm/interpreter/interpre
+Event: 6421.776 Thread 0x00007f80ec497800 Implicit null exception at 0x00007f80e905901d to 0x00007f80e905b2f5
+Event: 7339.418 Thread 0x00007f80ec497800 Implicit null exception at 0x00007f80e987ff5d to 0x00007f80e988279d
+Event: 7746.852 Thread 0x00007f807c002000 Implicit null exception at 0x00007f80e979661e to 0x00007f80e9796b01
+Event: 7757.312 Thread 0x00007f80ec49e800 Implicit null exception at 0x00007f80e8ee4747 to 0x00007f80e8ee4c31
+Event: 12478.598 Thread 0x00007f80ec0fa000 Threw 0x00000000ac6aeed8 at /HUDSON/workspace/jdk7u21-2-build-linux-amd64-product/jdk7u21/hotspot/src/share/vm/gc_interface/collect
+
+Events (10 events):
+Event: 10341.094 loading class 0x00007f8060561f90
+Event: 10341.094 loading class 0x00007f8060561f90 done
+Event: 10341.155 loading class 0x00007f8064244a50
+Event: 10341.155 loading class 0x00007f8064244a50 done
+Event: 10341.168 loading class 0x00007f8064244cc0
+Event: 10341.168 loading class 0x00007f8064244cc0 done
+Event: 11346.852 Executing VM operation: ParallelGCSystemGC
+Event: 11347.399 Executing VM operation: ParallelGCSystemGC done
+Event: 12477.498 Executing VM operation: ParallelGCFailedPermanentAllocation
+Event: 12478.591 Executing VM operation: ParallelGCFailedPermanentAllocation done
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 07:00 401422                             /home/reumerman/jdk1.7.0_21/jre/bin/java
+00600000-00601000 rw-p 00000000 07:00 401422                             /home/reumerman/jdk1.7.0_21/jre/bin/java
+00f9b000-01034000 rw-p 00000000 00:00 0                                  [heap]
+ac600000-b1800000 rw-p 00000000 00:00 0 
+b1800000-df4b0000 rw-p 00000000 00:00 0 
+df4b0000-e5d60000 rw-p 00000000 00:00 0 
+e5d60000-ffe60000 rw-p 00000000 00:00 0 
+ffe60000-100000000 ---p 00000000 00:00 0 
+7f8050000000-7f805292e000 rw-p 00000000 00:00 0 
+7f805292e000-7f8054000000 ---p 00000000 00:00 0 
+7f8058000000-7f805bcb3000 rw-p 00000000 00:00 0 
+7f805bcb3000-7f805c000000 ---p 00000000 00:00 0 
+7f805c000000-7f805ffff000 rw-p 00000000 00:00 0 
+7f805ffff000-7f8060000000 ---p 00000000 00:00 0 
+7f8060000000-7f806067c000 rw-p 00000000 00:00 0 
+7f806067c000-7f8064000000 ---p 00000000 00:00 0 
+7f8064000000-7f8064584000 rw-p 00000000 00:00 0 
+7f8064584000-7f8068000000 ---p 00000000 00:00 0 
+7f8068000000-7f806808e000 rw-p 00000000 00:00 0 
+7f806808e000-7f806c000000 ---p 00000000 00:00 0 
+7f806c000000-7f806c0e2000 rw-p 00000000 00:00 0 
+7f806c0e2000-7f8070000000 ---p 00000000 00:00 0 
+7f8070000000-7f8070228000 rw-p 00000000 00:00 0 
+7f8070228000-7f8074000000 ---p 00000000 00:00 0 
+7f8074000000-7f807451a000 rw-p 00000000 00:00 0 
+7f807451a000-7f8078000000 ---p 00000000 00:00 0 
+7f8078000000-7f80780a7000 rw-p 00000000 00:00 0 
+7f80780a7000-7f807c000000 ---p 00000000 00:00 0 
+7f807c000000-7f807c021000 rw-p 00000000 00:00 0 
+7f807c021000-7f8080000000 ---p 00000000 00:00 0 
+7f8080000000-7f8080072000 rw-p 00000000 00:00 0 
+7f8080072000-7f8084000000 ---p 00000000 00:00 0 
+7f8084000000-7f8084082000 rw-p 00000000 00:00 0 
+7f8084082000-7f8088000000 ---p 00000000 00:00 0 
+7f8088000000-7f80883d0000 rw-p 00000000 00:00 0 
+7f80883d0000-7f808c000000 ---p 00000000 00:00 0 
+7f808c000000-7f808c102000 rw-p 00000000 00:00 0 
+7f808c102000-7f8090000000 ---p 00000000 00:00 0 
+7f8090000000-7f8090021000 rw-p 00000000 00:00 0 
+7f8090021000-7f8094000000 ---p 00000000 00:00 0 
+7f8094000000-7f8094021000 rw-p 00000000 00:00 0 
+7f8094021000-7f8098000000 ---p 00000000 00:00 0 
+7f8098000000-7f8098151000 rw-p 00000000 00:00 0 
+7f8098151000-7f809c000000 ---p 00000000 00:00 0 
+7f809c000000-7f809c021000 rw-p 00000000 00:00 0 
+7f809c021000-7f80a0000000 ---p 00000000 00:00 0 
+7f80a0000000-7f80a0021000 rw-p 00000000 00:00 0 
+7f80a0021000-7f80a4000000 ---p 00000000 00:00 0 
+7f80a4000000-7f80a4021000 rw-p 00000000 00:00 0 
+7f80a4021000-7f80a8000000 ---p 00000000 00:00 0 
+7f80a8000000-7f80abffb000 rw-p 00000000 00:00 0 
+7f80abffb000-7f80ac000000 ---p 00000000 00:00 0 
+7f80ac000000-7f80afffb000 rw-p 00000000 00:00 0 
+7f80afffb000-7f80b0000000 ---p 00000000 00:00 0 
+7f80b0000000-7f80b047e000 rw-p 00000000 00:00 0 
+7f80b047e000-7f80b4000000 ---p 00000000 00:00 0 
+7f80b4000000-7f80b4021000 rw-p 00000000 00:00 0 
+7f80b4021000-7f80b8000000 ---p 00000000 00:00 0 
+7f80b8000000-7f80b8021000 rw-p 00000000 00:00 0 
+7f80b8021000-7f80bc000000 ---p 00000000 00:00 0 
+7f80bc000000-7f80bc021000 rw-p 00000000 00:00 0 
+7f80bc021000-7f80c0000000 ---p 00000000 00:00 0 
+7f80c0000000-7f80c0179000 rw-p 00000000 00:00 0 
+7f80c0179000-7f80c4000000 ---p 00000000 00:00 0 
+7f80c4000000-7f80c4021000 rw-p 00000000 00:00 0 
+7f80c4021000-7f80c8000000 ---p 00000000 00:00 0 
+7f80c8000000-7f80c8086000 rw-p 00000000 00:00 0 
+7f80c8086000-7f80cc000000 ---p 00000000 00:00 0 
+7f80d0000000-7f80d0054000 rw-p 00000000 00:00 0 
+7f80d0054000-7f80d4000000 ---p 00000000 00:00 0 
+7f80d5d97000-7f80d5da3000 rw-s 00000000 00:04 1423704073                 /SYSV00000000 (deleted)
+7f80d5da3000-7f80d6011000 rw-s 00000000 00:04 1421410310                 /SYSV00000000 (deleted)
+7f80d6018000-7f80d601b000 ---p 00000000 00:00 0 
+7f80d601b000-7f80d6119000 rw-p 00000000 00:00 0 
+7f80d6119000-7f80d611c000 ---p 00000000 00:00 0 
+7f80d611c000-7f80d621a000 rw-p 00000000 00:00 0 
+7f80d621a000-7f80d621d000 ---p 00000000 00:00 0 
+7f80d621d000-7f80d631b000 rw-p 00000000 00:00 0 
+7f80d631b000-7f80d631e000 ---p 00000000 00:00 0 
+7f80d631e000-7f80d641c000 rw-p 00000000 00:00 0                          [stack:6859]
+7f80d641c000-7f80d641f000 ---p 00000000 00:00 0 
+7f80d641f000-7f80d651d000 rw-p 00000000 00:00 0 
+7f80d651d000-7f80d6520000 ---p 00000000 00:00 0 
+7f80d6520000-7f80d661e000 rw-p 00000000 00:00 0                          [stack:6261]
+7f80d661e000-7f80d6621000 ---p 00000000 00:00 0 
+7f80d6621000-7f80d671f000 rw-p 00000000 00:00 0 
+7f80d671f000-7f80d6722000 ---p 00000000 00:00 0 
+7f80d6722000-7f80d6820000 rw-p 00000000 00:00 0 
+7f80d6820000-7f80d6823000 ---p 00000000 00:00 0 
+7f80d6823000-7f80d6921000 rw-p 00000000 00:00 0                          [stack:6860]
+7f80d692a000-7f80d692d000 ---p 00000000 00:00 0 
+7f80d692d000-7f80d6a2b000 rw-p 00000000 00:00 0                          [stack:6168]
+7f80d6a2b000-7f80d6a2e000 ---p 00000000 00:00 0 
+7f80d6a2e000-7f80d6b2c000 rw-p 00000000 00:00 0                          [stack:6167]
+7f80d6b2c000-7f80d6b34000 r-xp 00000000 07:00 3522591                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libmanagement.so
+7f80d6b34000-7f80d6d33000 ---p 00008000 07:00 3522591                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libmanagement.so
+7f80d6d33000-7f80d6d34000 rw-p 00007000 07:00 3522591                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libmanagement.so
+7f80d6d34000-7f80d6d37000 ---p 00000000 00:00 0 
+7f80d6d37000-7f80d6e35000 rw-p 00000000 00:00 0                          [stack:6166]
+7f80d6e35000-7f80d6e3a000 r--s 00037000 07:00 2759807                    /home/reumerman/webprotege/build/war/WEB-INF/lib/oboformat-included-owlapi-3.4.9.jar
+7f80d6e3a000-7f80d6e40000 r--s 0002e000 07:00 2759761                    /home/reumerman/webprotege/build/war/WEB-INF/lib/binaryowl-1.4.0.jar
+7f80d6e40000-7f80d6e4f000 r--s 0008c000 07:00 2759812                    /home/reumerman/webprotege/build/war/WEB-INF/lib/owlapi-api-3.4.9.jar
+7f80d6e4f000-7f80d6e51000 r--s 0000d000 07:00 2759766                    /home/reumerman/webprotege/build/war/WEB-INF/lib/commons-fileupload-1.2.2.jar
+7f80d6e51000-7f80d6e53000 r--s 00005000 07:00 2759800                    /home/reumerman/webprotege/build/war/WEB-INF/lib/httpmime-4.2.1.jar
+7f80d6e53000-7f80d6e5d000 r--s 0005b000 07:00 2759826                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-data-commons-1.5.0.RELEASE.jar
+7f80d6e5d000-7f80d6e75000 r--s 0011c000 07:00 2759777                    /home/reumerman/webprotege/build/war/WEB-INF/lib/gwtext.jar
+7f80d6e75000-7f80d6e77000 r--s 0000b000 07:00 2759771                    /home/reumerman/webprotege/build/war/WEB-INF/lib/commons-logging-api-1.1.1.jar
+7f80d6e77000-7f80d6e7a000 r--s 00012000 07:00 2759776                    /home/reumerman/webprotege/build/war/WEB-INF/lib/gwt-crypto-1.0.3.jar
+7f80d6e7a000-7f80d6e7d000 r--s 00017000 07:00 2759806                    /home/reumerman/webprotege/build/war/WEB-INF/lib/notes-api.jar
+7f80d6e7d000-7f80d6e7f000 r--s 00005000 07:00 2759820                    /home/reumerman/webprotege/build/war/WEB-INF/lib/slf4j-api-1.7.1.jar
+7f80d6e7f000-7f80d6e82000 r--s 0001a000 07:00 2759828                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-data-mongodb-cross-store-1.2.0.RELEASE.jar
+7f80d6e82000-7f80d6e84000 r--s 00006000 07:00 2759802                    /home/reumerman/webprotege/build/war/WEB-INF/lib/jsr305-2.0.1.jar
+7f80d6e84000-7f80d6e8c000 r--s 00034000 07:00 2759831                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-tx-3.2.4.RELEASE.jar
+7f80d6e8c000-7f80d6e95000 r--s 0005d000 07:00 2759827                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-data-mongodb-1.2.0.RELEASE.jar
+7f80d6e95000-7f80d6e96000 r--s 00004000 07:00 2759808                    /home/reumerman/webprotege/build/war/WEB-INF/lib/opencsv-2.3.jar
+7f80d6e96000-7f80d6e9d000 r--s 0005b000 07:00 2759805                    /home/reumerman/webprotege/build/war/WEB-INF/lib/mongo-java-driver-2.10.1.jar
+7f80d6e9d000-7f80d6eaf000 r--s 000c3000 07:00 2759825                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-core-3.2.4.RELEASE.jar
+7f80d6eaf000-7f80d6edb000 r--s 001ee000 07:00 2759811                    /home/reumerman/webprotege/build/war/WEB-INF/lib/org.protege.editor.owl.jar
+7f80d6edb000-7f80d6edc000 r--s 00006000 07:00 2759770                    /home/reumerman/webprotege/build/war/WEB-INF/lib/commons-logging-adapters-1.1.1.jar
+7f80d6edc000-7f80d6ee3000 r--s 00059000 07:00 2759815                    /home/reumerman/webprotege/build/war/WEB-INF/lib/owlapi-impl-3.4.9.jar
+7f80d6ee3000-7f80d6ee6000 r--s 0001a000 07:00 2759798                    /home/reumerman/webprotege/build/war/WEB-INF/lib/httpclient-cache-4.2.1.jar
+7f80d6ee6000-7f80d6eed000 r--s 0006a000 07:00 2759804                    /home/reumerman/webprotege/build/war/WEB-INF/lib/mail.jar
+7f80d6eed000-7f80d6ef8000 r--s 0005a000 07:00 2759833                    /home/reumerman/webprotege/build/war/WEB-INF/lib/xstream-1.3.jar
+7f80d6ef8000-7f80d6f02000 r--s 0005f000 07:00 2759782                    /home/reumerman/webprotege/build/war/WEB-INF/lib/httpclient-4.2.1.jar
+7f80d6f02000-7f80d6f04000 r--s 0000b000 07:00 2759822                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-aspects-3.2.4.RELEASE.jar
+7f80d6f04000-7f80d6f06000 r--s 00004000 07:00 2759772                    /home/reumerman/webprotege/build/war/WEB-INF/lib/fluent-hc-4.2.1.jar
+7f80d6f06000-7f80d6f08000 r--s 00006000 07:00 2759764                    /home/reumerman/webprotege/build/war/WEB-INF/lib/commons-codec-1.2.jar
+7f80d6f08000-7f80d6f1b000 r--s 000e1000 07:00 2759816                    /home/reumerman/webprotege/build/war/WEB-INF/lib/owlapi-parsers-3.4.9.jar
+7f80d6f1b000-7f80d6f49000 r--s 00240000 07:00 2759818                    /home/reumerman/webprotege/build/war/WEB-INF/lib/protege.jar
+7f80d6f49000-7f80d6f4b000 r--s 0000d000 07:00 2759769                    /home/reumerman/webprotege/build/war/WEB-INF/lib/commons-logging-1.1.1.jar
+7f80d6f4b000-7f80d6fc4000 r--s 00576000 07:00 2759852                    /home/reumerman/webprotege/build/war/WEB-INF/lib/gwt-servlet.jar
+7f80d6fc4000-7f80d6fc7000 r--s 0002b000 07:00 2759809                    /home/reumerman/webprotege/build/war/WEB-INF/lib/openid4java-0.9.5.jar
+7f80d6fc7000-7f80d6fd5000 r--s 000c7000 07:00 2759810                    /home/reumerman/webprotege/build/war/WEB-INF/lib/org.protege.editor.core.application.jar
+7f80d6fd5000-7f80d6ffe000 r--s 001ee000 07:00 2759774                    /home/reumerman/webprotege/build/war/WEB-INF/lib/guava-14.0.1.jar
+7f80d6ffe000-7f80d7003000 r--s 0002c000 07:00 2759830                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-expression-3.2.4.RELEASE.jar
+7f80d7003000-7f80d700f000 r--s 00089000 07:00 2759823                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-beans-3.2.4.RELEASE.jar
+7f80d700f000-7f80d7012000 ---p 00000000 00:00 0 
+7f80d7012000-7f80d7110000 rw-p 00000000 00:00 0                          [stack:6165]
+7f80d7110000-7f80d7113000 ---p 00000000 00:00 0 
+7f80d7113000-7f80d7211000 rw-p 00000000 00:00 0                          [stack:6653]
+7f80d7211000-7f80d7243000 r-xp 00000000 07:00 3522574                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libsunec.so
+7f80d7243000-7f80d7442000 ---p 00032000 07:00 3522574                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libsunec.so
+7f80d7442000-7f80d7448000 rw-p 00031000 07:00 3522574                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libsunec.so
+7f80d7448000-7f80d7458000 rw-p 00000000 00:00 0 
+7f80d7458000-7f80d745b000 ---p 00000000 00:00 0 
+7f80d745b000-7f80d7559000 rw-p 00000000 00:00 0 
+7f80d7559000-7f80d7571000 r-xp 00000000 07:00 2215948                    /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f80d7571000-7f80d7771000 ---p 00018000 07:00 2215948                    /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f80d7771000-7f80d7772000 r--p 00018000 07:00 2215948                    /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f80d7772000-7f80d7773000 rw-p 00019000 07:00 2215948                    /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f80d7773000-7f80d7775000 rw-p 00000000 00:00 0 
+7f80d7775000-7f80d777c000 r-xp 00000000 07:00 2215960                    /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f80d777c000-7f80d797b000 ---p 00007000 07:00 2215960                    /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f80d797b000-7f80d797c000 r--p 00006000 07:00 2215960                    /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f80d797c000-7f80d797d000 rw-p 00007000 07:00 2215960                    /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f80d797d000-7f80d797f000 r-xp 00000000 07:00 124057                     /lib/libnss_mdns4_minimal.so.2
+7f80d797f000-7f80d7b7e000 ---p 00002000 07:00 124057                     /lib/libnss_mdns4_minimal.so.2
+7f80d7b7e000-7f80d7b7f000 r--p 00001000 07:00 124057                     /lib/libnss_mdns4_minimal.so.2
+7f80d7b7f000-7f80d7b80000 rw-p 00002000 07:00 124057                     /lib/libnss_mdns4_minimal.so.2
+7f80d7b80000-7f80d7b83000 ---p 00000000 00:00 0 
+7f80d7b83000-7f80d7c81000 rw-p 00000000 00:00 0                          [stack:6161]
+7f80d7c81000-7f80d7c84000 ---p 00000000 00:00 0 
+7f80d7c84000-7f80d7d82000 rw-p 00000000 00:00 0                          [stack:6160]
+7f80d7d82000-7f80d7dea000 r-xp 00000000 07:00 3522581                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libt2k.so
+7f80d7dea000-7f80d7fe9000 ---p 00068000 07:00 3522581                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libt2k.so
+7f80d7fe9000-7f80d7ff0000 rw-p 00067000 07:00 3522581                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libt2k.so
+7f80d7ff0000-7f80d8000000 rw-p 00000000 00:00 0 
+7f80d8000000-7f80d8082000 rw-p 00000000 00:00 0 
+7f80d8082000-7f80dc000000 ---p 00000000 00:00 0 
+7f80dc003000-7f80dc004000 r--s 00002000 07:00 2759813                    /home/reumerman/webprotege/build/war/WEB-INF/lib/owlapi-apibinding-3.4.9.jar
+7f80dc004000-7f80dc018000 r--s 000bf000 07:00 2759824                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-context-3.2.4.RELEASE.jar
+7f80dc018000-7f80dc01e000 r--s 00045000 07:00 2759767                    /home/reumerman/webprotege/build/war/WEB-INF/lib/commons-httpclient-3.1.jar
+7f80dc01e000-7f80dc022000 r--s 00029000 07:00 2759768                    /home/reumerman/webprotege/build/war/WEB-INF/lib/commons-io-2.3.jar
+7f80dc022000-7f80dc025000 r--s 0001b000 07:00 2759832                    /home/reumerman/webprotege/build/war/WEB-INF/lib/xpp3-1.1.3.4.C.jar
+7f80dc025000-7f80dc027000 r--s 00003000 07:00 2759801                    /home/reumerman/webprotege/build/war/WEB-INF/lib/jcl-over-slf4j-1.7.1.jar
+7f80dc027000-7f80dc028000 r--s 00002000 07:00 2759819                    /home/reumerman/webprotege/build/war/WEB-INF/lib/recaptcha4j-0.0.7.jar
+7f80dc028000-7f80dc02e000 r--s 00033000 07:00 2759765                    /home/reumerman/webprotege/build/war/WEB-INF/lib/commons-codec-1.6.jar
+7f80dc02e000-7f80dc060000 r--s 00217000 07:00 2759853                    /home/reumerman/webprotege/build/war/WEB-INF/lib/gwt-servlet-deps.jar
+7f80dc060000-7f80dc062000 r--s 00007000 07:00 2759762                    /home/reumerman/webprotege/build/war/WEB-INF/lib/bioportal-services-lib.jar
+7f80dc062000-7f80dc0b7000 r--s 002ce000 07:00 2759851                    /home/reumerman/webprotege/build/war/WEB-INF/lib/webprotege-lib.jar
+7f80dc0b7000-7f80dc0bf000 r--s 0004a000 07:00 2759821                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-aop-3.2.4.RELEASE.jar
+7f80dc0bf000-7f80dc0c6000 r--s 00051000 07:00 2759803                    /home/reumerman/webprotege/build/war/WEB-INF/lib/log4j.jar
+7f80dc0c6000-7f80dc0cc000 r--s 00049000 07:00 2759763                    /home/reumerman/webprotege/build/war/WEB-INF/lib/cglib-nodep-2.2.3.jar
+7f80dc0cc000-7f80dc0d2000 r--s 00031000 07:00 2759799                    /home/reumerman/webprotege/build/war/WEB-INF/lib/httpcore-4.2.1.jar
+7f80dc0d2000-7f80dc0d7000 r--s 0002a000 07:00 2759773                    /home/reumerman/webprotege/build/war/WEB-INF/lib/gson-2.2.2.jar
+7f80dc0d7000-7f80dc0ea000 r--s 000b2000 07:00 2759814                    /home/reumerman/webprotege/build/war/WEB-INF/lib/owlapi-gwt-3.4.9.jar
+7f80dc0ea000-7f80dc0f6000 r--s 000b2000 07:00 2759775                    /home/reumerman/webprotege/build/war/WEB-INF/lib/guava-gwt-14.0.1.jar
+7f80dc0f6000-7f80dc0f9000 ---p 00000000 00:00 0 
+7f80dc0f9000-7f80dc1f7000 rw-p 00000000 00:00 0                          [stack:6163]
+7f80dc1f7000-7f80dc20c000 r-xp 00000000 07:00 95252                      /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f80dc20c000-7f80dc40b000 ---p 00015000 07:00 95252                      /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f80dc40b000-7f80dc40c000 r--p 00014000 07:00 95252                      /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f80dc40c000-7f80dc40d000 rw-p 00015000 07:00 95252                      /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f80dc40d000-7f80dc46c000 r-xp 00000000 07:00 404594                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libfontmanager.so
+7f80dc46c000-7f80dc66c000 ---p 0005f000 07:00 404594                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libfontmanager.so
+7f80dc66c000-7f80dc670000 rw-p 0005f000 07:00 404594                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libfontmanager.so
+7f80dc670000-7f80dc681000 rw-p 00000000 00:00 0 
+7f80dc681000-7f80dc691000 r-xp 00000000 07:00 404593                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libnio.so
+7f80dc691000-7f80dc891000 ---p 00010000 07:00 404593                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libnio.so
+7f80dc891000-7f80dc892000 rw-p 00010000 07:00 404593                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libnio.so
+7f80dc892000-7f80dc895000 ---p 00000000 00:00 0 
+7f80dc895000-7f80dc993000 rw-p 00000000 00:00 0 
+7f80dc993000-7f80dc996000 ---p 00000000 00:00 0 
+7f80dc996000-7f80dca94000 rw-p 00000000 00:00 0 
+7f80dca94000-7f80dca97000 ---p 00000000 00:00 0 
+7f80dca97000-7f80dcb95000 rw-p 00000000 00:00 0                          [stack:6155]
+7f80dcb95000-7f80dcb98000 ---p 00000000 00:00 0 
+7f80dcb98000-7f80dcc96000 rw-p 00000000 00:00 0                          [stack:6154]
+7f80dcc96000-7f80dcc99000 ---p 00000000 00:00 0 
+7f80dcc99000-7f80dcd97000 rw-p 00000000 00:00 0                          [stack:6153]
+7f80dcd97000-7f80dcd9c000 r-xp 00000000 07:00 290973                     /usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0
+7f80dcd9c000-7f80dcf9b000 ---p 00005000 07:00 290973                     /usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0
+7f80dcf9b000-7f80dcf9c000 r--p 00004000 07:00 290973                     /usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0
+7f80dcf9c000-7f80dcf9d000 rw-p 00005000 07:00 290973                     /usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0
+7f80dcf9d000-7f80dcfa6000 r-xp 00000000 07:00 293358                     /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2
+7f80dcfa6000-7f80dd1a5000 ---p 00009000 07:00 293358                     /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2
+7f80dd1a5000-7f80dd1a6000 r--p 00008000 07:00 293358                     /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2
+7f80dd1a6000-7f80dd1a7000 rw-p 00009000 07:00 293358                     /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2
+7f80dd1a7000-7f80dd1aa000 ---p 00000000 00:00 0 
+7f80dd1aa000-7f80dd2a8000 rw-p 00000000 00:00 0                          [stack:6152]
+7f80dd2a8000-7f80dd2ad000 r-xp 00000000 07:00 59109                      /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f80dd2ad000-7f80dd4ac000 ---p 00005000 07:00 59109                      /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f80dd4ac000-7f80dd4ad000 r--p 00004000 07:00 59109                      /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f80dd4ad000-7f80dd4ae000 rw-p 00005000 07:00 59109                      /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f80dd4ae000-7f80dd4b2000 r--s 0002d000 07:00 411710                     /home/reumerman/jdk1.7.0_21/jre/lib/ext/sunjce_provider.jar
+7f80dd4b2000-7f80dd4b4000 r-xp 00000000 07:00 87061                      /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f80dd4b4000-7f80dd6b3000 ---p 00002000 07:00 87061                      /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f80dd6b3000-7f80dd6b4000 r--p 00001000 07:00 87061                      /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f80dd6b4000-7f80dd6b5000 rw-p 00002000 07:00 87061                      /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f80dd6b5000-7f80dd6b7000 r--s 00001000 07:00 411714                     /home/reumerman/jdk1.7.0_21/jre/lib/ext/dnsns.jar
+7f80dd6b7000-7f80dd6d4000 r-xp 00000000 07:00 290854                     /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f80dd6d4000-7f80dd8d3000 ---p 0001d000 07:00 290854                     /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f80dd8d3000-7f80dd8d4000 r--p 0001c000 07:00 290854                     /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f80dd8d4000-7f80dd8d5000 rw-p 0001d000 07:00 290854                     /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f80dd8d5000-7f80dd8e3000 r-xp 00000000 07:00 289830                     /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f80dd8e3000-7f80ddae2000 ---p 0000e000 07:00 289830                     /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f80ddae2000-7f80ddae3000 r--p 0000d000 07:00 289830                     /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f80ddae3000-7f80ddae4000 rw-p 0000e000 07:00 289830                     /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f80ddae4000-7f80ddae9000 r-xp 00000000 07:00 293744                     /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f80ddae9000-7f80ddce8000 ---p 00005000 07:00 293744                     /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f80ddce8000-7f80ddce9000 r--p 00004000 07:00 293744                     /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f80ddce9000-7f80ddcea000 rw-p 00005000 07:00 293744                     /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f80ddcea000-7f80ddcf3000 r-xp 00000000 07:00 293354                     /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f80ddcf3000-7f80ddef2000 ---p 00009000 07:00 293354                     /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f80ddef2000-7f80ddef3000 r--p 00008000 07:00 293354                     /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f80ddef3000-7f80ddef4000 rw-p 00009000 07:00 293354                     /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f80ddef4000-7f80de024000 r-xp 00000000 07:00 841914                     /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f80de024000-7f80de224000 ---p 00130000 07:00 841914                     /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f80de224000-7f80de225000 r--p 00130000 07:00 841914                     /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f80de225000-7f80de229000 rw-p 00131000 07:00 841914                     /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f80de229000-7f80de239000 r-xp 00000000 07:00 290889                     /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f80de239000-7f80de438000 ---p 00010000 07:00 290889                     /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f80de438000-7f80de439000 r--p 0000f000 07:00 290889                     /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f80de439000-7f80de43a000 rw-p 00010000 07:00 290889                     /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f80de43d000-7f80de43f000 r--s 00000000 07:00 307269                     /home/reumerman/webprotege/build/war/WEB-INF/lib/aopalliance-1.0.jar
+7f80de43f000-7f80de441000 r--s 00014000 07:00 2759817                    /home/reumerman/webprotege/build/war/WEB-INF/lib/protege-owlapi-extensions.jar
+7f80de441000-7f80de443000 r--s 00017000 07:00 2759829                    /home/reumerman/webprotege/build/war/WEB-INF/lib/spring-data-mongodb-log4j-1.2.0.RELEASE.jar
+7f80de443000-7f80de445000 r--s 00019000 07:00 410648                     /home/reumerman/jdk1.7.0_21/jre/lib/jce.jar
+7f80de445000-7f80de449000 r--s 0008a000 07:00 401435                     /home/reumerman/jdk1.7.0_21/jre/lib/jsse.jar
+7f80de44b000-7f80de44d000 rw-p 00000000 00:00 0 
+7f80de44d000-7f80de457000 r--s 00254000 07:00 401440                     /home/reumerman/jdk1.7.0_21/jre/lib/resources.jar
+7f80de457000-7f80de4a7000 r-xp 00000000 07:00 410626                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/xawt/libmawt.so
+7f80de4a7000-7f80de6a7000 ---p 00050000 07:00 410626                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/xawt/libmawt.so
+7f80de6a7000-7f80de6ab000 rw-p 00050000 07:00 410626                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/xawt/libmawt.so
+7f80de6ab000-7f80de6ac000 rw-p 00000000 00:00 0 
+7f80de6ac000-7f80de74e000 r-xp 00000000 07:00 3522563                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libawt.so
+7f80de74e000-7f80de94e000 ---p 000a2000 07:00 3522563                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libawt.so
+7f80de94e000-7f80de95a000 rw-p 000a2000 07:00 3522563                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libawt.so
+7f80de95a000-7f80de97e000 rw-p 00000000 00:00 0 
+7f80de97e000-7f80de989000 r--s 0005a000 07:00 1759293                    /home/reumerman/webprotege/war/WEB-INF/lib/xstream-1.3.jar
+7f80de989000-7f80de98c000 r--s 0001b000 07:00 1759292                    /home/reumerman/webprotege/war/WEB-INF/lib/xpp3-1.1.3.4.C.jar
+7f80de98c000-7f80de994000 r--s 00034000 07:00 1759291                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-tx-3.2.4.RELEASE.jar
+7f80de994000-7f80de999000 r--s 0002c000 07:00 1759290                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-expression-3.2.4.RELEASE.jar
+7f80de999000-7f80de99b000 r--s 00017000 07:00 1759289                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-data-mongodb-log4j-1.2.0.RELEASE.jar
+7f80de99b000-7f80de99e000 r--s 0001a000 07:00 1759288                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-data-mongodb-cross-store-1.2.0.RELEASE.jar
+7f80de99e000-7f80de9a7000 r--s 0005d000 07:00 1759287                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-data-mongodb-1.2.0.RELEASE.jar
+7f80de9a7000-7f80de9b1000 r--s 0005b000 07:00 1759286                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-data-commons-1.5.0.RELEASE.jar
+7f80de9b1000-7f80de9c3000 r--s 000c3000 07:00 1759285                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-core-3.2.4.RELEASE.jar
+7f80de9c3000-7f80de9d7000 r--s 000bf000 07:00 1759284                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-context-3.2.4.RELEASE.jar
+7f80de9d7000-7f80de9e3000 r--s 00089000 07:00 1759283                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-beans-3.2.4.RELEASE.jar
+7f80de9e3000-7f80de9e5000 r--s 0000b000 07:00 1759282                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-aspects-3.2.4.RELEASE.jar
+7f80de9e5000-7f80de9ed000 r--s 0004a000 07:00 1759281                    /home/reumerman/webprotege/war/WEB-INF/lib/spring-aop-3.2.4.RELEASE.jar
+7f80de9ed000-7f80de9ef000 r--s 00005000 07:00 1759280                    /home/reumerman/webprotege/war/WEB-INF/lib/slf4j-api-1.7.1.jar
+7f80de9ef000-7f80de9f0000 r--s 00002000 07:00 1759279                    /home/reumerman/webprotege/war/WEB-INF/lib/recaptcha4j-0.0.7.jar
+7f80de9f0000-7f80dea1f000 r--s 0023c000 07:00 305280                     /home/reumerman/webprotege/war/WEB-INF/lib/protege.jar.org
+7f80dea1f000-7f80dea4d000 r--s 00240000 07:00 305279                     /home/reumerman/webprotege/war/WEB-INF/lib/protege.jar
+7f80dea4d000-7f80dea4f000 r--s 00014000 07:00 1759277                    /home/reumerman/webprotege/war/WEB-INF/lib/protege-owlapi-extensions.jar
+7f80dea4f000-7f80dea62000 r--s 000e1000 07:00 1759276                    /home/reumerman/webprotege/war/WEB-INF/lib/owlapi-parsers-3.4.9.jar
+7f80dea62000-7f80dea69000 r--s 00059000 07:00 1759275                    /home/reumerman/webprotege/war/WEB-INF/lib/owlapi-impl-3.4.9.jar
+7f80dea69000-7f80dea7c000 r--s 000b2000 07:00 1759274                    /home/reumerman/webprotege/war/WEB-INF/lib/owlapi-gwt-3.4.9.jar
+7f80dea7c000-7f80dea7d000 r--s 00002000 07:00 1759273                    /home/reumerman/webprotege/war/WEB-INF/lib/owlapi-apibinding-3.4.9.jar
+7f80dea7d000-7f80dea8c000 r--s 0008c000 07:00 1759272                    /home/reumerman/webprotege/war/WEB-INF/lib/owlapi-api-3.4.9.jar
+7f80dea8c000-7f80deab8000 r--s 001ee000 07:00 1759271                    /home/reumerman/webprotege/war/WEB-INF/lib/org.protege.editor.owl.jar
+7f80deab8000-7f80deac6000 r--s 000c7000 07:00 1759270                    /home/reumerman/webprotege/war/WEB-INF/lib/org.protege.editor.core.application.jar
+7f80deac6000-7f80deac9000 r--s 0002b000 07:00 1759269                    /home/reumerman/webprotege/war/WEB-INF/lib/openid4java-0.9.5.jar
+7f80deac9000-7f80deaca000 r--s 00004000 07:00 1759268                    /home/reumerman/webprotege/war/WEB-INF/lib/opencsv-2.3.jar
+7f80deaca000-7f80deacf000 r--s 00037000 07:00 1759267                    /home/reumerman/webprotege/war/WEB-INF/lib/oboformat-included-owlapi-3.4.9.jar
+7f80deacf000-7f80dead2000 r--s 00017000 07:00 1759266                    /home/reumerman/webprotege/war/WEB-INF/lib/notes-api.jar
+7f80dead2000-7f80dead9000 r--s 0005b000 07:00 1759265                    /home/reumerman/webprotege/war/WEB-INF/lib/mongo-java-driver-2.10.1.jar
+7f80dead9000-7f80deae0000 r--s 0006a000 07:00 1759264                    /home/reumerman/webprotege/war/WEB-INF/lib/mail.jar
+7f80deae0000-7f80deae7000 r--s 00051000 07:00 1759263                    /home/reumerman/webprotege/war/WEB-INF/lib/log4j.jar
+7f80deae7000-7f80deae9000 r--s 00006000 07:00 1759262                    /home/reumerman/webprotege/war/WEB-INF/lib/jsr305-2.0.1.jar
+7f80deae9000-7f80deaeb000 r--s 00003000 07:00 1759261                    /home/reumerman/webprotege/war/WEB-INF/lib/jcl-over-slf4j-1.7.1.jar
+7f80deaeb000-7f80deaed000 r--s 00005000 07:00 1759260                    /home/reumerman/webprotege/war/WEB-INF/lib/httpmime-4.2.1.jar
+7f80deaed000-7f80deaf3000 r--s 00031000 07:00 1759259                    /home/reumerman/webprotege/war/WEB-INF/lib/httpcore-4.2.1.jar
+7f80deaf3000-7f80deaf6000 r--s 0001a000 07:00 1759258                    /home/reumerman/webprotege/war/WEB-INF/lib/httpclient-cache-4.2.1.jar
+7f80deaf6000-7f80deb00000 r--s 0005f000 07:00 1759257                    /home/reumerman/webprotege/war/WEB-INF/lib/httpclient-4.2.1.jar
+7f80deb00000-7f80deb18000 r--s 0011c000 07:00 1759256                    /home/reumerman/webprotege/war/WEB-INF/lib/gwtext.jar
+7f80deb18000-7f80deb1b000 ---p 00000000 00:00 0 
+7f80deb1b000-7f80dec19000 rw-p 00000000 00:00 0                          [stack:6158]
+7f80dec19000-7f80dec2e000 r-xp 00000000 07:00 404598                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libnet.so
+7f80dec2e000-7f80dee2e000 ---p 00015000 07:00 404598                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libnet.so
+7f80dee2e000-7f80dee2f000 rw-p 00015000 07:00 404598                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libnet.so
+7f80dee2f000-7f80defea000 r--s 01e99000 08:01 596616                     /media/Windows/gwt-2.5.1/gwt-dev.jar
+7f80defea000-7f80df0ef000 r--s 01a68000 08:01 596609                     /media/Windows/gwt-2.5.1/gwt-user.jar
+7f80df0ef000-7f80df0f0000 ---p 00000000 00:00 0 
+7f80df0f0000-7f80df1f0000 rw-p 00000000 00:00 0                          [stack:6150]
+7f80df1f0000-7f80df1f3000 ---p 00000000 00:00 0 
+7f80df1f3000-7f80df2f1000 rw-p 00000000 00:00 0                          [stack:6149]
+7f80df2f1000-7f80df2f4000 ---p 00000000 00:00 0 
+7f80df2f4000-7f80df3f2000 rw-p 00000000 00:00 0                          [stack:6148]
+7f80df3f2000-7f80df3f5000 ---p 00000000 00:00 0 
+7f80df3f5000-7f80df4f3000 rw-p 00000000 00:00 0                          [stack:6147]
+7f80df4f3000-7f80df4f6000 ---p 00000000 00:00 0 
+7f80df4f6000-7f80df5f4000 rw-p 00000000 00:00 0                          [stack:6146]
+7f80df5f4000-7f80df5f7000 ---p 00000000 00:00 0 
+7f80df5f7000-7f80df6f5000 rw-p 00000000 00:00 0                          [stack:6145]
+7f80df6f5000-7f80df6f9000 r-xp 00000000 07:00 3522570                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libdt_socket.so
+7f80df6f9000-7f80df8f8000 ---p 00004000 07:00 3522570                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libdt_socket.so
+7f80df8f8000-7f80df8f9000 rw-p 00003000 07:00 3522570                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libdt_socket.so
+7f80df8f9000-7f80df8fc000 ---p 00000000 00:00 0 
+7f80df8fc000-7f80df9fa000 rw-p 00000000 00:00 0                          [stack:6144]
+7f80df9fa000-7f80df9fd000 ---p 00000000 00:00 0 
+7f80df9fd000-7f80dfafb000 rw-p 00000000 00:00 0                          [stack:6143]
+7f80dfafb000-7f80dfafe000 ---p 00000000 00:00 0 
+7f80dfafe000-7f80dfbfc000 rw-p 00000000 00:00 0                          [stack:6142]
+7f80dfbfc000-7f80dfbfd000 ---p 00000000 00:00 0 
+7f80dfbfd000-7f80e0000000 rw-p 00000000 00:00 0                          [stack:6141]
+7f80e0000000-7f80e00e7000 rw-p 00000000 00:00 0 
+7f80e00e7000-7f80e4000000 ---p 00000000 00:00 0 
+7f80e4000000-7f80e4001000 r--s 00003000 07:00 411716                     /home/reumerman/jdk1.7.0_21/jre/lib/ext/sunec.jar
+7f80e4001000-7f80e4004000 r--s 00012000 07:00 1759255                    /home/reumerman/webprotege/war/WEB-INF/lib/gwt-crypto-1.0.3.jar
+7f80e4004000-7f80e4010000 r--s 000b2000 07:00 1759254                    /home/reumerman/webprotege/war/WEB-INF/lib/guava-gwt-14.0.1.jar
+7f80e4010000-7f80e4039000 r--s 001ee000 07:00 1759253                    /home/reumerman/webprotege/war/WEB-INF/lib/guava-14.0.1.jar
+7f80e4039000-7f80e403e000 r--s 0002a000 07:00 1759252                    /home/reumerman/webprotege/war/WEB-INF/lib/gson-2.2.2.jar
+7f80e403e000-7f80e4040000 r--s 00004000 07:00 1759251                    /home/reumerman/webprotege/war/WEB-INF/lib/fluent-hc-4.2.1.jar
+7f80e4040000-7f80e4d92000 rw-p 00000000 00:00 0 
+7f80e4d92000-7f80e4f4f000 r--s 039de000 07:00 345257                     /home/reumerman/jdk1.7.0_21/jre/lib/rt.jar
+7f80e4f4f000-7f80e8393000 rw-p 00000000 00:00 0 
+7f80e8393000-7f80e8394000 ---p 00000000 00:00 0 
+7f80e8394000-7f80e8494000 rw-p 00000000 00:00 0                          [stack:6140]
+7f80e8494000-7f80e8495000 ---p 00000000 00:00 0 
+7f80e8495000-7f80e8595000 rw-p 00000000 00:00 0                          [stack:6139]
+7f80e8595000-7f80e8596000 ---p 00000000 00:00 0 
+7f80e8596000-7f80e8696000 rw-p 00000000 00:00 0                          [stack:6138]
+7f80e8696000-7f80e8697000 ---p 00000000 00:00 0 
+7f80e8697000-7f80e8906000 rw-p 00000000 00:00 0                          [stack:6137]
+7f80e8906000-7f80e893a000 rw-p 00000000 00:00 0 
+7f80e893a000-7f80e8963000 rw-p 00000000 00:00 0 
+7f80e8963000-7f80e8ad2000 rw-p 00000000 00:00 0 
+7f80e8ad2000-7f80e8b05000 rw-p 00000000 00:00 0 
+7f80e8b05000-7f80e8bd7000 rw-p 00000000 00:00 0 
+7f80e8bd7000-7f80e8bd8000 rw-p 00000000 00:00 0 
+7f80e8bd8000-7f80e9988000 rwxp 00000000 00:00 0 
+7f80e9988000-7f80ebbd8000 rw-p 00000000 00:00 0 
+7f80ebbd8000-7f80ebbf2000 r-xp 00000000 07:00 3522594                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libzip.so
+7f80ebbf2000-7f80ebdf2000 ---p 0001a000 07:00 3522594                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libzip.so
+7f80ebdf2000-7f80ebdf3000 rw-p 0001a000 07:00 3522594                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libzip.so
+7f80ebdf3000-7f80ebdff000 r-xp 00000000 07:00 2215953                    /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f80ebdff000-7f80ebffe000 ---p 0000c000 07:00 2215953                    /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f80ebffe000-7f80ebfff000 r--p 0000b000 07:00 2215953                    /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f80ebfff000-7f80ec000000 rw-p 0000c000 07:00 2215953                    /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f80ec000000-7f80ecc26000 rw-p 00000000 00:00 0 
+7f80ecc26000-7f80f0000000 ---p 00000000 00:00 0 
+7f80f0000000-7f80f0002000 r--s 0000b000 07:00 1759250                    /home/reumerman/webprotege/war/WEB-INF/lib/commons-logging-api-1.1.1.jar
+7f80f0002000-7f80f0003000 r--s 00006000 07:00 1759249                    /home/reumerman/webprotege/war/WEB-INF/lib/commons-logging-adapters-1.1.1.jar
+7f80f0003000-7f80f00fa000 rw-p 00000000 00:00 0 
+7f80f00fa000-7f80f0104000 r-xp 00000000 07:00 2215949                    /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f80f0104000-7f80f0304000 ---p 0000a000 07:00 2215949                    /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f80f0304000-7f80f0305000 r--p 0000a000 07:00 2215949                    /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f80f0305000-7f80f0306000 rw-p 0000b000 07:00 2215949                    /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f80f0306000-7f80f031d000 r-xp 00000000 07:00 2215962                    /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f80f031d000-7f80f051c000 ---p 00017000 07:00 2215962                    /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f80f051c000-7f80f051d000 r--p 00016000 07:00 2215962                    /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f80f051d000-7f80f051e000 rw-p 00017000 07:00 2215962                    /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f80f051e000-7f80f0520000 rw-p 00000000 00:00 0 
+7f80f0520000-7f80f0528000 r-xp 00000000 07:00 2215954                    /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f80f0528000-7f80f0727000 ---p 00008000 07:00 2215954                    /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f80f0727000-7f80f0728000 r--p 00007000 07:00 2215954                    /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f80f0728000-7f80f0729000 rw-p 00008000 07:00 2215954                    /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f80f0729000-7f80f08b2000 r--p 00000000 07:00 3547137                    /usr/lib/locale/locale-archive
+7f80f08b2000-7f80f08b5000 r-xp 00000000 07:00 3522561                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libnpt.so
+7f80f08b5000-7f80f0ab4000 ---p 00003000 07:00 3522561                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libnpt.so
+7f80f0ab4000-7f80f0ab5000 rw-p 00002000 07:00 3522561                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libnpt.so
+7f80f0ab5000-7f80f0aee000 r-xp 00000000 07:00 3522597                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libjdwp.so
+7f80f0aee000-7f80f0ced000 ---p 00039000 07:00 3522597                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libjdwp.so
+7f80f0ced000-7f80f0cef000 rw-p 00038000 07:00 3522597                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libjdwp.so
+7f80f0cef000-7f80f0d18000 r-xp 00000000 07:00 3522584                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libjava.so
+7f80f0d18000-7f80f0f18000 ---p 00029000 07:00 3522584                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libjava.so
+7f80f0f18000-7f80f0f1a000 rw-p 00029000 07:00 3522584                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libjava.so
+7f80f0f1a000-7f80f0f27000 r-xp 00000000 07:00 3522582                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libverify.so
+7f80f0f27000-7f80f1126000 ---p 0000d000 07:00 3522582                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libverify.so
+7f80f1126000-7f80f1128000 rw-p 0000c000 07:00 3522582                    /home/reumerman/jdk1.7.0_21/jre/lib/amd64/libverify.so
+7f80f1128000-7f80f112f000 r-xp 00000000 07:00 2215947                    /lib/x86_64-linux-gnu/librt-2.15.so
+7f80f112f000-7f80f132e000 ---p 00007000 07:00 2215947                    /lib/x86_64-linux-gnu/librt-2.15.so
+7f80f132e000-7f80f132f000 r--p 00006000 07:00 2215947                    /lib/x86_64-linux-gnu/librt-2.15.so
+7f80f132f000-7f80f1330000 rw-p 00007000 07:00 2215947                    /lib/x86_64-linux-gnu/librt-2.15.so
+7f80f1330000-7f80f142b000 r-xp 00000000 07:00 2215951                    /lib/x86_64-linux-gnu/libm-2.15.so
+7f80f142b000-7f80f162a000 ---p 000fb000 07:00 2215951                    /lib/x86_64-linux-gnu/libm-2.15.so
+7f80f162a000-7f80f162b000 r--p 000fa000 07:00 2215951                    /lib/x86_64-linux-gnu/libm-2.15.so
+7f80f162b000-7f80f162c000 rw-p 000fb000 07:00 2215951                    /lib/x86_64-linux-gnu/libm-2.15.so
+7f80f162c000-7f80f2076000 r-xp 00000000 07:00 408580                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/server/libjvm.so
+7f80f2076000-7f80f2275000 ---p 00a4a000 07:00 408580                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/server/libjvm.so
+7f80f2275000-7f80f2319000 rw-p 00a49000 07:00 408580                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/server/libjvm.so
+7f80f2319000-7f80f2354000 rw-p 00000000 00:00 0 
+7f80f2354000-7f80f2509000 r-xp 00000000 07:00 2215943                    /lib/x86_64-linux-gnu/libc-2.15.so
+7f80f2509000-7f80f2708000 ---p 001b5000 07:00 2215943                    /lib/x86_64-linux-gnu/libc-2.15.so
+7f80f2708000-7f80f270c000 r--p 001b4000 07:00 2215943                    /lib/x86_64-linux-gnu/libc-2.15.so
+7f80f270c000-7f80f270e000 rw-p 001b8000 07:00 2215943                    /lib/x86_64-linux-gnu/libc-2.15.so
+7f80f270e000-7f80f2713000 rw-p 00000000 00:00 0 
+7f80f2713000-7f80f2715000 r-xp 00000000 07:00 2215942                    /lib/x86_64-linux-gnu/libdl-2.15.so
+7f80f2715000-7f80f2915000 ---p 00002000 07:00 2215942                    /lib/x86_64-linux-gnu/libdl-2.15.so
+7f80f2915000-7f80f2916000 r--p 00002000 07:00 2215942                    /lib/x86_64-linux-gnu/libdl-2.15.so
+7f80f2916000-7f80f2917000 rw-p 00003000 07:00 2215942                    /lib/x86_64-linux-gnu/libdl-2.15.so
+7f80f2917000-7f80f292d000 r-xp 00000000 07:00 404603                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/jli/libjli.so
+7f80f292d000-7f80f2b2d000 ---p 00016000 07:00 404603                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/jli/libjli.so
+7f80f2b2d000-7f80f2b2e000 rw-p 00016000 07:00 404603                     /home/reumerman/jdk1.7.0_21/jre/lib/amd64/jli/libjli.so
+7f80f2b2e000-7f80f2b46000 r-xp 00000000 07:00 2215945                    /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f80f2b46000-7f80f2d45000 ---p 00018000 07:00 2215945                    /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f80f2d45000-7f80f2d46000 r--p 00017000 07:00 2215945                    /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f80f2d46000-7f80f2d47000 rw-p 00018000 07:00 2215945                    /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f80f2d47000-7f80f2d4b000 rw-p 00000000 00:00 0 
+7f80f2d4b000-7f80f2d6d000 r-xp 00000000 07:00 2215957                    /lib/x86_64-linux-gnu/ld-2.15.so
+7f80f2d6d000-7f80f2d6f000 r--s 0000d000 07:00 1759248                    /home/reumerman/webprotege/war/WEB-INF/lib/commons-logging-1.1.1.jar
+7f80f2d6f000-7f80f2d73000 r--s 00029000 07:00 1759247                    /home/reumerman/webprotege/war/WEB-INF/lib/commons-io-2.3.jar
+7f80f2d73000-7f80f2d79000 r--s 00045000 07:00 1759246                    /home/reumerman/webprotege/war/WEB-INF/lib/commons-httpclient-3.1.jar
+7f80f2d79000-7f80f2d7b000 r--s 0000d000 07:00 1759245                    /home/reumerman/webprotege/war/WEB-INF/lib/commons-fileupload-1.2.2.jar
+7f80f2d7b000-7f80f2d81000 r--s 00033000 07:00 1759244                    /home/reumerman/webprotege/war/WEB-INF/lib/commons-codec-1.6.jar
+7f80f2d81000-7f80f2d83000 r--s 00006000 07:00 1759243                    /home/reumerman/webprotege/war/WEB-INF/lib/commons-codec-1.2.jar
+7f80f2d83000-7f80f2d89000 r--s 00049000 07:00 1759242                    /home/reumerman/webprotege/war/WEB-INF/lib/cglib-nodep-2.2.3.jar
+7f80f2d89000-7f80f2dc0000 rw-p 00000000 00:00 0 
+7f80f2dc0000-7f80f2e49000 rw-p 00000000 00:00 0 
+7f80f2e49000-7f80f2e4c000 ---p 00000000 00:00 0 
+7f80f2e4c000-7f80f2f4e000 rw-p 00000000 00:00 0                          [stack:6136]
+7f80f2f4e000-7f80f2f52000 r--s 00037000 07:00 411713                     /home/reumerman/jdk1.7.0_21/jre/lib/ext/sunpkcs11.jar
+7f80f2f52000-7f80f2f53000 r--s 00010000 07:00 411712                     /home/reumerman/jdk1.7.0_21/jre/lib/ext/zipfs.jar
+7f80f2f53000-7f80f2f55000 r--s 00007000 07:00 1759241                    /home/reumerman/webprotege/war/WEB-INF/lib/bioportal-services-lib.jar
+7f80f2f55000-7f80f2f5b000 r--s 0002e000 07:00 1759240                    /home/reumerman/webprotege/war/WEB-INF/lib/binaryowl-1.4.0.jar
+7f80f2f5b000-7f80f2f5d000 r--s 00000000 07:00 1759239                    /home/reumerman/webprotege/war/WEB-INF/lib/aopalliance-1.0.jar
+7f80f2f5d000-7f80f2f60000 r--s 000f7000 07:00 411715                     /home/reumerman/jdk1.7.0_21/jre/lib/ext/localedata.jar
+7f80f2f60000-7f80f2f61000 rw-p 00000000 00:00 0 
+7f80f2f61000-7f80f2f69000 rw-s 00000000 07:00 17499                      /tmp/hsperfdata_reumerman/6131
+7f80f2f69000-7f80f2f6a000 rw-p 00000000 00:00 0 
+7f80f2f6a000-7f80f2f6b000 r--p 00000000 00:00 0 
+7f80f2f6b000-7f80f2f6d000 rw-p 00000000 00:00 0 
+7f80f2f6d000-7f80f2f6e000 r--p 00022000 07:00 2215957                    /lib/x86_64-linux-gnu/ld-2.15.so
+7f80f2f6e000-7f80f2f70000 rw-p 00023000 07:00 2215957                    /lib/x86_64-linux-gnu/ld-2.15.so
+7fff6a37f000-7fff6a3a2000 rw-p 00000000 00:00 0                          [stack]
+7fff6a3a2000-7fff6a3a3000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -Xmx1256M -agentlib:jdwp=transport=dt_socket,address=8100,server=y,suspend=n -Xms1000M 
+java_command: com.google.gwt.dev.DevMode -war /home/reumerman/webprotege/build/war edu.stanford.bmir.protege.web.WebProtege -startupUrl WebProtege.html
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/home/reumerman/jdk1.7.0_21
+PATH=/home/reumerman/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/mysql/server-5.6/bin:/home/reumerman/jdk1.7.0_21/bin:/home/reumerman//apache-maven-3.0.5/bin:/home/reumerman/apache-ant-1.9.0/bin
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x8a80e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x8a80e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x744170], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x744170], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x744170], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x744170], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x743ac0], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x745e50], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: [libjvm.so+0x745e50], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGTERM: [libjvm.so+0x745e50], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x745e50], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:wheezy/sid
+
+uname:Linux 3.5.0-40-generic #62~precise1-Ubuntu SMP Fri Aug 23 17:38:26 UTC 2013 x86_64
+libc:glibc 2.15 NPTL 2.15 
+rlimit: STACK 8192k, CORE 0k, NPROC 62781, NOFILE 4096, AS infinity
+load average:0.40 0.33 0.33
+
+/proc/meminfo:
+MemTotal:        8054776 kB
+MemFree:          171500 kB
+Buffers:          214304 kB
+Cached:           928864 kB
+SwapCached:         5944 kB
+Active:          6045284 kB
+Inactive:        1534292 kB
+Active(anon):    5765168 kB
+Inactive(anon):  1247976 kB
+Active(file):     280116 kB
+Inactive(file):   286316 kB
+Unevictable:        2692 kB
+Mlocked:              16 kB
+SwapTotal:        262140 kB
+SwapFree:              0 kB
+Dirty:              5272 kB
+Writeback:             0 kB
+AnonPages:       6434000 kB
+Mapped:           173076 kB
+Shmem:            573488 kB
+Slab:             122036 kB
+SReclaimable:      71340 kB
+SUnreclaim:        50696 kB
+KernelStack:        7176 kB
+PageTables:        75164 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     4289528 kB
+Committed_AS:   13843480 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      414836 kB
+VmallocChunk:   34359305880 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      241664 kB
+DirectMap2M:     8032256 kB
+
+
+CPU:total 4 (2 cores per cpu, 2 threads per core) family 6 model 42 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, ht, tsc, tscinvbit
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2620M CPU @ 2.70GHz
+stepping	: 7
+microcode	: 0x12
+cpu MHz		: 2700.000
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 5387.65
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2620M CPU @ 2.70GHz
+stepping	: 7
+microcode	: 0x12
+cpu MHz		: 2701.000
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 5387.65
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2620M CPU @ 2.70GHz
+stepping	: 7
+microcode	: 0x12
+cpu MHz		: 2701.000
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 5387.65
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2620M CPU @ 2.70GHz
+stepping	: 7
+microcode	: 0x12
+cpu MHz		: 800.000
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 5387.65
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 8054776k(171500k free), swap 262140k(0k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (23.21-b01) for linux-amd64 JRE (1.7.0_21-b11), built on Apr  4 2013 04:03:29 by "java_re" with gcc 4.3.0 20080428 (Red Hat 4.3.0-8)
+
+time: Wed Jan 22 13:27:40 2014
+elapsed time: 12478 seconds
+

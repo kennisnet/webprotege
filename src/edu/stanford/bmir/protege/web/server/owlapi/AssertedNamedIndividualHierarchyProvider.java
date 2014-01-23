@@ -267,8 +267,9 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
               }
           }
       }
-      String parentIRI = "<" + parent.getIRI().toString() + ">";
-      for (OWLNamedIndividual niv : rootOntology.getIndividualsInSignature()) {
+      String parentIRI = parent.getIRI().toQuotedString();
+      Set<OWLNamedIndividual> individivuals = rootOntology.getIndividualsInSignature();
+      for (OWLNamedIndividual niv : individivuals) {
           List<PropertyValue> childPropertyValues = getNamedIndividualPropertyValues(niv, rootOntology, project);
           for (PropertyValue propertyValue : childPropertyValues) {
               if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/isBkDeelinhoudVan")) {
