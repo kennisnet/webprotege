@@ -346,7 +346,7 @@ public class PropertiesTreePortlet extends AbstractOWLEntityPortlet {
             MessageBox.alert("Please select a property in the tree first");
             return;
         }
-        WebProtegeDialog.showDialog(new CreateEntityDialogController(selectedEntityType.get(), new CreateEntityDialogController.CreateEntityHandler() {
+        WebProtegeDialog.showDialog(new CreateEntityDialogController(getProjectId(), selectedEntityType.get(), new CreateEntityDialogController.CreateEntityHandler() {
             @Override
             public void handleCreateEntity(CreateEntityInfo createEntityInfo) {
                 handleCreateProperty(createEntityInfo);
