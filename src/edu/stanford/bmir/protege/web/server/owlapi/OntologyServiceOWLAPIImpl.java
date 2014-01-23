@@ -11,6 +11,7 @@ import edu.stanford.bmir.protege.web.shared.project.ProjectId;
 import edu.stanford.bmir.protege.web.shared.user.UserId;
 import edu.stanford.bmir.protege.web.shared.watches.Watch;
 import edu.stanford.smi.protege.util.Log;
+
 import org.ncbo.stanford.bean.concept.ClassBean;
 import org.ncbo.stanford.util.BioPortalServerConstants;
 import org.ncbo.stanford.util.BioPortalUtil;
@@ -461,6 +462,16 @@ public class OntologyServiceOWLAPIImpl extends WebProtegeRemoteServiceServlet im
         return result;
     }
 
+    public void updateNamedIndividual(String projectName, String subjectIRI, String objectIRI, String predicateIRI) {
+        OWLAPIProject project = getProject(projectName);
+        RenderingManager rm = project.getRenderingManager();
+        AssertedNamedIndividualHierarchyProvider hierarchyProvider = project.getNamedIndividualHierarchyProvider();
+        OWLNamedIndividual subject = rm.getEntity(subjectIRI, EntityType.NAMED_INDIVIDUAL);
+        OWLNamedIndividual object = rm.getEntity(objectIRI, EntityType.NAMED_INDIVIDUAL);
+        OWLObjectProperty predicate = rm.getEntity(predicateIRI, EntityType.OBJECT_PROPERTY);
+        hierarchyProvider.updateNamedIndividual(project, subject, object, predicate);
+    }
+    
     /**
      * Gets the subclasses of a given entity.  This implementation uses the {@link AssertedClassHierarchyProvider} that
      * is used in Protege 4 to answer the request.

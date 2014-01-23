@@ -1,5 +1,31 @@
 package edu.stanford.bmir.protege.web.client.ui.ontology.classes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+
+import uk.ac.manchester.cs.owl.owlapi.OWL2DatatypeImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLAnnotationPropertyImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
+import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
+
 import com.google.common.base.Optional;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -10,7 +36,13 @@ import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.Node;
 import com.gwtext.client.dd.DragData;
 import com.gwtext.client.dd.DragDrop;
-import com.gwtext.client.widgets.*;
+import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.Component;
+import com.gwtext.client.widgets.CycleButton;
+import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.Tool;
+import com.gwtext.client.widgets.Toolbar;
+import com.gwtext.client.widgets.ToolbarButton;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.TextField;
@@ -24,7 +56,12 @@ import com.gwtext.client.widgets.menu.event.BaseItemListener;
 import com.gwtext.client.widgets.menu.event.BaseItemListenerAdapter;
 import com.gwtext.client.widgets.menu.event.CheckItemListener;
 import com.gwtext.client.widgets.menu.event.CheckItemListenerAdapter;
-import com.gwtext.client.widgets.tree.*;
+import com.gwtext.client.widgets.tree.DefaultSelectionModel;
+import com.gwtext.client.widgets.tree.DropNodeCallback;
+import com.gwtext.client.widgets.tree.MultiSelectionModel;
+import com.gwtext.client.widgets.tree.TreeNode;
+import com.gwtext.client.widgets.tree.TreePanel;
+import com.gwtext.client.widgets.tree.TreeSelectionModel;
 import com.gwtext.client.widgets.tree.event.DefaultSelectionModelListenerAdapter;
 import com.gwtext.client.widgets.tree.event.MultiSelectionModelListener;
 import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
@@ -33,11 +70,28 @@ import com.gwtext.client.widgets.tree.event.TreePanelListenerAdapter;
 import edu.stanford.bmir.protege.web.client.Application;
 import edu.stanford.bmir.protege.web.client.csv.CSVImportDialogController;
 import edu.stanford.bmir.protege.web.client.dispatch.DispatchServiceManager;
-import edu.stanford.bmir.protege.web.client.dispatch.actions.*;
+import edu.stanford.bmir.protege.web.client.dispatch.actions.CreateClassAction;
+import edu.stanford.bmir.protege.web.client.dispatch.actions.CreateClassResult;
+import edu.stanford.bmir.protege.web.client.dispatch.actions.CreateClassesResult;
+import edu.stanford.bmir.protege.web.client.dispatch.actions.CreateNamedIndividualsAction;
+import edu.stanford.bmir.protege.web.client.dispatch.actions.CreateNamedIndividualsResult;
+import edu.stanford.bmir.protege.web.client.dispatch.actions.DeleteEntityAction;
+import edu.stanford.bmir.protege.web.client.dispatch.actions.DeleteEntityResult;
+import edu.stanford.bmir.protege.web.client.dispatch.actions.UpdateNamedIndividualFrameAction;
 import edu.stanford.bmir.protege.web.client.project.Project;
-import edu.stanford.bmir.protege.web.client.rpc.*;
-import edu.stanford.bmir.protege.web.client.rpc.data.*;
+import edu.stanford.bmir.protege.web.client.rpc.AbstractAsyncHandler;
+import edu.stanford.bmir.protege.web.client.rpc.AbstractWebProtegeAsyncCallback;
+import edu.stanford.bmir.protege.web.client.rpc.GetRendering;
+import edu.stanford.bmir.protege.web.client.rpc.GetRenderingResponse;
+import edu.stanford.bmir.protege.web.client.rpc.OntologyServiceManager;
+import edu.stanford.bmir.protege.web.client.rpc.RenderingServiceManager;
+import edu.stanford.bmir.protege.web.client.rpc.data.DocumentId;
+import edu.stanford.bmir.protege.web.client.rpc.data.EntityData;
+import edu.stanford.bmir.protege.web.client.rpc.data.SubclassEntityData;
+import edu.stanford.bmir.protege.web.client.rpc.data.Triple;
+import edu.stanford.bmir.protege.web.client.rpc.data.ValueType;
 import edu.stanford.bmir.protege.web.client.rpc.data.layout.PortletConfiguration;
+import edu.stanford.bmir.protege.web.client.ui.frame.LabelledFrame;
 import edu.stanford.bmir.protege.web.client.ui.library.dlg.WebProtegeDialog;
 import edu.stanford.bmir.protege.web.client.ui.library.msgbox.MessageBox;
 import edu.stanford.bmir.protege.web.client.ui.library.msgbox.YesNoHandler;
@@ -55,20 +109,36 @@ import edu.stanford.bmir.protege.web.client.ui.util.UIUtil;
 import edu.stanford.bmir.protege.web.shared.DataFactory;
 import edu.stanford.bmir.protege.web.shared.ObjectPath;
 import edu.stanford.bmir.protege.web.shared.csv.CSVImportDescriptor;
+import edu.stanford.bmir.protege.web.shared.dispatch.Result;
+import edu.stanford.bmir.protege.web.shared.dispatch.UpdateObjectAction;
 import edu.stanford.bmir.protege.web.shared.entity.OWLNamedIndividualData;
-import edu.stanford.bmir.protege.web.shared.event.*;
+import edu.stanford.bmir.protege.web.shared.event.BrowserTextChangedEvent;
+import edu.stanford.bmir.protege.web.shared.event.BrowserTextChangedHandler;
+import edu.stanford.bmir.protege.web.shared.event.EntityDeprecatedChangedEvent;
+import edu.stanford.bmir.protege.web.shared.event.EntityDeprecatedChangedHandler;
+import edu.stanford.bmir.protege.web.shared.event.EntityNotesChangedEvent;
+import edu.stanford.bmir.protege.web.shared.event.EntityNotesChangedHandler;
+import edu.stanford.bmir.protege.web.shared.frame.NamedIndividualFrame;
+import edu.stanford.bmir.protege.web.shared.frame.PropertyAnnotationValue;
+import edu.stanford.bmir.protege.web.shared.frame.PropertyIndividualValue;
+import edu.stanford.bmir.protege.web.shared.frame.PropertyValue;
+import edu.stanford.bmir.protege.web.shared.frame.PropertyValueList;
 import edu.stanford.bmir.protege.web.shared.hierarchy.ClassHierarchyParentAddedEvent;
 import edu.stanford.bmir.protege.web.shared.hierarchy.ClassHierarchyParentAddedHandler;
 import edu.stanford.bmir.protege.web.shared.hierarchy.ClassHierarchyParentRemovedEvent;
 import edu.stanford.bmir.protege.web.shared.hierarchy.ClassHierarchyParentRemovedHandler;
-import edu.stanford.bmir.protege.web.shared.watches.*;
-
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-
-import java.util.*;
+import edu.stanford.bmir.protege.web.shared.watches.AddWatchAction;
+import edu.stanford.bmir.protege.web.shared.watches.AddWatchResult;
+import edu.stanford.bmir.protege.web.shared.watches.EntityBasedWatch;
+import edu.stanford.bmir.protege.web.shared.watches.EntityFrameWatch;
+import edu.stanford.bmir.protege.web.shared.watches.HierarchyBranchWatch;
+import edu.stanford.bmir.protege.web.shared.watches.RemoveWatchesAction;
+import edu.stanford.bmir.protege.web.shared.watches.RemoveWatchesResult;
+import edu.stanford.bmir.protege.web.shared.watches.Watch;
+import edu.stanford.bmir.protege.web.shared.watches.WatchAddedEvent;
+import edu.stanford.bmir.protege.web.shared.watches.WatchAddedHandler;
+import edu.stanford.bmir.protege.web.shared.watches.WatchRemovedEvent;
+import edu.stanford.bmir.protege.web.shared.watches.WatchRemovedHandler;
 
 /**
  * Portlet for displaying class trees. It can be configured to show only a
@@ -913,6 +983,95 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
                     @Override
                     public void onSuccess(CreateNamedIndividualsResult result) {
                         Set<OWLNamedIndividualData> individuals = result.getIndividuals();
+                        for (OWLNamedIndividualData individual : individuals) {
+                            OWLNamedIndividual namedIndividual = individual.getEntity();
+                            List<EntityData> selection = getSelection();
+                            for (EntityData entityData : selection) {
+                                String entityName = entityData.getName();
+                                Set<OWLClass> namedTypes = new HashSet<OWLClass>();
+                                Collection<PropertyValue> propertyValueList = new ArrayList<PropertyValue>();
+                                Set<OWLNamedIndividual> sameIndividuals = new HashSet<OWLNamedIndividual>();
+                                LabelledFrame<NamedIndividualFrame> from = new LabelledFrame(individual.getUnquotedBrowserText() , new NamedIndividualFrame(namedIndividual, namedTypes, propertyValueList, sameIndividuals));
+                                namedTypes.add(new OWLClassImpl(IRI.create("http://www.openarchives.org/ore/terms/Proxy")));
+                                propertyValueList.add(new PropertyAnnotationValue(new OWLAnnotationPropertyImpl(IRI.create("http://www.w3.org/2004/02/skos/core#prefLabel")), new OWLLiteralImplNoCompression(individual.getUnquotedBrowserText(), "", OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL))));
+                                propertyValueList.add(new PropertyAnnotationValue(new OWLAnnotationPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/heeftBkStatus")), new OWLLiteralImplNoCompression("Nee", "", OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL))));
+
+                                String iri = entityData.getName();
+                                String text = entityData.getBrowserText();
+                                
+                                OWLNamedIndividual niv = DataFactory.getOWLNamedIndividual(iri);
+                                Set<OWLObjectProperty> properties = niv.getObjectPropertiesInSignature();
+                                for (OWLObjectProperty property : properties) {
+                                    property.getNamedProperty().getIRI();
+                                    //propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create(property.ggetKey())), new OWLNamedIndividualImpl(IRI.create(property.getValue()))));
+                                }
+//                                OntologyServiceManager.getInstance().search(getProjectId(), text, new AsyncCallback<List<EntityData>>() {
+//                                    @Override
+//                                    public void onFailure(Throwable caught) {
+//                                        GWT.log("Querying objects failed", caught);
+//                                    }
+//
+//                                    @Override
+//                                    public void onSuccess(List<EntityData> result) {
+//                                        for (EntityData entityData : result) {
+//                                            Map<String, String> properties = entityData.getProperties();
+//                                            for (Map.Entry<String, String> property : properties.entrySet()) {
+//                                                //propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create(property.getKey())), new OWLNamedIndividualImpl(IRI.create(property.getValue()))));
+//                                            }
+//                                        }
+//                                    }
+//                                });
+
+                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/isBkInhoudVan")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/c8c708af-14ab-4134-af28-6443e6aa16f8"))));
+                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/isBkDeelinhoudVan")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/bbdb9d07-853a-486f-9bb8-a8ea3e3d682a"))));
+                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/8f47dd8f-c414-4778-bbbe-383b37bb47e3"))));
+                                
+                                LabelledFrame<NamedIndividualFrame> to = new LabelledFrame(individual.getUnquotedBrowserText() , new NamedIndividualFrame(namedIndividual, namedTypes, propertyValueList, sameIndividuals));
+                                UpdateObjectAction updateAction = new UpdateNamedIndividualFrameAction(getProjectId(), from, to);
+                                DispatchServiceManager.get().execute(updateAction, new AsyncCallback<Result>() {
+                                    @Override
+                                    public void onFailure(Throwable caught) {
+                                        GWT.log("Updating object failed", caught);
+                                    }
+
+                                    @Override
+                                    public void onSuccess(Result result) {
+                                        GWT.log("Object successfully updated");
+//                                        Optional<EditorManager<C, O>> editorManager = editorContextMapper.getEditorManager(editorCtx);
+//                                        if (editorManager.isPresent()) {
+//                                            setEditorState(editedValue, editorCtx, view, editorManager.get());
+//                                        }
+                                    }
+                                });
+                                
+//                                AsyncCallback cb = new AsyncCallback<Result>() {
+//                                    @Override
+//                                    public void onFailure(Throwable caught) {
+//                                        MessageBox.showAlert("Not OK");
+//                                    }
+//                                    @Override
+//                                    public void onSuccess(Result result) {
+//                                        MessageBox.showAlert("OK");
+//                                    }
+//                                };
+//                                invokeUpdateNamedIndividual(namedIndividual.getIRI().toString(), "http://www.openarchives.org/ore/terms/Proxy", "rdf:type", cb);
+//                                invokeUpdateNamedIndividual(namedIndividual.getIRI().toString(), individual.getUnquotedBrowserText(), "skos:prefLabel", cb);
+//                                invokeUpdateNamedIndividual(namedIndividual.getIRI().toString(), "Nee", "http://purl.edustandaard.nl/begrippenkader/heeftBkStatus", cb);
+//                                
+//                                invokeUpdateNamedIndividual(namedIndividual.getIRI().toString(), "http://purl.edustandaard.nl/begrippenkader/c8c708af-14ab-4134-af28-6443e6aa16f8", "http://purl.edustandaard.nl/begrippenkader/isBkInhoudVan", cb);
+//                                invokeUpdateNamedIndividual(namedIndividual.getIRI().toString(), "http://purl.edustandaard.nl/begrippenkader/bbdb9d07-853a-486f-9bb8-a8ea3e3d682a", "http://purl.edustandaard.nl/begrippenkader/isBkDeelinhoudVan", cb);
+//                                invokeUpdateNamedIndividual(namedIndividual.getIRI().toString(), "http://purl.edustandaard.nl/begrippenkader/8f47dd8f-c414-4778-bbbe-383b37bb47e3", "http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType", cb);
+//                                Map<String, String> properties = entityData.getProperties();
+//                                for (Map.Entry<String, String> property : properties.entrySet()) {
+//                                    invokeUpdateNamedIndividual(namedIndividual.getIRI().toString(), property.getKey(), property.getValue(), null);
+//                                }
+                                
+                            }
+                            
+//                            Set<OWLDataProperty> dataProperties = individual.getEntity().getDataPropertiesInSignature();
+//                            for (OWLDataProperty dataProperty : dataProperties) {
+//                            }
+                        }
 //                        view.addListData(individuals);
 //                        if(!individuals.isEmpty()) {
 //                            view.setSelectedIndividual(individuals.iterator().next());
@@ -1158,6 +1317,10 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
         OntologyServiceManager.getInstance().getSubclassesForNamedIndividual(getProjectId(), parentClsName, callback);
     }
 
+    protected void invokeUpdateNamedIndividual(final String subject, final String object, final String predicate, AsyncCallback<EntityData> cb) {
+        OntologyServiceManager.getInstance().updateNamedIndividual(getProjectId(), subject, object, predicate, cb);
+    }
+
     protected AsyncCallback<List<SubclassEntityData>> getSubclassesCallback(final String parentClsName, final TreeNode parentNode) {
         return new GetSubclassesOfClassHandler(parentClsName, parentNode, null);
     }
@@ -1356,7 +1519,11 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
     }
 
     protected TreeNode createTreeNode(final EntityData entityData) {
-        final TreeNode node = new TreeNode(UIUtil.getDisplayText(entityData));
+        String displayText = UIUtil.getDisplayText(entityData);
+        if (entityData.getTypePrefix() != null) {
+            displayText = entityData.getTypePrefix() + displayText;
+        }
+        final TreeNode node = new TreeNode(displayText);
         node.setHref(null);
         node.setUserObject(entityData);
         node.setAllowDrag(true);
@@ -1626,14 +1793,20 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
         @Override
         public void handleSuccess(final List<SubclassEntityData> children) {
 //            boolean isFresh = !isSubclassesLoaded(parentNode);
-            Set<OWLClass> existingSubclasses = new HashSet<OWLClass>();
+            Set<OWLNamedIndividual> existingSubclasses = new HashSet<OWLNamedIndividual>();
             for(Node childNode : parentNode.getChildNodes()) {
-                existingSubclasses.add(DataFactory.getOWLClass(getNodeClsName(childNode)));
+                existingSubclasses.add(DataFactory.getOWLNamedIndividual(getNodeClsName(childNode)));
             }
 
             for (final SubclassEntityData subclassEntityData : children) {
-                OWLClass currentCls = DataFactory.getOWLClass(subclassEntityData.getName());
+                OWLNamedIndividual currentCls = DataFactory.getOWLNamedIndividual(subclassEntityData.getName());
                 if(!existingSubclasses.contains(currentCls)) {
+                    String typeName = "";//currentCls.getObjectPropertyValues(property, ontology);
+                    Set<OWLObjectProperty> properties = currentCls.getObjectPropertiesInSignature();
+                    for (OWLObjectProperty property : properties) {
+                        typeName = "";
+                    }
+                    //subclassEntityData.setTypePrefix(typeName + ": ");
                     final TreeNode childNode = createTreeNode(subclassEntityData);
                     if (subclassEntityData.getSubclassCount() > 0) {
                         childNode.setExpandable(true);

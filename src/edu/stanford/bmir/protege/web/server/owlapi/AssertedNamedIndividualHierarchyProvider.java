@@ -11,14 +11,20 @@ import java.util.Set;
 import org.protege.editor.owl.model.hierarchy.AbstractOWLObjectHierarchyProvider;
 import org.protege.owlapi.inference.orphan.Relation;
 import org.protege.owlapi.inference.orphan.TerminalElementFinder;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomChange;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 import edu.stanford.bmir.protege.web.server.frame.AxiomPropertyValueTranslator;
@@ -198,6 +204,22 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
         rootFinder.findTerminalElements(possibleTerminalElements);
     }
 
+    public void updateNamedIndividual(OWLAPIProject project, OWLNamedIndividual subject, OWLNamedIndividual object, OWLObjectProperty predicate) {
+        OWLOntology o = project.getRootOntology();
+        OWLDataFactory df = owlOntologyManager.getOWLDataFactory();
+        // We want to state the relation between the 2 individuals
+        // subject -> predicate -> object
+        OWLAxiom assertion = df.getOWLObjectPropertyAssertionAxiom(predicate, subject, object);
+        // Finally, add the axiom to our ontology
+        AddAxiom addAxiomChange = new AddAxiom(o, assertion);
+        owlOntologyManager.applyChange(addAxiomChange);
+//        try {
+//            owlOntologyManager.saveOntology(o);
+//        } catch (OWLOntologyStorageException exc) {
+//            //skip
+//        }
+    }
+    
     public Set<OWLNamedIndividual> getRoots() {
         if (root == null) {
             root = owlOntologyManager.getOWLDataFactory().getOWLThing().asOWLNamedIndividual();

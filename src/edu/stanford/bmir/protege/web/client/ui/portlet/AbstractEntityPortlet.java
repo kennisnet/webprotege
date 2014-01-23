@@ -122,7 +122,7 @@ public abstract class AbstractEntityPortlet extends Portlet implements EntityPor
             }
         });
     }
-
+    
     public ProjectId getProjectId() {
         return project.getProjectId();
     }

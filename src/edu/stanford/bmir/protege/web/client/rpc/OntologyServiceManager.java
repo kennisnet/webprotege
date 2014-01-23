@@ -2,6 +2,7 @@ package edu.stanford.bmir.protege.web.client.rpc;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
 import edu.stanford.bmir.protege.web.client.rpc.data.*;
 import edu.stanford.bmir.protege.web.shared.project.ProjectId;
 import edu.stanford.bmir.protege.web.shared.user.UserId;
@@ -82,6 +83,10 @@ public class OntologyServiceManager {
 
     public void getSubclassesForNamedIndividual(ProjectId projectId, String namedIndividualName, AsyncCallback<List<SubclassEntityData>> cb) {
         proxy.getSubclassesForNamedIndividual(projectId.getId(), namedIndividualName, cb);
+    }
+    
+    public void updateNamedIndividual(ProjectId projectId, String subjectIRI, String objectIRI, String predicateIRI, AsyncCallback<EntityData> cb) {
+        proxy.updateNamedIndividual(projectId.getId(), subjectIRI, objectIRI, predicateIRI, cb);
     }
     
     public void getIndividuals(ProjectId projectId, String className, int start, int limit, String sort, String dir,
