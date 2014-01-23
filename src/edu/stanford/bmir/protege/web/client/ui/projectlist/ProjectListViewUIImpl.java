@@ -110,16 +110,14 @@ public class ProjectListViewUIImpl extends Composite implements ProjectListView 
         };
         ownerColumn.setSortable(true);
         ownerColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+        projectTable.addColumn(ownerColumn, "Owner");
+        
         projectTable.addColumn(new ProjectCourseColumn(), "Vak/Leergebied");
         projectTable.addColumn(new ProjectLevelColumn(), "Leerniveau");
         projectTable.addColumn(new ProjectDescriptionColumn(), "Description");
 
         final DownloadColumn downloadColumn = new DownloadColumn();
-
         final TrashColumn trashColumn = new TrashColumn();
-
-
-        projectTable.addColumn(ownerColumn, "Owner");
         projectTable.addColumn(downloadColumn, "Download");
         projectTable.addColumn(trashColumn);
 
