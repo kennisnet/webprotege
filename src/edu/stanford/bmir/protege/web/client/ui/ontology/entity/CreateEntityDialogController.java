@@ -4,6 +4,8 @@ import com.google.common.base.Optional;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.Widget;
 import edu.stanford.bmir.protege.web.client.ui.library.dlg.*;
+import edu.stanford.bmir.protege.web.shared.project.ProjectId;
+
 import org.semanticweb.owlapi.model.EntityType;
 
 /**
@@ -16,9 +18,9 @@ public class CreateEntityDialogController extends WebProtegeOKCancelDialogContro
 
     private final CreateEntityForm form;
 
-    public CreateEntityDialogController(EntityType<?> type, final CreateEntityHandler handler) {
+    public CreateEntityDialogController(ProjectId projectId, EntityType<?> type, final CreateEntityHandler handler) {
         super("Create " + type.getName());
-        form = new CreateEntityForm(type);
+        form = new CreateEntityForm(projectId, type);
         for(WebProtegeDialogValidator validator : form.getDialogValidators()) {
             addDialogValidator(validator);
         }
