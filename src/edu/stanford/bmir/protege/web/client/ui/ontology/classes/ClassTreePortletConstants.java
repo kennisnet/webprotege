@@ -26,7 +26,7 @@ public class ClassTreePortletConstants {
     public static final boolean DELETE_ENABLED_DEFAULT = true;
 
     public static final String WATCH_LABEL_PROP = "watch_label";
-    public static final String WATCH_LABEL_DEFAULT = "Watch Class";
+    public static final String WATCH_LABEL_DEFAULT = "Watch Individual";
 
     public static final String WATCH_BRANCH_LABEL_PROP = "watch_branch_label";
     public static final String WATCH_BRANCH_LABEL_DEFAULT = "Watch Branch";

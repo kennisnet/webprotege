@@ -19,6 +19,8 @@ public class EntityData implements Serializable {
 
     private Set<Watch<?>> watches;
 
+    private String typePrefix;
+    
     /**
      * TODO: Should be for serialization purposes only.
      */
@@ -193,5 +195,11 @@ public class EntityData implements Serializable {
         properties.put(prop, value);
     }
 
-
+    public String getTypePrefix() {
+        return typePrefix;
+    }
+    
+    public void setTypePrefix(String typePrefix) {
+        this.typePrefix = typePrefix;
+    }
 }

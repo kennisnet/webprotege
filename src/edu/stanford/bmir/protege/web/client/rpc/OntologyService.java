@@ -2,6 +2,7 @@ package edu.stanford.bmir.protege.web.client.rpc;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+
 import edu.stanford.bmir.protege.web.client.rpc.data.*;
 
 import java.util.List;
@@ -59,6 +60,8 @@ public interface OntologyService extends RemoteService {
     public List<SubclassEntityData> getSubclasses(String projectName, String className);
 
     public List<SubclassEntityData> getSubclassesForNamedIndividual(String projectName, String namedIndividualName);
+
+    public void updateNamedIndividual(String projectName, String subjectIRI, String objectIRI, String predicateIRI);
 
     public List<EntityData> moveCls(String projectName, String clsName, String oldParentName, String newParentName, boolean checkForCycles,
             String user, String operationDescription);
