@@ -252,7 +252,6 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
         return result;
     }
 
-
     //TODO: temporary workaround to determine children of node
     private Set<OWLNamedIndividual> extractChildren(OWLNamedIndividual parent, OWLOntology rootOntology, OWLAPIProject project) {
       Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
@@ -310,7 +309,7 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
 //        return childNamedIndividualExtractor.getResult();
     }
 
-    private List<PropertyValue> getNamedIndividualPropertyValues(OWLNamedIndividual subject, OWLOntology rootOntology, OWLAPIProject project) {
+    public List<PropertyValue> getNamedIndividualPropertyValues(OWLNamedIndividual subject, OWLOntology rootOntology, OWLAPIProject project) {
         Set<OWLAxiom> translateFrom = new HashSet<OWLAxiom>();
         for (OWLOntology ontology : rootOntology.getImportsClosure()) {
             translateFrom.addAll(ontology.getClassAssertionAxioms(subject));

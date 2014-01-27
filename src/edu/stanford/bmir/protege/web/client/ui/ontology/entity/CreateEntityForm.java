@@ -51,7 +51,7 @@ public class CreateEntityForm extends WebProtegeDialogForm {
         entityBrowserTextField.setPlaceholder("Enter one " + getTypeName() + " name per line (press CTRL+ENTER to accept and close dialog)");
 
         entitySuggestOracle = new PrimitiveDataEditorSuggestOracle(new EntitySuggestOracle(projectId, SUGGEST_LIMIT, type));
-        entityBrowserTextField.setOracle(entitySuggestOracle);
+        entityBrowserTextField.setOracle(entitySuggestOracle);        
 //        entityBrowserTextField.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
 //            @Override
 //            public void onSelection(SelectionEvent<SuggestOracle.Suggestion> event) {

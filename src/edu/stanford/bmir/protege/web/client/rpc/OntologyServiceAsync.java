@@ -3,6 +3,8 @@ package edu.stanford.bmir.protege.web.client.rpc;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import edu.stanford.bmir.protege.web.client.rpc.data.*;
+import edu.stanford.bmir.protege.web.shared.frame.PropertyAnnotationValue;
+import edu.stanford.bmir.protege.web.shared.frame.PropertyValue;
 import edu.stanford.bmir.protege.web.shared.project.ProjectId;
 import edu.stanford.bmir.protege.web.shared.user.UserId;
 
@@ -60,6 +62,8 @@ public interface OntologyServiceAsync {
 
     void updateNamedIndividual(String projectName, String subjectIRI, String objectIRI, String predicateIRI, AsyncCallback<EntityData> cb);
 
+    void getNamedIndividualPropertyValues(String projectName, String namedIndividualName, AsyncCallback<List<PropertyValue>> cb);
+    
     void getIndividuals(String projectName, String className, int start, int limit, String sort, String dir,
             AsyncCallback<PaginationData<EntityData>> cb);
 

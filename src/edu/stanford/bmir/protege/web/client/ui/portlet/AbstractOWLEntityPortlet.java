@@ -127,7 +127,8 @@ public abstract class AbstractOWLEntityPortlet extends AbstractEntityPortlet {
             return Optional.<OWLEntityData>of(new OWLClassData(DataFactory.getOWLClass(entityData.getName()), entityData.getBrowserText()));
         }
         else if(entityData.getValueType() == ValueType.Instance) {
-            return Optional.<OWLEntityData>of(new OWLNamedIndividualData(DataFactory.getOWLNamedIndividual(entityData.getName()), entityData.getBrowserText()));
+            Optional<OWLEntityData> it = Optional.<OWLEntityData>of(new OWLNamedIndividualData(DataFactory.getOWLNamedIndividual(entityData.getName()), entityData.getBrowserText()));
+            return it;
         }
 
         else if(entityData.getValueType() == ValueType.Property) {
