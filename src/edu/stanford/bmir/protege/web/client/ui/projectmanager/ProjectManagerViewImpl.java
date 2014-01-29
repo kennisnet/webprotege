@@ -155,6 +155,11 @@ public class ProjectManagerViewImpl extends Composite implements ProjectManagerV
     }
 
     @Override
+    public void setReportProjectRequestHandler(ReportProjectRequestHandler handler) {
+        projectListView.setReportProjectRequestHandler(handler);
+    }
+
+    @Override
     public void setDownloadProjectRequestHandler(DownloadProjectRequestHandler handler) {
         projectListView.setDownloadProjectRequestHandler(handler);
     }

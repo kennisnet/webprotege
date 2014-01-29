@@ -73,6 +73,7 @@ public class ProjectManagerPresenter {
 
         projectManagerView.setCreateProjectRequestHandler(new CreateProjectRequestHandlerImpl());
         projectManagerView.setUploadProjectRequestHandler(new UploadProjectRequestHandlerImpl());
+        projectManagerView.setReportProjectRequestHandler(new ReportProjectRequestHandlerImpl());
         projectManagerView.setDownloadProjectRequestHandler(new DownloadProjectRequestHandlerImpl());
         projectManagerView.setTrashManagerRequestHandler(new TrashManagerRequestHandlerImpl());
 

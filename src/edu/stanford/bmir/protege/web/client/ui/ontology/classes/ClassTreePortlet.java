@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.EntityType;
@@ -454,6 +455,18 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
                     });
                     contextMenu.addItem(menuShowDirectLink);
 
+                    MenuItem menuPrintTree = new MenuItem();
+                    menuPrintTree.setText("Show Printable Tree");
+                    menuPrintTree.setIcon("images/details.png");
+                    menuPrintTree.addListener(new BaseItemListenerAdapter() {
+                        @Override
+                        public void onClick(BaseItem item, EventObject event) {
+                            super.onClick(item, event);
+                            showPrintableTree(node);
+                        }
+                    });
+                    contextMenu.addItem(menuPrintTree);
+
                     contextMenu.showAt(e.getXY()[0] + 5, e.getXY()[1] + 5);
                 }
             };
@@ -547,6 +560,47 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
         MessageBox.showMessage("Direct link to " + entity.getBrowserText(), url);
 
     }
+
+    private void showPrintableTree(Node node) {
+    	EntityData entity = (EntityData) node.getUserObject();
+        StringBuffer tree = new StringBuffer();
+        
+        getPrintableTree((TreeNode) node, tree);
+
+        MessageBox.showMessage("Printable Tree of " + entity.getBrowserText(), tree.toString());
+        
+
+    }
+
+    private void getPrintableTree(TreeNode node, StringBuffer tree) {
+    	EntityData entity = (EntityData) node.getUserObject();
+    	getSubclasses(entity.getName(), node);
+    	
+    	if (! node.isLeaf())
+    		tree.append("<ul class='print-tree'>\n");
+    	
+    	tree.append("<li>" + ((EntityData) node.getUserObject()).getBrowserText() + "</li>\n");
+//		tree.append("<ul class='print-tree properties'>\n");
+//    	for (Entry<String, String> prop : ((EntityData) node.getUserObject()).getProperties().entrySet()) {
+//        	tree.append("<li>" + prop.getKey().toString() + "=" /*+ prop.getValue().toString()*/ + "</li>\n");
+//    	}
+//		tree.append("</ul>\n");
+    	
+    	for (Node child : node.getChildNodes()) {
+    		getPrintableTree((TreeNode) child, tree);
+    	}
+    	
+    	if (!node.isLeaf())
+    		tree.append("</ul>\n");
+    }
+
+//    private String multiplyString(String s,int i){
+//    	String result="";
+//    	for(;i>0;i--){
+//    		result += result;
+//    	}
+//    	return result;
+//    }
 
     public TreePanel createTreePanel() {
         treePanel = new TreePanel();
@@ -1785,6 +1839,7 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
         public void handleFailure(final Throwable caught) {
             //getEl().unmask();
             GWT.log("RPC error at getting subclasses of " + clsName, caught);
+            MessageBox.showAlert("RPC error at getting subclasses of " + clsName, caught.getMessage());
             if (endCallback != null) {
                 endCallback.onFailure(caught);
             }

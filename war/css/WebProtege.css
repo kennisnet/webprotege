@@ -736,7 +736,7 @@ ul.x-menu-list {
     overflow-y: auto;
 }
 
-// [GJo] Custom overrides voor KennisNet!!
+/* [GJo] Custom overrides voor KennisNet!! */
 
 html .gwt-DialogBox {
 	z-index: 10;
@@ -773,3 +773,11 @@ html .web-protege-dialog-button-comment {
 	background-image: url(../images/comment.gif);
 }
 
+.print-tree {
+	margin-left: 1em;
+	list-style-type: disc;
+}
+
+.properties {
+	font-style: italic;
+}

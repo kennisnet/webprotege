@@ -13,7 +13,7 @@ import java.util.List;
  * Bio-Medical Informatics Research Group<br>
  * Date: 09/04/2013
  */
-public interface ProjectManagerView extends HasLoadProjectRequestHandler, HasCreateProjectRequestHandler, HasUploadProjectRequestHandler, HasDownloadProjectRequestHandler, HasTrashManagerRequestHandler, HasSelectionHandlers<ProjectId>, HasViewCategoryChangedHandler {
+public interface ProjectManagerView extends HasLoadProjectRequestHandler, HasCreateProjectRequestHandler, HasUploadProjectRequestHandler, HasReportProjectRequestHandler, HasDownloadProjectRequestHandler, HasTrashManagerRequestHandler, HasSelectionHandlers<ProjectId>, HasViewCategoryChangedHandler {
 
     Widget getWidget();
 

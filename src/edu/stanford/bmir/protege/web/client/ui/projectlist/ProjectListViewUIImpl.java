@@ -23,6 +23,7 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import edu.stanford.bmir.protege.web.client.Application;
 import edu.stanford.bmir.protege.web.client.ui.projectmanager.DownloadProjectRequestHandler;
 import edu.stanford.bmir.protege.web.client.ui.projectmanager.LoadProjectRequestHandler;
+import edu.stanford.bmir.protege.web.client.ui.projectmanager.ReportProjectRequestHandler;
 import edu.stanford.bmir.protege.web.client.ui.projectmanager.TrashManagerRequestHandler;
 import edu.stanford.bmir.protege.web.shared.project.ProjectDetails;
 import edu.stanford.bmir.protege.web.shared.project.ProjectId;
@@ -57,6 +58,13 @@ public class ProjectListViewUIImpl extends Composite implements ProjectListView 
     protected AbstractPager projectTablePager;
 
     private final ListDataProvider<ProjectListEntry> listDataProvider;
+
+    private ReportProjectRequestHandler reportProjectRequestHandler = new ReportProjectRequestHandler() {
+        @Override
+        public void handleProjectReportRequest(ProjectId projectId) {
+            GWT.log("handleProjectReportRequest:  No handler registered.");
+        }
+    };
 
     private DownloadProjectRequestHandler downloadProjectRequestHandler = new DownloadProjectRequestHandler() {
         @Override
@@ -116,8 +124,10 @@ public class ProjectListViewUIImpl extends Composite implements ProjectListView 
         projectTable.addColumn(new ProjectLevelColumn(), "Leerniveau");
         projectTable.addColumn(new ProjectDescriptionColumn(), "Description");
 
+        final ReportColumn reportColumn = new ReportColumn();
         final DownloadColumn downloadColumn = new DownloadColumn();
         final TrashColumn trashColumn = new TrashColumn();
+        projectTable.addColumn(reportColumn, "Leerplan");
         projectTable.addColumn(downloadColumn, "Download");
         projectTable.addColumn(trashColumn);
 
@@ -125,6 +135,7 @@ public class ProjectListViewUIImpl extends Composite implements ProjectListView 
 
         projectTable.setColumnWidth(projectNameColumn, "150px");
         projectTable.setColumnWidth(ownerColumn, "150px");
+        projectTable.setColumnWidth(reportColumn, "90px");
         projectTable.setColumnWidth(downloadColumn, "90px");
         projectTable.setColumnWidth(trashColumn, "60px");
 
@@ -166,6 +177,11 @@ public class ProjectListViewUIImpl extends Composite implements ProjectListView 
 //        projectTablePager.setPageSize(100);
         projectTablePager.setDisplay(projectTable);
 
+    }
+
+    @Override
+    public void setReportProjectRequestHandler(ReportProjectRequestHandler handler) {
+        this.reportProjectRequestHandler = checkNotNull(handler);
     }
 
     @Override
@@ -311,6 +327,36 @@ public class ProjectListViewUIImpl extends Composite implements ProjectListView 
         @Override
         public VerticalAlignmentConstant getVerticalAlignment() {
             return HasVerticalAlignment.ALIGN_TOP;
+        }
+    }
+
+
+
+    private class ReportColumn extends Column<ProjectListEntry, String> {
+
+        private ReportColumn() {
+            super(new ClickableTextCell());
+        }
+
+        @Override
+        public String getValue(ProjectListEntry object) {
+            return "Leerplan voor " + object.getProjectId();
+        }
+
+        @Override
+        public VerticalAlignmentConstant getVerticalAlignment() {
+            return HasVerticalAlignment.ALIGN_TOP;
+        }
+
+        @Override
+        public void onBrowserEvent(Cell.Context context, Element elem, ProjectListEntry object, NativeEvent event) {
+            super.onBrowserEvent(context, elem, object, event);
+            reportProjectRequestHandler.handleProjectReportRequest(object.getProjectId());
+        }
+
+        @Override
+        public void render(Cell.Context context, ProjectListEntry object, SafeHtmlBuilder sb) {
+            sb.appendHtmlConstant("<div style=\"width: 100%; height: 100%; cursor: pointer;\" title=\"Download latest version of project\"><img style=\"padding-top: 1px; \" src=\"images/download.png\"/></div>");
         }
     }
 

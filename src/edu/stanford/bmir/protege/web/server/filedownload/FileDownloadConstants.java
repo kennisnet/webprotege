@@ -13,4 +13,6 @@ public class FileDownloadConstants {
     public static final String REVISION = "revision";
 
     public static final String FORMAT = "format";
+
+    public static final String REPORT = "report";
 }

@@ -4,6 +4,7 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.user.client.ui.IsWidget;
 import edu.stanford.bmir.protege.web.client.ui.projectmanager.HasDownloadProjectRequestHandler;
 import edu.stanford.bmir.protege.web.client.ui.projectmanager.HasLoadProjectRequestHandler;
+import edu.stanford.bmir.protege.web.client.ui.projectmanager.HasReportProjectRequestHandler;
 import edu.stanford.bmir.protege.web.client.ui.projectmanager.HasTrashManagerRequestHandler;
 import edu.stanford.bmir.protege.web.shared.project.ProjectDetails;
 import edu.stanford.bmir.protege.web.shared.project.ProjectId;
@@ -16,7 +17,7 @@ import java.util.List;
  * Bio-Medical Informatics Research Group<br>
  * Date: 01/04/2013
  */
-public interface ProjectListView extends IsWidget, HasSelectionHandlers<ProjectId>, HasLoadProjectRequestHandler, HasDownloadProjectRequestHandler, HasTrashManagerRequestHandler {
+public interface ProjectListView extends IsWidget, HasSelectionHandlers<ProjectId>, HasLoadProjectRequestHandler, HasReportProjectRequestHandler, HasDownloadProjectRequestHandler, HasTrashManagerRequestHandler {
 
     void setListData(List<ProjectDetails> projectDetails);
 

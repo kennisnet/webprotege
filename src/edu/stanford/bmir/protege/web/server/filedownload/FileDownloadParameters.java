@@ -27,9 +27,12 @@ public class FileDownloadParameters {
      * @return <code>true</code> if this is a request for a project download, otherwise <code>false</code>
      */
     public boolean isProjectDownload() {
-        return getRawProjectNameParameter() != null;
+        return getRawProjectNameParameter() != null && getRawFormatParameter() != null;
     }
 
+    public boolean isProjectReport() {
+        return getRawProjectNameParameter() != null && getRawReportParameter() != null;
+    }
 
     public ProjectId getProjectId() {
         String projectName = getRawProjectNameParameter();
@@ -73,6 +76,10 @@ public class FileDownloadParameters {
 
     private String getRawFormatParameter() {
         return request.getParameter(FileDownloadConstants.FORMAT);
+    }
+
+    private String getRawReportParameter() {
+        return request.getParameter(FileDownloadConstants.REPORT);
     }
 
     private String getRawRevisionParameter() {
