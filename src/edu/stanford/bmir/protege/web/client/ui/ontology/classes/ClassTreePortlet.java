@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -112,6 +113,7 @@ import edu.stanford.bmir.protege.web.shared.ObjectPath;
 import edu.stanford.bmir.protege.web.shared.csv.CSVImportDescriptor;
 import edu.stanford.bmir.protege.web.shared.dispatch.Result;
 import edu.stanford.bmir.protege.web.shared.dispatch.UpdateObjectAction;
+import edu.stanford.bmir.protege.web.shared.entity.OWLEntityData;
 import edu.stanford.bmir.protege.web.shared.entity.OWLNamedIndividualData;
 import edu.stanford.bmir.protege.web.shared.event.BrowserTextChangedEvent;
 import edu.stanford.bmir.protege.web.shared.event.BrowserTextChangedHandler;
@@ -200,7 +202,9 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
     private static Set<EntityData> nodesWithNotesOpen = new HashSet<EntityData>();
 
     private Optional<OWLClass> currentType = Optional.absent();
-    
+
+    private Map<String, String> labelMap = new HashMap<String, String>();
+
     public ClassTreePortlet(final Project project) {
         this(project, true, true, true, true, null);
     }
@@ -384,6 +388,11 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
 
     @Override
     public void initialize() {
+        labelMap.put("Vakkern", "VK");
+        labelMap.put("Subkern", "SK");
+        labelMap.put("Onderwerp", "I");
+        labelMap.put("Tussendoel", "TD");
+        
         setLayout(new FitLayout());
 
         setTools(getTools());
@@ -1014,7 +1023,38 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
 
     }
 
+    private Collection<PropertyValue> propertyValueList;
+    private void addPropertyToList(PropertyValue property) {
+        OWLEntity propertyKey = property.getProperty();
+        if (propertyKey.getIRI().toString().equals("http://purl.edustandaard.nl/begrippenkader/isBkInhoudVan")) {
+            propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(propertyKey.getIRI()), new OWLNamedIndividualImpl(((PropertyIndividualValue) property).getValue().getIRI())));
+        } else if (propertyKey.getIRI().toString().equals("http://purl.edustandaard.nl/begrippenkader/isBkDeelinhoudVan")) {
+            propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(propertyKey.getIRI()), new OWLNamedIndividualImpl(((PropertyIndividualValue) property).getValue().getIRI())));
+        } else if (propertyKey.getIRI().toString().equals("http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType")) {
+            propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(propertyKey.getIRI()), new OWLNamedIndividualImpl(((PropertyIndividualValue) property).getValue().getIRI())));
+        } else if (propertyKey.getIRI().toString().equals("http://purl.edustandaard.nl/begrippenkader/isBkDoelVan")) {
+            propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(propertyKey.getIRI()), new OWLNamedIndividualImpl(((PropertyIndividualValue) property).getValue().getIRI())));
+        } else if (propertyKey.getIRI().toString().equals("http://purl.edustandaard.nl/begrippenkader/heeftBkDoelType")) {
+            propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(propertyKey.getIRI()), new OWLNamedIndividualImpl(((PropertyIndividualValue) property).getValue().getIRI())));
+        }
+    }
+    
+    private void updateIndividual(String unquotedBrowserText, OWLNamedIndividual subject, Set<OWLClass> namedTypes, Collection<PropertyValue> propertyValueList, Set<OWLNamedIndividual> sameIndividuals, LabelledFrame<NamedIndividualFrame> from) {
+        LabelledFrame<NamedIndividualFrame> to = new LabelledFrame(unquotedBrowserText, new NamedIndividualFrame(subject, namedTypes, propertyValueList, sameIndividuals));
+        UpdateObjectAction updateAction = new UpdateNamedIndividualFrameAction(getProjectId(), from, to);
+        DispatchServiceManager.get().execute(updateAction, new AsyncCallback<Result>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                GWT.log("Updating object failed", caught);
+            }
 
+            @Override
+            public void onSuccess(Result result) {
+                GWT.log("Object successfully updated");
+            }
+        });
+    }
+    
     private void createSubClasses() {
 //        WebProtegeDialog.showDialog(new CreateEntityDialogController(EntityType.NAMED_INDIVIDUAL, new CreateEntityDialogController.CreateEntityHandler() {
 //            @Override
@@ -1037,15 +1077,16 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
                     @Override
                     public void onSuccess(CreateNamedIndividualsResult result) {
                         Set<OWLNamedIndividualData> individuals = result.getIndividuals();
-                        for (OWLNamedIndividualData individual : individuals) {
-                            OWLNamedIndividual namedIndividual = individual.getEntity();
+                        for (final OWLNamedIndividualData individual : individuals) {
+                            final OWLNamedIndividual namedIndividual = individual.getEntity();
                             List<EntityData> selection = getSelection();
                             for (EntityData entityData : selection) {
-                                String entityName = entityData.getName();
-                                Set<OWLClass> namedTypes = new HashSet<OWLClass>();
-                                Collection<PropertyValue> propertyValueList = new ArrayList<PropertyValue>();
-                                Set<OWLNamedIndividual> sameIndividuals = new HashSet<OWLNamedIndividual>();
-                                LabelledFrame<NamedIndividualFrame> from = new LabelledFrame(individual.getUnquotedBrowserText() , new NamedIndividualFrame(namedIndividual, namedTypes, propertyValueList, sameIndividuals));
+                                //String entityName = entityData.getName();
+                                final Set<OWLClass> namedTypes = new HashSet<OWLClass>();
+                                propertyValueList = new ArrayList<PropertyValue>();
+                                final Set<OWLNamedIndividual> sameIndividuals = new HashSet<OWLNamedIndividual>();
+                                final LabelledFrame<NamedIndividualFrame> from = new LabelledFrame(individual.getUnquotedBrowserText() , new NamedIndividualFrame(namedIndividual, namedTypes, propertyValueList, sameIndividuals));
+                                //Default properties
                                 namedTypes.add(new OWLClassImpl(IRI.create("http://www.openarchives.org/ore/terms/Proxy")));
                                 propertyValueList.add(new PropertyAnnotationValue(new OWLAnnotationPropertyImpl(IRI.create("http://www.w3.org/2004/02/skos/core#prefLabel")), new OWLLiteralImplNoCompression(individual.getUnquotedBrowserText(), "", OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL))));
                                 propertyValueList.add(new PropertyAnnotationValue(new OWLAnnotationPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/heeftBkStatus")), new OWLLiteralImplNoCompression("Nee", "", OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL))));
@@ -1053,61 +1094,21 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
                                 String iri = entityData.getName();
                                 String text = entityData.getBrowserText();
                                 
-                                OWLNamedIndividual niv = DataFactory.getOWLNamedIndividual(iri);
-                                Set<OWLObjectProperty> properties = niv.getObjectPropertiesInSignature();
-                                for (OWLObjectProperty property : properties) {
-                                    property.getNamedProperty().getIRI();
-                                    //propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create(property.ggetKey())), new OWLNamedIndividualImpl(IRI.create(property.getValue()))));
-                                }
-//                                OntologyServiceManager.getInstance().search(getProjectId(), text, new AsyncCallback<List<EntityData>>() {
-//                                    @Override
-//                                    public void onFailure(Throwable caught) {
-//                                        GWT.log("Querying objects failed", caught);
-//                                    }
-//
-//                                    @Override
-//                                    public void onSuccess(List<EntityData> result) {
-//                                        for (EntityData entityData : result) {
-//                                            Map<String, String> properties = entityData.getProperties();
-//                                            for (Map.Entry<String, String> property : properties.entrySet()) {
-//                                                //propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create(property.getKey())), new OWLNamedIndividualImpl(IRI.create(property.getValue()))));
-//                                            }
-//                                        }
-//                                    }
-//                                });
+                                invokeGetNamedIndividualPropertyValues(iri, new AsyncCallback<List<PropertyValue>>() {
+                                  @Override
+                                  public void onFailure(Throwable caught) {
+                                      GWT.log("Querying objects failed", caught);
+                                  }
 
-                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/isBkInhoudVan")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/c8c708af-14ab-4134-af28-6443e6aa16f8"))));
-                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/isBkDeelinhoudVan")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/bbdb9d07-853a-486f-9bb8-a8ea3e3d682a"))));
-                                propertyValueList.add(new PropertyIndividualValue(new OWLObjectPropertyImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType")), new OWLNamedIndividualImpl(IRI.create("http://purl.edustandaard.nl/begrippenkader/8f47dd8f-c414-4778-bbbe-383b37bb47e3"))));
-                                
-                                LabelledFrame<NamedIndividualFrame> to = new LabelledFrame(individual.getUnquotedBrowserText() , new NamedIndividualFrame(namedIndividual, namedTypes, propertyValueList, sameIndividuals));
-                                UpdateObjectAction updateAction = new UpdateNamedIndividualFrameAction(getProjectId(), from, to);
-                                DispatchServiceManager.get().execute(updateAction, new AsyncCallback<Result>() {
-                                    @Override
-                                    public void onFailure(Throwable caught) {
-                                        GWT.log("Updating object failed", caught);
-                                    }
-
-                                    @Override
-                                    public void onSuccess(Result result) {
-                                        GWT.log("Object successfully updated");
-//                                        Optional<EditorManager<C, O>> editorManager = editorContextMapper.getEditorManager(editorCtx);
-//                                        if (editorManager.isPresent()) {
-//                                            setEditorState(editedValue, editorCtx, view, editorManager.get());
-//                                        }
-                                    }
+                                  @Override
+                                  public void onSuccess(List<PropertyValue> result) {
+                                      for (PropertyValue property : result) {
+                                          addPropertyToList(property);
+                                      }
+                                      updateIndividual(individual.getUnquotedBrowserText(), namedIndividual, namedTypes, propertyValueList, sameIndividuals, from);
+                                  }
                                 });
                                 
-//                                AsyncCallback cb = new AsyncCallback<Result>() {
-//                                    @Override
-//                                    public void onFailure(Throwable caught) {
-//                                        MessageBox.showAlert("Not OK");
-//                                    }
-//                                    @Override
-//                                    public void onSuccess(Result result) {
-//                                        MessageBox.showAlert("OK");
-//                                    }
-//                                };
 //                                invokeUpdateNamedIndividual(namedIndividual.getIRI().toString(), "http://www.openarchives.org/ore/terms/Proxy", "rdf:type", cb);
 //                                invokeUpdateNamedIndividual(namedIndividual.getIRI().toString(), individual.getUnquotedBrowserText(), "skos:prefLabel", cb);
 //                                invokeUpdateNamedIndividual(namedIndividual.getIRI().toString(), "Nee", "http://purl.edustandaard.nl/begrippenkader/heeftBkStatus", cb);
@@ -1122,9 +1123,6 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
                                 
                             }
                             
-//                            Set<OWLDataProperty> dataProperties = individual.getEntity().getDataPropertiesInSignature();
-//                            for (OWLDataProperty dataProperty : dataProperties) {
-//                            }
                         }
 //                        view.addListData(individuals);
 //                        if(!individuals.isEmpty()) {
@@ -1375,6 +1373,10 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
         OntologyServiceManager.getInstance().updateNamedIndividual(getProjectId(), subject, object, predicate, cb);
     }
 
+    protected void invokeGetNamedIndividualPropertyValues(final String subject, AsyncCallback<List<PropertyValue>> cb) {
+        OntologyServiceManager.getInstance().getNamedIndividualPropertyValues(getProjectId(), subject, cb);
+    }
+    
     protected AsyncCallback<List<SubclassEntityData>> getSubclassesCallback(final String parentClsName, final TreeNode parentNode) {
         return new GetSubclassesOfClassHandler(parentClsName, parentNode, null);
     }
@@ -1575,6 +1577,8 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
     protected TreeNode createTreeNode(final EntityData entityData) {
         String displayText = UIUtil.getDisplayText(entityData);
         if (entityData.getTypePrefix() != null) {
+            //Duh, waarom werkt displayText niet gewoon om de type prefix the zetten?!
+            entityData.setBrowserText(entityData.getTypePrefix() + entityData.getBrowserText());
             displayText = entityData.getTypePrefix() + displayText;
         }
         final TreeNode node = new TreeNode(displayText);
@@ -1856,18 +1860,52 @@ public class ClassTreePortlet extends AbstractOWLEntityPortlet {
             for (final SubclassEntityData subclassEntityData : children) {
                 OWLNamedIndividual currentCls = DataFactory.getOWLNamedIndividual(subclassEntityData.getName());
                 if(!existingSubclasses.contains(currentCls)) {
-                    String typeName = "";//currentCls.getObjectPropertyValues(property, ontology);
-                    Set<OWLObjectProperty> properties = currentCls.getObjectPropertiesInSignature();
-                    for (OWLObjectProperty property : properties) {
-                        typeName = "";
+                    String iri = subclassEntityData.getName();
+                    invokeGetNamedIndividualPropertyValues(iri, new AsyncCallback<List<PropertyValue>>() {
+                      @Override
+                      public void onFailure(Throwable caught) {
+                          GWT.log("Querying objects failed", caught);
+                      }
+
+                      @Override
+                      public void onSuccess(List<PropertyValue> result) {
+                          for (PropertyValue property : result) {
+                              if (property.getProperty().getIRI().toString().equals("http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType") ||
+                                      property.getProperty().getIRI().toString().equals("http://purl.edustandaard.nl/begrippenkader/heeftBkDoelType")) {
+                                  String iri = ((PropertyIndividualValue) property).getValue().getIRI().toString();
+                                  invokeGetNamedIndividualPropertyValues(iri, new AsyncCallback<List<PropertyValue>>() {
+                                    @Override
+                                    public void onFailure(Throwable caught) {
+                                        GWT.log("Querying objects failed", caught);
+                                    }
+
+                                    @Override
+                                    public void onSuccess(List<PropertyValue> result) {
+                                        String typeLearningContent = null;
+                                        for (PropertyValue property : result) {
+                                            if (property.getProperty().getIRI().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+                                                typeLearningContent = ((OWLLiteralImplNoCompression) ((PropertyValue) property).getValue()).getLiteral();
+                                                break;
+                                            }
+                                        }
+                                        if (typeLearningContent != null) {
+                                            String typePrefix = labelMap.get(typeLearningContent);
+                                            subclassEntityData.setTypePrefix(typePrefix + ": ");
+                                        }
+                                        
+                                        final TreeNode childNode = createTreeNode(subclassEntityData);
+                                        if (subclassEntityData.getSubclassCount() > 0) {
+                                            childNode.setExpandable(true);
+                                        }
+                                        parentNode.appendChild(childNode);
+//                                        updateAncestorNoteCounts(subclassEntityData.getLocalAnnotationsCount(), childNode);
+                                  }
+                                  });
+                                  break;
+                              }
+                          }
                     }
-                    //subclassEntityData.setTypePrefix(typeName + ": ");
-                    final TreeNode childNode = createTreeNode(subclassEntityData);
-                    if (subclassEntityData.getSubclassCount() > 0) {
-                        childNode.setExpandable(true);
-                    }
-                    parentNode.appendChild(childNode);
-//                    updateAncestorNoteCounts(subclassEntityData.getLocalAnnotationsCount(), childNode);
+                    });
                 }
             }
 

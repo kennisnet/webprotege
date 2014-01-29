@@ -252,7 +252,6 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
         return result;
     }
 
-
     //TODO: temporary workaround to determine children of node
     private Set<OWLNamedIndividual> extractChildren(OWLNamedIndividual parent, OWLOntology rootOntology, OWLAPIProject project) {
       Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
@@ -267,8 +266,9 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
               }
           }
       }
-      String parentIRI = "<" + parent.getIRI().toString() + ">";
-      for (OWLNamedIndividual niv : rootOntology.getIndividualsInSignature()) {
+      String parentIRI = parent.getIRI().toQuotedString();
+      Set<OWLNamedIndividual> individivuals = rootOntology.getIndividualsInSignature();
+      for (OWLNamedIndividual niv : individivuals) {
           List<PropertyValue> childPropertyValues = getNamedIndividualPropertyValues(niv, rootOntology, project);
           for (PropertyValue propertyValue : childPropertyValues) {
               if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/isBkDeelinhoudVan")) {
@@ -309,7 +309,7 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
 //        return childNamedIndividualExtractor.getResult();
     }
 
-    private List<PropertyValue> getNamedIndividualPropertyValues(OWLNamedIndividual subject, OWLOntology rootOntology, OWLAPIProject project) {
+    public List<PropertyValue> getNamedIndividualPropertyValues(OWLNamedIndividual subject, OWLOntology rootOntology, OWLAPIProject project) {
         Set<OWLAxiom> translateFrom = new HashSet<OWLAxiom>();
         for (OWLOntology ontology : rootOntology.getImportsClosure()) {
             translateFrom.addAll(ontology.getClassAssertionAxioms(subject));

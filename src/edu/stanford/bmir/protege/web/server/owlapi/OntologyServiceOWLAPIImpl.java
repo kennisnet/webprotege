@@ -7,6 +7,7 @@ import edu.stanford.bmir.protege.web.server.URLUtil;
 import edu.stanford.bmir.protege.web.server.WebProtegeRemoteServiceServlet;
 import edu.stanford.bmir.protege.web.server.owlapi.metrics.OWLAPIProjectMetric;
 import edu.stanford.bmir.protege.web.server.owlapi.metrics.OWLAPIProjectMetricValue;
+import edu.stanford.bmir.protege.web.shared.frame.PropertyValue;
 import edu.stanford.bmir.protege.web.shared.project.ProjectId;
 import edu.stanford.bmir.protege.web.shared.user.UserId;
 import edu.stanford.bmir.protege.web.shared.watches.Watch;
@@ -470,6 +471,21 @@ public class OntologyServiceOWLAPIImpl extends WebProtegeRemoteServiceServlet im
         OWLNamedIndividual object = rm.getEntity(objectIRI, EntityType.NAMED_INDIVIDUAL);
         OWLObjectProperty predicate = rm.getEntity(predicateIRI, EntityType.OBJECT_PROPERTY);
         hierarchyProvider.updateNamedIndividual(project, subject, object, predicate);
+    }
+    
+    public  List<PropertyValue> getNamedIndividualPropertyValues(String projectName, String namedIndividualName) {
+        if (projectName == null) {
+            throw new NullPointerException("projectName must not be null");
+        }
+        if (namedIndividualName == null) {
+            return Collections.emptyList();
+        }
+        OWLAPIProject project = getProject(projectName);
+        RenderingManager rm = project.getRenderingManager();
+        AssertedNamedIndividualHierarchyProvider hierarchyProvider = project.getNamedIndividualHierarchyProvider();
+
+        OWLNamedIndividual niv = rm.getEntity(namedIndividualName, EntityType.NAMED_INDIVIDUAL);
+        return hierarchyProvider.getNamedIndividualPropertyValues(niv, project.getRootOntology(), project);
     }
     
     /**
