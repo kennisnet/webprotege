@@ -252,6 +252,27 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
         return result;
     }
 
+    public Set<OWLNamedIndividual> getDoelen(OWLNamedIndividual object, OWLOntology rootOntology, OWLAPIProject project) {
+        Set<OWLNamedIndividual> result;
+        if (object.equals(root)) {
+            result = new HashSet<OWLNamedIndividual>();
+            result.addAll(rootFinder.getTerminalElements());
+            result.addAll(extractDoelen(object, rootOntology, project));
+            result.remove(object);
+        }
+        else {
+            result = extractDoelen(object, rootOntology, project);
+            for (Iterator<OWLNamedIndividual> it = result.iterator(); it.hasNext();) {
+                OWLNamedIndividual curChild = it.next();
+                if (getAncestors(object).contains(curChild)) {
+                    it.remove();
+                }
+            }
+        }
+
+        return result;
+    }
+
     //TODO: temporary workaround to determine children of node
     private Set<OWLNamedIndividual> extractChildren(OWLNamedIndividual parent, OWLOntology rootOntology, OWLAPIProject project) {
       Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
@@ -307,6 +328,28 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
 //            }
 //        }
 //        return childNamedIndividualExtractor.getResult();
+    }
+
+    //TODO: temporary workaround to determine children of node
+    private Set<OWLNamedIndividual> extractDoelen(OWLNamedIndividual parent, OWLOntology rootOntology, OWLAPIProject project) {
+      Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
+      List<PropertyValue> parentPropertyValues = getNamedIndividualPropertyValues(parent, rootOntology, project);
+      boolean parentIsSubkern = false;
+      //TODO: use .contains(Object) ?
+      String parentIRI = parent.getIRI().toQuotedString();
+      Set<OWLNamedIndividual> individivuals = rootOntology.getIndividualsInSignature();
+      for (OWLNamedIndividual niv : individivuals) {
+          List<PropertyValue> childPropertyValues = getNamedIndividualPropertyValues(niv, rootOntology, project);
+          for (PropertyValue propertyValue : childPropertyValues) {
+              if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/isBkDoelVan")) {
+                  if (parentIRI.equals(propertyValue.getValue().toString())) {
+                      result.add(niv);
+                      break;
+                  }
+              }
+          }
+      }
+      return result;
     }
 
     public List<PropertyValue> getNamedIndividualPropertyValues(OWLNamedIndividual subject, OWLOntology rootOntology, OWLAPIProject project) {

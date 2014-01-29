@@ -37,3 +37,6 @@ mail.properties
 .DS_Store
 /docs
 /ant
+/war/default-projects/kennisnet/roots.xml
+/war/default-projects/metaproject/projects.xml
+/war/default-configurations/data-store
