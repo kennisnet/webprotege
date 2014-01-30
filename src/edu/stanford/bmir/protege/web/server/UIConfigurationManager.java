@@ -133,7 +133,7 @@ public class UIConfigurationManager {
         return userId.getUserName();
     }
 
-    private static File getConfigurationFile(ProjectId projectId) {
+    public static File getConfigurationFile(ProjectId projectId) {
         return new File(getProjectConfigurationDirectory(projectId), CONFIGURATION_FILE_NAME);
     }
 

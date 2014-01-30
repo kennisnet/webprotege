@@ -2,18 +2,22 @@ package edu.stanford.bmir.protege.web.server.owlapi;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
+
 import edu.stanford.bmir.protege.web.shared.event.ProjectEvent;
 import edu.stanford.bmir.protege.web.shared.hierarchy.HierarchyChangedEvent;
 import edu.stanford.bmir.protege.web.shared.hierarchy.HierarchyId;
 import edu.stanford.bmir.protege.web.shared.hierarchy.HierarchyRootAddedEvent;
 import edu.stanford.bmir.protege.web.shared.hierarchy.HierarchyRootRemovedEvent;
 import edu.stanford.bmir.protege.web.shared.project.ProjectId;
+
 import org.protege.editor.owl.model.hierarchy.OWLObjectHierarchyProvider;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -52,12 +56,21 @@ public abstract class HierarchyChangeComputer<T extends OWLEntity> {
             for(OWLEntity entity : change.getSignature()) {
                 if(entity.isType(entityType)) {
                     final T t = (T) entity;
-                    final Set<T> parentsBefore = hierarchyProvider.getParents(t);
+                    final Set<T> parentsBefore;
+                    if (hierarchyProvider instanceof AssertedNamedIndividualHierarchyProvider) {
+                        parentsBefore = (Set<T>) ((AssertedNamedIndividualHierarchyProvider) hierarchyProvider).getParents((OWLNamedIndividual) t, projectId);
+                    } else {
+                        parentsBefore = hierarchyProvider.getParents(t);
+                    }
                     child2ParentMap.putAll(t, parentsBefore);
                 }
             }
         }
-        roots.addAll(hierarchyProvider.getRoots());
+        if (hierarchyProvider instanceof AssertedNamedIndividualHierarchyProvider) {
+            roots.addAll((Collection<? extends T>) ((AssertedNamedIndividualHierarchyProvider) hierarchyProvider).getRoots(projectId));
+        } else {
+            roots.addAll(hierarchyProvider.getRoots());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -71,7 +84,12 @@ public abstract class HierarchyChangeComputer<T extends OWLEntity> {
                     if (!changeSignature.contains(t)) {
                         changeSignature.add(t);
                         Set<T> parentsBefore = child2ParentMap.get(t);
-                        Set<T> parentsAfter = hierarchyProvider.getParents(t);
+                        Set<T> parentsAfter;
+                        if (hierarchyProvider instanceof AssertedNamedIndividualHierarchyProvider) {
+                            parentsAfter = (Set<T>) ((AssertedNamedIndividualHierarchyProvider) hierarchyProvider).getParents((OWLNamedIndividual) t, projectId);
+                        } else {
+                            parentsAfter = hierarchyProvider.getParents(t);
+                        }
                         for(T parentBefore : parentsBefore) {
                             if(!parentsAfter.contains(parentBefore)) {
                                 // Removed
@@ -88,7 +106,12 @@ public abstract class HierarchyChangeComputer<T extends OWLEntity> {
                 }
             }
         }
-        Set<T> rootsAfter = new HashSet<T>(hierarchyProvider.getRoots());
+        Set<T> rootsAfter = null;
+        if (hierarchyProvider instanceof AssertedNamedIndividualHierarchyProvider) {
+            rootsAfter = new HashSet<T>((Collection<? extends T>) ((AssertedNamedIndividualHierarchyProvider) hierarchyProvider).getRoots(projectId));
+        } else {
+            rootsAfter = new HashSet<T>(hierarchyProvider.getRoots());
+        }
         for(T rootAfter : rootsAfter) {
             if(!roots.contains(rootAfter)) {
                 result.add(new HierarchyRootAddedEvent<T>(projectId, hierarchyId, rootAfter));

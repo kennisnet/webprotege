@@ -62,7 +62,9 @@ public interface OntologyService extends RemoteService {
     public List<SubclassEntityData> getSubclasses(String projectName, String className);
 
     public List<SubclassEntityData> getSubclassesForNamedIndividual(String projectName, String namedIndividualName);
-
+    
+    public List<SubclassEntityData> getSubclassesForDoelen(String projectName, String namedIndividualName);
+    
     public void updateNamedIndividual(String projectName, String subjectIRI, String objectIRI, String predicateIRI);
 
     public List<PropertyValue> getNamedIndividualPropertyValues(String projectName, String namedIndividualName);

@@ -2,9 +2,11 @@ package edu.stanford.bmir.protege.web.shared.hierarchy;
 
 
 import com.google.gwt.user.client.rpc.IsSerializable;
+
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 import java.io.Serializable;
@@ -20,6 +22,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class HierarchyId<T extends Serializable> implements IsSerializable {
 
     public static final HierarchyId<OWLClass> CLASS_HIERARCHY = get("Class");
+
+    public static final HierarchyId<OWLNamedIndividual> NAMED_INDIVIDUAL_HIERARCHY = get("NamedIndividual");
 
     public static final HierarchyId<OWLObjectProperty> OBJECT_PROPERTY_HIERARCHY = get("ObjectProperty");
 

@@ -589,6 +589,17 @@ public class OWLAPIProject implements HasDispose, HasDataFactory {
                 return new ClassHierarchyParentAddedEvent(getProjectId(), child, parent, HierarchyId.CLASS_HIERARCHY);
             }
         });
+        computers.add(new HierarchyChangeComputer<OWLNamedIndividual>(getProjectId(), EntityType.NAMED_INDIVIDUAL, namedIndividualHierarchyProvider, HierarchyId.NAMED_INDIVIDUAL_HIERARCHY) {
+            @Override
+            protected HierarchyChangedEvent<OWLNamedIndividual, ?> createRemovedEvent(OWLNamedIndividual child, OWLNamedIndividual parent) {
+                return new NamedIndividualHierarchyParentRemovedEvent(getProjectId(), child, parent, HierarchyId.NAMED_INDIVIDUAL_HIERARCHY);
+            }
+
+            @Override
+            protected HierarchyChangedEvent<OWLNamedIndividual, ?> createAddedEvent(OWLNamedIndividual child, OWLNamedIndividual parent) {
+                return new NamedIndividualHierarchyParentAddedEvent(getProjectId(), child, parent, HierarchyId.NAMED_INDIVIDUAL_HIERARCHY);
+            }
+        });
         computers.add(new HierarchyChangeComputer<OWLObjectProperty>(getProjectId(), EntityType.OBJECT_PROPERTY, objectPropertyHierarchyProvider, HierarchyId.OBJECT_PROPERTY_HIERARCHY) {
             @Override
             protected HierarchyChangedEvent<OWLObjectProperty, ?> createRemovedEvent(OWLObjectProperty child, OWLObjectProperty parent) {

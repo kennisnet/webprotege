@@ -60,6 +60,8 @@ public interface OntologyServiceAsync {
 
     void getSubclassesForNamedIndividual(String projectName, String namedIndividualName, AsyncCallback<List<SubclassEntityData>> cb);
 
+    void getSubclassesForDoelen(String projectName, String namedIndividualName, AsyncCallback<List<SubclassEntityData>> cb);
+    
     void updateNamedIndividual(String projectName, String subjectIRI, String objectIRI, String predicateIRI, AsyncCallback<EntityData> cb);
 
     void getNamedIndividualPropertyValues(String projectName, String namedIndividualName, AsyncCallback<List<PropertyValue>> cb);

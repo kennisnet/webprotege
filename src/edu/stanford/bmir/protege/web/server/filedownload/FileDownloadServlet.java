@@ -101,7 +101,7 @@ public class FileDownloadServlet extends HttpServlet {
             			"<table><thead><tr><th>Vakgebieden</th><th>Kerndoelen</th></tr></thead><tbody>");
                 
             	// child = vakkern
-            	List<OWLNamedIndividual> children = new ArrayList<OWLNamedIndividual>(provider.getChildren(root, project.getRootOntology(), project));
+            	List<OWLNamedIndividual> children = new ArrayList<OWLNamedIndividual>(provider.getChildren(root, project.getRootOntology(), project, AssertedNamedIndividualHierarchyProvider.TYPE_INHOUD));
             	Collections.sort(children, new Comparator<OWLNamedIndividual>() {
 
 					@Override

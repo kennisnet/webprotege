@@ -1,6 +1,7 @@
 package edu.stanford.bmir.protege.web.client.ui.generated;
 
 import com.google.gwt.core.client.GWT;
+
 import edu.stanford.bmir.protege.web.client.project.Project;
 import edu.stanford.bmir.protege.web.client.ui.editor.EditorPortlet;
 import edu.stanford.bmir.protege.web.client.ui.notes.DiscussionThreadPortlet;
@@ -98,6 +99,12 @@ public class UIFactory {
             }
             else if (portletJavaClassName.equals(AnnotationsPortlet.class.getName())) {
                 return new AnnotationsPortlet(project);
+            }
+            else if (portletJavaClassName.equals(NamedIndividualTreePortlet.class.getName())) {
+                return new NamedIndividualTreePortlet(project);
+            }
+            else if (portletJavaClassName.equals(DoelenTreePortlet.class.getName())) {
+                return new DoelenTreePortlet(project);
             }
             else if (portletJavaClassName.equals(ClassTreePortlet.class.getName())) {
                 return new ClassTreePortlet(project);
