@@ -1,4 +1,4 @@
-// $Id$
+// Id$
 package edu.stanford.bmir.protege.web.client.ui.ontology.classes;
 
 import java.util.List;
@@ -15,12 +15,12 @@ import edu.stanford.bmir.protege.web.client.rpc.data.SubclassEntityData;
  * @author reumerman
  * @version $Id$
  */
-public class DoelenTreePortlet extends NamedIndividualTreePortlet {
-    public DoelenTreePortlet(final Project project) {
+public class InhoudTreePortlet extends NamedIndividualTreePortlet {
+    public InhoudTreePortlet(final Project project) {
         super(project, true, true, true, true, null);
     }
 
-    public DoelenTreePortlet(final Project project, final boolean showToolbar, final boolean showTitle,
+    public InhoudTreePortlet(final Project project, final boolean showToolbar, final boolean showTitle,
             final boolean showTools, final boolean allowsMultiSelection, final String topClass) {
         super(project, showToolbar, showTitle, showTools, allowsMultiSelection, topClass);
     }
@@ -28,7 +28,8 @@ public class DoelenTreePortlet extends NamedIndividualTreePortlet {
     @Override
     protected void invokeGetSubclassesRemoteCall(final String parentClsName,
             AsyncCallback<List<SubclassEntityData>> callback) {
-        OntologyServiceManager.getInstance().getSubclassesForDoelen(getProjectId(), parentClsName,
+        OntologyServiceManager.getInstance().getSubclassesForNamedIndividual(getProjectId(), parentClsName,
                 callback);
     }
+
 }
