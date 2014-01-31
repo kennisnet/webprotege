@@ -76,7 +76,9 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
     private OWLNamedIndividual kerndoelProxy;
     private OWLNamedIndividual tussendoelProxy;
     
-    public AssertedNamedIndividualHierarchyProvider(OWLOntologyManager owlOntologyManager) {
+    private ProjectId projectId;
+    
+    public AssertedNamedIndividualHierarchyProvider(OWLOntologyManager owlOntologyManager, ProjectId projectId) {
         super(owlOntologyManager);
         this.owlOntologyManager = owlOntologyManager;
         /*
@@ -99,6 +101,7 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
             }
         };
         getManager().addOntologyChangeListener(listener);
+        this.projectId = projectId;
     }
 
     /**
@@ -239,10 +242,10 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
 
     //Make Protege parent class happy
     public Set<OWLNamedIndividual> getRoots() {
-        Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
-        return result;
+        return getRoots(projectId);
     }
     
+    // TODO: private maken..
     public Set<OWLNamedIndividual> getRoots(ProjectId projectId) {
 //      if (root == null) {
 //      	//UIConfigurationManager.getConfigurationFile(projectId);

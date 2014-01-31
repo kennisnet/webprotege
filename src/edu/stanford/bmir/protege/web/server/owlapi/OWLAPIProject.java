@@ -100,7 +100,7 @@ public class OWLAPIProject implements HasDispose, HasDataFactory {
 
     private AssertedClassHierarchyProvider classHierarchyProvider = new AssertedClassHierarchyProvider(WebProtegeOWLManager.createOWLOntologyManager());
 
-    private AssertedNamedIndividualHierarchyProvider namedIndividualHierarchyProvider = new AssertedNamedIndividualHierarchyProvider(WebProtegeOWLManager.createOWLOntologyManager());
+    private AssertedNamedIndividualHierarchyProvider namedIndividualHierarchyProvider;
     
     private OWLObjectPropertyHierarchyProvider objectPropertyHierarchyProvider;
 
@@ -149,6 +149,7 @@ public class OWLAPIProject implements HasDispose, HasDataFactory {
      * @throws OWLParserException If there was a problem parsing sources.
      */
     private OWLAPIProject(OWLAPIProjectDocumentStore documentStore) throws IOException, OWLParserException {
+        this.namedIndividualHierarchyProvider = new AssertedNamedIndividualHierarchyProvider(WebProtegeOWLManager.createOWLOntologyManager(), documentStore.getProjectId());
         this.documentStore = documentStore;
         this.projectEventManager = EventManager.create(PROJECT_EVENT_LIFE_TIME);
         final boolean useCachingInDataFactory = false;
@@ -189,7 +190,7 @@ public class OWLAPIProject implements HasDispose, HasDataFactory {
         entityCrudKitHandlerCache = new ProjectEntityCrudKitHandlerCache(getProjectId());
         loadProject();
         initialiseProjectMachinery();
-
+        
     }
 
 

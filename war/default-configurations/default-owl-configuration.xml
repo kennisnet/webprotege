@@ -60,7 +60,7 @@
                     <portlets>
                         <portlet>
                             <name>edu.stanford.bmir.protege.web.client.ui.notes.DiscussionThreadPortlet</name>
-                            <height>150</height>
+                            <height>120</height>
                             <width>0</width>
                         </portlet>
                         <portlet>
@@ -92,10 +92,10 @@
 														<string>component_type</string>
 														<string>textfield</string>
 													</entry>
-													<entry>
+													<!--entry>
 														<string>read_only</string>
 														<string>true</string>
-													</entry>
+													</entry-->
 													<entry>
 														<string>index</string>
 														<string>0</string>
@@ -113,10 +113,10 @@
 														<string>component_type</string>
 														<string>textfield</string>
 													</entry>
-													<entry>
+													<!--entry>
 														<string>disabled</string>
 														<string>true</string>
-													</entry>
+													</entry-->
 													<entry>
 														<string>index</string>
 														<string>1</string>
@@ -138,14 +138,6 @@
 														<string>index</string>
 														<string>2</string>
 													</entry>
-													<entry>
-														<string>text</string>
-														<string>bla</string>
-													</entry>
-													<entry>
-														<string>allowed_values</string>
-														<string>bla</string>
-													</entry>
 												</map>
 											</entry>										
 											<entry>
@@ -162,14 +154,6 @@
 													<entry>
 														<string>index</string>
 														<string>3</string>
-													</entry>
-													<entry>
-														<string>text</string>
-														<string>bla</string>
-													</entry>
-													<entry>
-														<string>allowed_values</string>
-														<string>bla</string>
 													</entry>
 												</map>
 											</entry>										
