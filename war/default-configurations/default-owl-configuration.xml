@@ -1,4 +1,22 @@
-<project>
+<project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:bk="http://purl.edustandaard.nl/begrippenkader/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:ore="http://www.openarchives.org/ore/terms/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:bkt="http://www.rnaproject.org/data/bkt/"
+         xmlns:dctype="http://purl.org/dc/dcmitype/"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:vs="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+         xmlns:wot="http://xmlns.com/wot/0.1/"
+         xmlns:psys="http://proton.semanticweb.org/protonsys#"
+         xmlns:rnax="http://www.rnaproject.org/data/rnax/"
+         xmlns:rna="http://www.rnaproject.org/data/"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:pext="http://proton.semanticweb.org/protonext#"
+         xmlns:rdfg="http://www.w3.org/2004/03/trix/rdfg-1/">
     <tabs>
 
         <!-- ********************************** -->
@@ -20,7 +38,7 @@
 							<properties>
 								<entry>
 									<string>label</string>
-									<string>Individuals Tree</string>
+									<string>Vakkernen</string>
 								</entry>
 								<entry>
 									<string>topClass</string>
@@ -47,12 +65,12 @@
                         </portlet>
                         <portlet>
                             <name>edu.stanford.bmir.protege.web.client.ui.editor.EditorPortlet</name>
-                            <height>455</height>
+                            <height>355</height>
                             <width>0</width>
                         </portlet>
                         <portlet>
                             <name>edu.stanford.bmir.protege.web.client.ui.portlet.propertyForm.PropertyFieldPortlet</name>
-                            <height>455</height>
+                            <height>155</height>
                             <width>0</width>
 							<properties>
 								<entry>
@@ -64,7 +82,7 @@
 												<string></string>
 											</entry>
 											<entry>
-												<string>rdf:type</string>
+												<string>http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType</string>
 												<map>
 													<entry>
 														<string>label</string>
@@ -72,7 +90,7 @@
 													</entry>
 													<entry>
 														<string>component_type</string>
-														<string>multitextfield</string>
+														<string>textfield</string>
 													</entry>
 													<entry>
 														<string>read_only</string>
@@ -85,27 +103,19 @@
 												</map>
 											</entry>										
 											<entry>
-												<string>skos:prefLabel</string>
+												<string>http://www.w3.org/2004/02/skos/core#prefLabel</string>
 												<map>
 													<entry>
 														<string>label</string>
-														<string>Titel</string>
+														<string>Begrip</string>
 													</entry>
 													<entry>
 														<string>component_type</string>
-														<string>multitextfield</string>
+														<string>textfield</string>
 													</entry>
 													<entry>
 														<string>disabled</string>
 														<string>true</string>
-													</entry>
-													<entry>
-														<string>help</string>
-														<string>url</string>
-													</entry>
-													<entry>
-														<string>tooltip</string>
-														<string>tip</string>
 													</entry>
 													<entry>
 														<string>index</string>
@@ -114,11 +124,11 @@
 												</map>
 											</entry>
 											<entry>
-												<string>rnax:mutationDate</string>
+												<string>http://purl.edustandaard.nl/begrippenkader/heeftWijzigingsdatum</string>
 												<map>
 													<entry>
 														<string>label</string>
-														<string>Laatst gewijzigd</string>
+														<string>Gewijzigd</string>
 													</entry>
 													<entry>
 														<string>component_type</string>
@@ -139,28 +149,32 @@
 												</map>
 											</entry>										
 											<entry>
-												<string>skos:broader</string>
+												<string>http://purl.edustandaard.nl/begrippenkader/heeftGoedkeuringsdatum</string>
 												<map>
 													<entry>
 														<string>label</string>
-														<string>Valt binnen</string>
+														<string>Goedgekeurd</string>
 													</entry>
 													<entry>
 														<string>component_type</string>
-														<string>multitextfield</string>
-													</entry>
-													<entry>
-														<string>read_only</string>
-														<string>true</string>
+														<string>textfield</string>
 													</entry>
 													<entry>
 														<string>index</string>
 														<string>3</string>
 													</entry>
+													<entry>
+														<string>text</string>
+														<string>bla</string>
+													</entry>
+													<entry>
+														<string>allowed_values</string>
+														<string>bla</string>
+													</entry>
 												</map>
 											</entry>										
 											<entry>
-												<string>description</string>
+												<string>http://www.w3.org/2004/02/skos/core#description</string>
 												<map>
 													<entry>
 														<string>label</string>
@@ -197,7 +211,7 @@
         <!--          Doelen Tab                -->
         <!-- ********************************** -->
         <tab>
-            <name>edu.stanford.bmir.protege.web.client.ui.ontology.individuals.IndividualsTab</name>
+            <name>edu.stanford.bmir.protege.web.client.ui.ontology.classes.ClassesTab</name>
             <label>Doelen</label>
             <columns>
 
@@ -212,7 +226,7 @@
 							<properties>
 								<entry>
 									<string>label</string>
-									<string>Individuals Tree</string>
+									<string>Kerndoelen</string>
 								</entry>
 								<entry>
 									<string>topClass</string>
@@ -259,7 +273,7 @@
         <!--          Niveau Tab                -->
         <!-- ********************************** -->
         <tab>
-            <name>edu.stanford.bmir.protege.web.client.ui.ontology.individuals.IndividualsTab</name>
+            <name>edu.stanford.bmir.protege.web.client.ui.ontology.classes.ClassesTab</name>
             <label>Niveau</label>
             <columns>
 
@@ -274,7 +288,7 @@
 							<properties>
 								<entry>
 									<string>showOnlyClass</string>
-									<string>http://purl.edustandaard.nl/begrippenkader/BkNiveau</string>  <!-- (add the full name of the class) -->
+									<string>http://purl.edustandaard.nl/begrippenkader/BkNiveau</string>
 								</entry>
 							</properties>
                         </portlet>
@@ -285,7 +299,7 @@
 							<properties>
 								<entry>
 									<string>topClass</string>
-									<string>http://purl.edustandaard.nl/begrippenkader/BkNiveau</string>  <!-- (add the full name of the top level class) -->
+									<string>http://purl.edustandaard.nl/begrippenkader/BkNiveau</string>
 								</entry>
 							</properties>
                         </portlet>

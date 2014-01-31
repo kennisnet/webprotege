@@ -1,5 +1,6 @@
 package edu.stanford.bmir.protege.web.server.owlapi;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,6 +12,7 @@ import java.util.Set;
 import org.protege.editor.owl.model.hierarchy.AbstractOWLObjectHierarchyProvider;
 import org.protege.owlapi.inference.orphan.Relation;
 import org.protege.owlapi.inference.orphan.TerminalElementFinder;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -65,6 +67,15 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
     
     public final static String TYPE_DOELEN = "Doelen";
     
+    private OWLNamedIndividual leergebiedProxy;
+    
+    private OWLNamedIndividual vakkernProxy;
+    private OWLNamedIndividual subkernProxy;
+    private OWLNamedIndividual inhoudProxy;
+    
+    private OWLNamedIndividual kerndoelProxy;
+    private OWLNamedIndividual tussendoelProxy;
+    
     public AssertedNamedIndividualHierarchyProvider(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
         this.owlOntologyManager = owlOntologyManager;
@@ -89,7 +100,6 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
         };
         getManager().addOntologyChangeListener(listener);
     }
-
 
     /**
      * Sets the ontologies that this hierarchy provider should use
@@ -234,7 +244,37 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
     }
     
     public Set<OWLNamedIndividual> getRoots(ProjectId projectId) {
+//      if (root == null) {
+//      	//UIConfigurationManager.getConfigurationFile(projectId);
+//      	root = owlOntologyManager.getOWLDataFactory().getOWLThing().asOWLNamedIndividual();
+//  	}
+//  	return Collections.singleton(root);
+    	
+        Set<OWLNamedIndividual> empty = new HashSet<OWLNamedIndividual>();
+//        return empty;
+        
+		try {
+	        OWLAPIProjectDocumentStore documentStore = OWLAPIProjectDocumentStore.getProjectDocumentStore(projectId);
+	        OWLAPIProject project = OWLAPIProject.getProject(documentStore);
+	        return getRoots(project.getRootOntology(), project);
+		} catch (OWLParserException e) {
+			e.printStackTrace();
+			return empty;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return empty;
+		}
+    }
+
+    private Set<OWLNamedIndividual> getRoots(OWLOntology rootOntology, OWLAPIProject project) {
+    	OWLNamedIndividual leergebiedProxy = findProxy(rootOntology, project, "http://www.openarchives.org/ore/terms/proxyFor", /* IRI van Leergebied Begrip */ "http://purl.edustandaard.nl/begrippenkader/5c0413bd-cbaf-407d-93ff-4f7409559ff6");
         Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
+        for (OWLNamedIndividual individual : rootOntology.getIndividualsInSignature()) {
+            PropertyValue typeProperty = getProperty(getNamedIndividualPropertyValues(individual, rootOntology, project), "http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType");
+            if (typeProperty != null && typeProperty.getValue().equals(leergebiedProxy)) {
+                result.add(individual);
+            }
+        }
         return result;
 //        if (root == null) {
 //            //UIConfigurationManager.getConfigurationFile(projectId);
@@ -265,27 +305,6 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
             } else {
                 result = extractChildren(object, rootOntology, project);
             }
-            for (Iterator<OWLNamedIndividual> it = result.iterator(); it.hasNext();) {
-                OWLNamedIndividual curChild = it.next();
-                if (getAncestors(object).contains(curChild)) {
-                    it.remove();
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public Set<OWLNamedIndividual> getDoelen(OWLNamedIndividual object, OWLOntology rootOntology, OWLAPIProject project) {
-        Set<OWLNamedIndividual> result;
-        if (object.equals(root)) {
-            result = new HashSet<OWLNamedIndividual>();
-            result.addAll(rootFinder.getTerminalElements());
-            result.addAll(extractDoelen(object, rootOntology, project));
-            result.remove(object);
-        }
-        else {
-            result = extractDoelen(object, rootOntology, project);
             for (Iterator<OWLNamedIndividual> it = result.iterator(); it.hasNext();) {
                 OWLNamedIndividual curChild = it.next();
                 if (getAncestors(object).contains(curChild)) {
@@ -355,59 +374,87 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
     }
 
     private Set<OWLNamedIndividual> extractDoelenChildren(OWLNamedIndividual parent, OWLOntology rootOntology, OWLAPIProject project) {
-        Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
+    	OWLNamedIndividual vakkernProxy = findProxy(rootOntology, project, "http://www.openarchives.org/ore/terms/proxyFor", /* IRI van Vakkern Begrip */ "http://purl.edustandaard.nl/begrippenkader/83e9bb89-b5f4-4ec8-b228-a6b920a38f55");
+    	OWLNamedIndividual kerndoelProxy = findProxy(rootOntology, project, "http://www.openarchives.org/ore/terms/proxyFor", /* IRI van Kerndoel Begrip */ "http://purl.edustandaard.nl/begrippenkader/489f4d28-ed61-4589-a16a-585936dfd632");
+    	
+        //parent is Kerndoel?
         List<PropertyValue> parentPropertyValues = getNamedIndividualPropertyValues(parent, rootOntology, project);
+        PropertyValue propertyValue = getProperty(parentPropertyValues, "http://purl.edustandaard.nl/begrippenkader/heeftBkDoelType");
+        boolean parentIsKerndoel = propertyValue != null && ((PropertyIndividualValue) propertyValue).getValue().equals(kerndoelProxy);
+        
+        Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
         String parentIRI = parent.getIRI().toQuotedString();
-        Set<OWLNamedIndividual> individivuals = rootOntology.getIndividualsInSignature();
-        for (OWLNamedIndividual niv : individivuals) {
-            List<PropertyValue> childPropertyValues = getNamedIndividualPropertyValues(niv, rootOntology, project);
-            boolean isKerndoel = false;
-            //child is Kerndoel?
-            for (PropertyValue propertyValue : childPropertyValues) {
-                if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/heeftBkDoelType")) {
-                    if (((PropertyIndividualValue) propertyValue).getValue().getIRI().toString().equals("http://purl.edustandaard.nl/begrippenkader/84fe4b7c-9904-4d77-86e9-84218a47273b")) {
-                        isKerndoel = true;
-                        break;
-                    }
+        
+        if (parentIsKerndoel) {
+            //naar welke vakkernen wijst dit kerndoel
+        	parentPropertyValues = getProperties(parentPropertyValues, "http://purl.edustandaard.nl/begrippenkader/isBkDoelVan");
+            for (PropertyValue p : parentPropertyValues) {
+            	OWLNamedIndividual individual = (OWLNamedIndividual) p.getValue();
+
+                //value is Vakkern?
+	        	List<PropertyValue> childPropertyValues = getNamedIndividualPropertyValues(individual, rootOntology, project);
+                propertyValue = getProperty(childPropertyValues, "http://purl.edustandaard.nl/begrippenkader/heeftBkInhoudType");
+                boolean isVakkern = propertyValue != null && ((PropertyIndividualValue) propertyValue).getValue().equals(vakkernProxy);
+
+                if (isVakkern) {
+                    result.add(individual);
                 }
-            }
-            if (isKerndoel) {
-                //Kerndoel van parent vak/leergebied?
-                for (PropertyValue propertyValue : childPropertyValues) {
-                    if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/isBkDoelVan")) {
-                        if (parentIRI.equals(propertyValue.getValue().toString())) {
-                            result.add(niv);
-                            break;
-                        }
-                    }
+        	}
+        	
+    	// assume parent is leergebied or vakkern
+        } else {
+	        for (OWLNamedIndividual individual : rootOntology.getIndividualsInSignature()) {
+	        	List<PropertyValue> childPropertyValues = getNamedIndividualPropertyValues(individual, rootOntology, project);
+	            
+                //child is Kerndoel?
+                propertyValue = getProperty(childPropertyValues, "http://purl.edustandaard.nl/begrippenkader/heeftBkDoelType");
+                boolean isKerndoel = propertyValue != null && ((PropertyIndividualValue) propertyValue).getValue().equals(kerndoelProxy);
+
+                if (isKerndoel) {
+                    //Kerndoel van geselecteerde parent vak/leergebied?
+                    childPropertyValues = getProperties(childPropertyValues, "http://purl.edustandaard.nl/begrippenkader/isBkDoelVan");
+                    for (PropertyValue p : childPropertyValues) {
+    	            	if (parentIRI.equals(p.getValue().toString())) {
+    	                    result.add(individual);
+    	                    break;
+    	                }
+                	}
                 }
             }
         }
+        
         return result;
     }
 
-    //TODO: temporary workaround to determine children of node
-    private Set<OWLNamedIndividual> extractDoelen(OWLNamedIndividual parent, OWLOntology rootOntology, OWLAPIProject project) {
-      Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
-      List<PropertyValue> parentPropertyValues = getNamedIndividualPropertyValues(parent, rootOntology, project);
-      boolean parentIsSubkern = false;
-      //TODO: use .contains(Object) ?
-      String parentIRI = parent.getIRI().toQuotedString();
-      Set<OWLNamedIndividual> individivuals = rootOntology.getIndividualsInSignature();
-      for (OWLNamedIndividual niv : individivuals) {
-          List<PropertyValue> childPropertyValues = getNamedIndividualPropertyValues(niv, rootOntology, project);
-          for (PropertyValue propertyValue : childPropertyValues) {
-              if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/isBkDoelVan")) {
-                  if (parentIRI.equals(propertyValue.getValue().toString())) {
-                      result.add(niv);
-                      break;
-                  }
-              }
-          }
-      }
-      return result;
+    private OWLNamedIndividual findProxy(OWLOntology rootOntology, OWLAPIProject project, String typeID, String typeValue) {
+        for (OWLNamedIndividual individual : rootOntology.getIndividualsInSignature()) {
+            PropertyValue typeProperty = getProperty(getNamedIndividualPropertyValues(individual, rootOntology, project), typeID);
+            if (typeProperty != null && typeProperty.getValue().toString().equals(typeValue)) {
+                return individual;
+            }
+        }
+        return null;
     }
-    
+
+    private PropertyValue getProperty(List<PropertyValue> propertyValues, String propertyID) {
+        for (PropertyValue propertyValue : propertyValues) {
+            if (propertyValue.getProperty().toStringID().equals(propertyID)) {
+                return propertyValue;
+            }
+        }
+        return null;
+    }
+
+    private List<PropertyValue> getProperties(List<PropertyValue> propertyValues, String propertyID) {
+    	List<PropertyValue> props = new ArrayList<PropertyValue>();
+        for (PropertyValue propertyValue : propertyValues) {
+            if (propertyValue.getProperty().toStringID().equals(propertyID)) {
+                props.add(propertyValue);
+            }
+        }
+        return props;
+    }
+
     public List<PropertyValue> getNamedIndividualPropertyValues(OWLNamedIndividual subject, OWLOntology rootOntology, OWLAPIProject project) {
         Set<OWLAxiom> translateFrom = new HashSet<OWLAxiom>();
         for (OWLOntology ontology : rootOntology.getImportsClosure()) {
@@ -455,14 +502,10 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
         
         List<PropertyValue> childPropertyValues = getNamedIndividualPropertyValues(child, rootOntology, project);
         for (PropertyValue propertyValue : childPropertyValues) {
-            if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/isBkDeelinhoudVan")) {
+            if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/isBkDeelinhoudVan")
+            	|| propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/isBkDoelVan")) {
                 OWLNamedIndividual parent = ((PropertyIndividualValue) propertyValue).getValue();
                 result.add(parent);
-                //break;
-            } else if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/isBkDoelVan")) {
-                OWLNamedIndividual parent = ((PropertyIndividualValue) propertyValue).getValue();
-                result.add(parent);
-                //break;
             }
         }
         
