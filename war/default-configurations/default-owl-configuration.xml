@@ -14,7 +14,7 @@
                     <width>0.4</width>
                     <portlets>
                         <portlet>
-                            <name>edu.stanford.bmir.protege.web.client.ui.ontology.classes.ClassTreePortlet</name>
+                            <name>edu.stanford.bmir.protege.web.client.ui.ontology.classes.NamedIndividualTreePortlet</name>
                             <height>540</height>
                             <width>0</width>
 							<properties>
@@ -24,7 +24,7 @@
 								</entry>
 								<entry>
 									<string>topClass</string>
-									<string>http://purl.edustandaard.nl/begrippenkader/d61086bf-827a-476a-9403-7c5b317a12ed</string>
+									<string>http://purl.edustandaard.nl/begrippenkader/bbdb9d07-853a-486f-9bb8-a8ea3e3d682a</string>
 								</entry>
 							</properties>
                         </portlet>
@@ -206,24 +206,17 @@
                     <width>0.4</width>
                     <portlets>
                         <portlet>
-                            <name>edu.stanford.bmir.protege.web.client.ui.ontology.individuals.IndividualsListPortlet</name>
-                            <height>430</height>
+                            <name>edu.stanford.bmir.protege.web.client.ui.ontology.classes.DoelenTreePortlet</name>
+                            <height>540</height>
                             <width>0</width>
 							<properties>
 								<entry>
-									<string>showOnlyClass</string>
-									<string>http://purl.edustandaard.nl/begrippenkader/BkDoel</string>  <!-- (add the full name of the class) -->
+									<string>label</string>
+									<string>Individuals Tree</string>
 								</entry>
-							</properties>
-                        </portlet>
-                        <portlet>
-                            <name>edu.stanford.bmir.protege.web.client.ui.ontology.classes.ClassTreePortlet</name>
-                            <height>100</height>
-                            <width>0</width>
-							<properties>
 								<entry>
 									<string>topClass</string>
-									<string>http://purl.edustandaard.nl/begrippenkader/BkDoel</string>  <!-- (add the full name of the top level class) -->
+									<string>http://purl.edustandaard.nl/begrippenkader/bbdb9d07-853a-486f-9bb8-a8ea3e3d682a</string>
 								</entry>
 							</properties>
                         </portlet>
