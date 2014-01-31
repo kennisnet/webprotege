@@ -14,7 +14,7 @@
                     <width>0.4</width>
                     <portlets>
                         <portlet>
-                            <name>edu.stanford.bmir.protege.web.client.ui.ontology.classes.NamedIndividualTreePortlet</name>
+                            <name>edu.stanford.bmir.protege.web.client.ui.ontology.classes.InhoudTreePortlet</name>
                             <height>540</height>
                             <width>0</width>
 							<properties>

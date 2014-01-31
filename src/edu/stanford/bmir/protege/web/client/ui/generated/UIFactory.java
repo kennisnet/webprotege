@@ -100,8 +100,8 @@ public class UIFactory {
             else if (portletJavaClassName.equals(AnnotationsPortlet.class.getName())) {
                 return new AnnotationsPortlet(project);
             }
-            else if (portletJavaClassName.equals(NamedIndividualTreePortlet.class.getName())) {
-                return new NamedIndividualTreePortlet(project);
+            else if (portletJavaClassName.equals(InhoudTreePortlet.class.getName())) {
+                return new InhoudTreePortlet(project);
             }
             else if (portletJavaClassName.equals(DoelenTreePortlet.class.getName())) {
                 return new DoelenTreePortlet(project);

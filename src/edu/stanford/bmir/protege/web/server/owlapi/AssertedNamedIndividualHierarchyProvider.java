@@ -364,8 +364,12 @@ public class AssertedNamedIndividualHierarchyProvider extends AbstractOWLObjectH
             boolean isKerndoel = false;
             //child is Kerndoel?
             for (PropertyValue propertyValue : childPropertyValues) {
+                //TODO: filteren op kerndoel is nu brittle..
                 if (propertyValue.getProperty().toStringID().equals("http://purl.edustandaard.nl/begrippenkader/heeftBkDoelType")) {
-                    if (((PropertyIndividualValue) propertyValue).getValue().getIRI().toString().equals("http://purl.edustandaard.nl/begrippenkader/84fe4b7c-9904-4d77-86e9-84218a47273b")) {
+                    String propertyValueIRI = ((PropertyIndividualValue) propertyValue).getValue().getIRI().toString();
+                    if (propertyValueIRI.equals("http://purl.edustandaard.nl/begrippenkader/84fe4b7c-9904-4d77-86e9-84218a47273b") ||
+                            propertyValueIRI.equals("http://purl.edustandaard.nl/begrippenkader/8ccaa040-a326-4750-9280-a96be00bd9a5") ||
+                            propertyValueIRI.equals("http://purl.edustandaard.nl/begrippenkader/54d78d50-912c-4eb5-a2b2-173fa212a052")) {
                         isKerndoel = true;
                         break;
                     }
